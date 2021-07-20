@@ -1,6 +1,6 @@
 public class ApplicationRunner {
-    //METHODS
+    //ENTRY POINT
     public static void main(String[] args) {
-        System.out.println("GIOCHIAMO A QUENTIN");
+        System.out.println("GIOCHIAMO A QUENTIN!");
     }
 }
