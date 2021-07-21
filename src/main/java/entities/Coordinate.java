@@ -51,22 +51,47 @@ public class Coordinate {
         }
     }
 
+    //Format: literal from a to m, and right after a number from 0 to 12
     public Coordinate(String s) throws InvalidCoordinateException {
-        if (StringUtils.isCoordinate(s)) {
-            String temp = s.toUpperCase();
-            try {
-                int parsed = Integer.parseInt(temp.substring(0, 1));
-                this.x = parsed;
+        String temp = s.toUpperCase();
+        if (s.length() == 2) {
+            if (StringUtils.is2LiteralsValidCoordinate(s)) {
+                try {
+                    this.x = CharUtils.mapInputCharToInputInt(temp.charAt(0));
+                }
+                catch (IndexOutOfBoundsException e) {
+                    throw new InvalidCoordinateException("1st literal is char that exceed the correct interval [a-m].");
+                }
+                try {
+                    int parsed = Integer.parseInt(temp.substring(1));
+                    this.y = parsed;
+                }
+                catch (NumberFormatException e) {
+                    throw new InvalidCoordinateException("2nd literal is not a number.");
+                }
             }
-            catch (NumberFormatException e) {
-                this.x = CharUtils.mapInputCharToInputInt(temp.charAt(0));
+            else {
+                throw new InvalidCoordinateException("Coordinate is not a 2 literals valid coordinate.");
             }
-            try {
-                int parsed = Integer.parseInt(temp.substring(1));
-                this.x = parsed;
+        }
+        else if (s.length() == 3) {
+            if (StringUtils.is3LiteralsValidCoordinate(s)) {
+                try {
+                    this.x = CharUtils.mapInputCharToInputInt(temp.charAt(0));
+                }
+                catch (IndexOutOfBoundsException e) {
+                    throw new InvalidCoordinateException("1st literal is char that exceed the correct interval [a-m].");
+                }
+                try {
+                    int parsed = Integer.parseInt(temp.substring(1));
+                    this.y = parsed;
+                }
+                catch (NumberFormatException e) {
+                    throw new InvalidCoordinateException("2nd literal is not a number.");
+                }
             }
-            catch (NumberFormatException e) {
-                this.x = CharUtils.mapInputCharToInputInt(temp.charAt(1));
+            else {
+                throw new InvalidCoordinateException("Coordinate is not a 3 literals valid coordinate.");
             }
         }
         else {
@@ -89,5 +114,16 @@ public class Coordinate {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Coordinate) {
+            Coordinate param = (Coordinate) obj;
+            return ((this.getX() == param.getX()) && (this.getY() == param.getY()));
+        }
+        else {
+            return false;
+        }
     }
 }

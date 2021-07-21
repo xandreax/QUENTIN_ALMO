@@ -123,7 +123,7 @@ public class CoordinateTest {
         Assertions.assertDoesNotThrow(new Executable() {
             @Override
             public void execute() throws Throwable {
-                Coordinate coordinate = new Coordinate('E', 6);
+                Coordinate coordinate = new Coordinate('E', 10);
             }
         });
         Assertions.assertDoesNotThrow(new Executable() {
@@ -229,28 +229,46 @@ public class CoordinateTest {
         Assertions.assertDoesNotThrow(new Executable() {
             @Override
             public void execute() throws Throwable {
-                Coordinate coordinate = new Coordinate("89");
+                Coordinate coordinate = new Coordinate("c9");
             }
         });
         Assertions.assertDoesNotThrow(new Executable() {
             @Override
             public void execute() throws Throwable {
-                Coordinate coordinate = new Coordinate("7h");
+                Coordinate coordinate = new Coordinate("h7");
             }
         });
         Assertions.assertDoesNotThrow(new Executable() {
             @Override
             public void execute() throws Throwable {
-                Coordinate coordinate = new Coordinate("BD");
+                Coordinate coordinate = new Coordinate("B10");
             }
         });
         Assertions.assertDoesNotThrow(new Executable() {
             @Override
             public void execute() throws Throwable {
-                Coordinate coordinate = new Coordinate("mM");
+                Coordinate coordinate = new Coordinate("m8");
+            }
+        });
+        Assertions.assertDoesNotThrow(new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                Coordinate coordinate = new Coordinate("M12");
+            }
+        });
+        Assertions.assertDoesNotThrow(new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                Coordinate coordinate = new Coordinate("l11");
             }
         });
         //Intentionally wrong
+        Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                Coordinate coordinate = new Coordinate("11n");
+            }
+        });
         Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
@@ -267,6 +285,18 @@ public class CoordinateTest {
             @Override
             public void execute() throws Throwable {
                 Coordinate coordinate = new Coordinate("99JHp");
+            }
+        });
+        Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                Coordinate coordinate = new Coordinate("5h");
+            }
+        });
+        Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                Coordinate coordinate = new Coordinate("4Zsd");
             }
         });
     }
