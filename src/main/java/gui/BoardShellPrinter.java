@@ -3,12 +3,12 @@ package gui;
 import entities.Board;
 import utils.IntUtils;
 
-public class BoardPrinter {
+public class BoardShellPrinter {
     //FIELDS
     protected Board board;
 
     //CONSTRUCTORS
-    public BoardPrinter(Board board) {
+    public BoardShellPrinter(Board board) {
         this.board = board;
     }
 

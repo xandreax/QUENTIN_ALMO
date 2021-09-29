@@ -5,14 +5,14 @@ import utils.CharUtils;
 import utils.IntUtils;
 import utils.StringUtils;
 
-public class Coordinate {
+public class BoardCoordinate implements Coordinate2D {
     //FIELDS
     protected int x;    //column
     protected int y;    //row
 
     //CONSTRUCTORS
-    public Coordinate(int x, int y) throws InvalidCoordinateException {
-        if (IntUtils.isValidIntForCoordinate(x) && IntUtils.isValidIntForCoordinate(y)) {
+    public BoardCoordinate(int x, int y) throws InvalidCoordinateException {
+        if (IntUtils.isValidIntForBoardCoordinate(x) && IntUtils.isValidIntForBoardCoordinate(y)) {
             this.x = x;
             this.y = y;
         }
@@ -21,7 +21,7 @@ public class Coordinate {
         }
     }
 
-    public Coordinate(char x, char y) throws InvalidCoordinateException {
+    public BoardCoordinate(char x, char y) throws InvalidCoordinateException {
         if (CharUtils.isValidCharForCoordinate(x) && CharUtils.isValidCharForCoordinate(y)) {
             this.x = CharUtils.mapInputCharToInputInt(x);
             this.y = CharUtils.mapInputCharToInputInt(y);
@@ -31,8 +31,8 @@ public class Coordinate {
         }
     }
 
-    public Coordinate(char x, int y) throws InvalidCoordinateException {
-        if (CharUtils.isValidCharForCoordinate(x) && IntUtils.isValidIntForCoordinate(y)) {
+    public BoardCoordinate(char x, int y) throws InvalidCoordinateException {
+        if (CharUtils.isValidCharForCoordinate(x) && IntUtils.isValidIntForBoardCoordinate(y)) {
             this.x = CharUtils.mapInputCharToInputInt(x);
             this.y = y;
         }
@@ -41,8 +41,8 @@ public class Coordinate {
         }
     }
 
-    public Coordinate(int x, char y) throws InvalidCoordinateException {
-        if (IntUtils.isValidIntForCoordinate(x) && CharUtils.isValidCharForCoordinate(y)) {
+    public BoardCoordinate(int x, char y) throws InvalidCoordinateException {
+        if (IntUtils.isValidIntForBoardCoordinate(x) && CharUtils.isValidCharForCoordinate(y)) {
             this.x = x;
             this.y = CharUtils.mapInputCharToInputInt(y);
         }
@@ -52,7 +52,7 @@ public class Coordinate {
     }
 
     //Format: literal from a to m, and right after a number from 0 to 12
-    public Coordinate(String s) throws InvalidCoordinateException {
+    public BoardCoordinate(String s) throws InvalidCoordinateException {
         String temp = s.toUpperCase();
         if (s.length() == 2) {
             if (StringUtils.is2LiteralsValidCoordinate(s)) {
@@ -100,6 +100,7 @@ public class Coordinate {
     }
 
     //METHODS
+    @Override
     public int getX() {
         return x;
     }
@@ -108,6 +109,7 @@ public class Coordinate {
         this.x = x;
     }
 
+    @Override
     public int getY() {
         return y;
     }
@@ -118,8 +120,8 @@ public class Coordinate {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Coordinate) {
-            Coordinate param = (Coordinate) obj;
+        if (obj instanceof BoardCoordinate) {
+            BoardCoordinate param = (BoardCoordinate) obj;
             return ((this.getX() == param.getX()) && (this.getY() == param.getY()));
         }
         else {

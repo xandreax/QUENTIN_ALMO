@@ -2,7 +2,7 @@ import entities.Game;
 import entities.Pieces;
 import entities.Player;
 import exceptions.UnsupportedPiecesForPlayerException;
-import gui.BoardPrinter;
+import gui.BoardShellPrinter;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -16,9 +16,9 @@ public class GameTest {
     public static Game game1;
     public static Game game2;
     public static Game game3;
-    public static BoardPrinter printer1;
-    public static BoardPrinter printer2;
-    public static BoardPrinter printer3;
+    public static BoardShellPrinter printer1;
+    public static BoardShellPrinter printer2;
+    public static BoardShellPrinter printer3;
 
     //METHODS
     @BeforeClass

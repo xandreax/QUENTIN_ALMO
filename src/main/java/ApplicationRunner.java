@@ -3,7 +3,7 @@ import entities.Pieces;
 import entities.Player;
 import exceptions.UnsupportedPiecesForPlayerException;
 import exceptions.UsernameTooShortException;
-import gui.BoardPrinter;
+import gui.BoardShellPrinter;
 import utils.ConsoleApplicationRunnerUtils;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -30,7 +30,7 @@ public class ApplicationRunner {
             e.printStackTrace();
         }
         Game game = new Game(player1, player2);
-        BoardPrinter bp = game.getBoard().getPrinter();
+        BoardShellPrinter bp = game.getBoard().getPrinter();
         System.out.println("\n******************** GAME STARTING ********************");
         System.out.println("ID game: "+game.getUuid());
         System.out.println("Begin time: "+game.getBeginTime());

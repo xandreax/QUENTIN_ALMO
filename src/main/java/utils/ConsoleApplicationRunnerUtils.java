@@ -2,7 +2,7 @@ package utils;
 
 import entities.*;
 import exceptions.InvalidCoordinateException;
-import gui.BoardPrinter;
+import gui.BoardShellPrinter;
 import java.io.BufferedReader;
 import java.io.IOException;
 
@@ -90,7 +90,7 @@ public class ConsoleApplicationRunnerUtils {
         return result;
     }
 
-    public static void startGame(BufferedReader br, Game game, BoardPrinter bp, Player player1, Player player2) {
+    public static void startGame(BufferedReader br, Game game, BoardShellPrinter bp, Player player1, Player player2) {
         boolean isFinished = false;
         while (!isFinished) {
             bp.printOnStdOut(true);
@@ -101,8 +101,8 @@ public class ConsoleApplicationRunnerUtils {
                 System.out.print(player1.getUsername() + "[" + player1.getPieces().getName() + ", move #" + counterMoveForPlayer1 + "] has to move. Insert a valid coordinate: ");
                 try {
                     String temp = br.readLine().trim();
-                    Coordinate newCoordinate = new Coordinate(temp);
-                    Move newMove = new Move(player1, newCoordinate);
+                    BoardCoordinate newBoardCoordinate = new BoardCoordinate(temp);
+                    Move newMove = new Move(player1, newBoardCoordinate);
                     game.move(newMove);
                     counterMoveForPlayer1++;
                     hasMoved = true;
@@ -120,8 +120,8 @@ public class ConsoleApplicationRunnerUtils {
                 System.out.print(player2.getUsername() + "[" + player2.getPieces().getName() + ", move #" + counterMoveForPlayer2 + "] has to move. Insert a valid coordinate: ");
                 try {
                     String temp = br.readLine().trim();
-                    Coordinate newCoordinate = new Coordinate(temp);
-                    Move newMove = new Move(player2, newCoordinate);
+                    BoardCoordinate newBoardCoordinate = new BoardCoordinate(temp);
+                    Move newMove = new Move(player2, newBoardCoordinate);
                     game.move(newMove);
                     counterMoveForPlayer2++;
                     hasMoved = true;

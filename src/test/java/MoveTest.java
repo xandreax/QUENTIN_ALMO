@@ -1,4 +1,4 @@
-import entities.Coordinate;
+import entities.BoardCoordinate;
 import entities.Move;
 import entities.Pieces;
 import entities.Player;
@@ -12,21 +12,21 @@ import org.junit.jupiter.api.Assertions;
 public class MoveTest {
     //FIELDS
     public static Player player1;
-    public static Coordinate coordinate1;
+    public static BoardCoordinate boardCoordinate1;
     public static Move move1;
     public static Player player2;
-    public static Coordinate coordinate2;
+    public static BoardCoordinate boardCoordinate2;
     public static Move move2;
 
     //METHODS
     @BeforeClass
     public static void initMoves() throws UnsupportedPiecesForPlayerException, InvalidCoordinateException, UsernameTooShortException {
         player1 = new Player("jnv8498bg", Pieces.WHITE);
-        coordinate1 = new Coordinate("k11");
-        move1 = new Move(player1, coordinate1);
+        boardCoordinate1 = new BoardCoordinate("k11");
+        move1 = new Move(player1, boardCoordinate1);
         player2 = new Player("9082374", Pieces.WHITE);
-        coordinate2 = new Coordinate("d4");
-        move2 = new Move(player2, coordinate2);
+        boardCoordinate2 = new BoardCoordinate("d4");
+        move2 = new Move(player2, boardCoordinate2);
     }
 
     @Test

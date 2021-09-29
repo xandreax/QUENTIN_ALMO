@@ -1,6 +1,6 @@
 import entities.Board;
 import entities.Pieces;
-import gui.BoardPrinter;
+import gui.BoardShellPrinter;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -35,7 +35,7 @@ public class BoardTest {
 
     @Test
     public void printBoard() {
-        BoardPrinter bp = board.getPrinter();
+        BoardShellPrinter bp = board.getPrinter();
         bp.printOnStdOut(true);
     }
 }

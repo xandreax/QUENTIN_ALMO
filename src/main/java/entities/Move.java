@@ -6,13 +6,13 @@ public class Move {
     //FIELDS
     protected final Date time;
     protected final Player player;
-    protected Coordinate coordinate;
+    protected BoardCoordinate boardCoordinate;
 
     //CONSTRUCTORS
-    public Move(Player player, Coordinate xy) {
+    public Move(Player player, BoardCoordinate xy) {
         this.time = new Date();
         this.player = player;
-        this.coordinate = xy;
+        this.boardCoordinate = xy;
     }
 
     //METHODS
@@ -24,12 +24,12 @@ public class Move {
         return this.player;
     }
 
-    public Coordinate getCoordinate() {
-        return coordinate;
+    public BoardCoordinate getCoordinate() {
+        return boardCoordinate;
     }
 
-    public void setCoordinate(Coordinate coordinate) {
-        this.coordinate = coordinate;
+    public void setCoordinate(BoardCoordinate boardCoordinate) {
+        this.boardCoordinate = boardCoordinate;
     }
 
     @Override

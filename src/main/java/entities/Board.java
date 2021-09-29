@@ -1,6 +1,6 @@
 package entities;
 
-import gui.BoardPrinter;
+import gui.BoardShellPrinter;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -39,15 +39,15 @@ public class Board {
         this.movesHistory.add(move);
     }
 
-    public Pieces getPieceByCoordinate(Coordinate xy) {
+    public Pieces getPieceByCoordinate(BoardCoordinate xy) {
         return this.getMatrix()[xy.getX()][xy.getY()];
     }
 
-    public void setPieceByCoordinate(Coordinate xy, Pieces piece) {
+    public void setPieceByCoordinate(BoardCoordinate xy, Pieces piece) {
         this.getMatrix()[xy.getX()][xy.getY()] = piece;
     }
 
-    public BoardPrinter getPrinter() {
-        return new BoardPrinter(this);
+    public BoardShellPrinter getPrinter() {
+        return new BoardShellPrinter(this);
     }
 }

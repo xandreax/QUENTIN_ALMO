@@ -19,7 +19,10 @@ public class IntUtils {
         else throw new IndexOutOfBoundsException();
     }
 
-    public static boolean isValidIntForCoordinate(int index) {
+    public static boolean isValidIntForBoardCoordinate(int index) {
         return (index >= 0 && index <= 12);
+    }
+    public static boolean isValidIntForGUICoordinate(int index) {
+        return (index >= 0);
     }
 }
