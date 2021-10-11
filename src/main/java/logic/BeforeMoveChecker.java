@@ -34,6 +34,7 @@ public class BeforeMoveChecker {
     private void checkIfMoveIsLegal () throws IllegalMoveException {
         List<BoardCoordinate> boardCoordinateList = new ArrayList<>();
         try {
+            // le prime due mosse sono libere, non si incorre in mosse illegali
             if(board.getMovesHistory().size() < 2)
                 return;
             if(move.getCoordinate().getX() != 0) {
