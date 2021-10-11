@@ -1,5 +1,6 @@
 package entities;
 
+import exceptions.IllegalMoveException;
 import exceptions.PositionAlreadyOccupiedException;
 import logic.BeforeMoveChecker;
 
@@ -44,7 +45,7 @@ public class Game {
         return board;
     }
 
-    public void move(Move move) throws PositionAlreadyOccupiedException {
+    public void move(Move move) throws PositionAlreadyOccupiedException, IllegalMoveException {
         //controlli sulla mossa...
         //...
         //se va a buon fine:

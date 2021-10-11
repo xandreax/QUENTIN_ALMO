@@ -1,6 +1,7 @@
 package utils;
 
 import entities.*;
+import exceptions.IllegalMoveException;
 import exceptions.InvalidCoordinateException;
 import exceptions.PositionAlreadyOccupiedException;
 import gui.BoardShellPrinter;
@@ -118,6 +119,9 @@ public class ConsoleApplicationRunnerUtils {
                 catch (PositionAlreadyOccupiedException e) {
                     System.out.println("Invalid coordinate. This position is already occupied by another piece");
                 }
+                catch (IllegalMoveException e){
+                    System.out.println("Invalid coordinate. Please choose another position orthogonal to any your other piece.");
+                }
             }
             hasMoved = false;
             while (!hasMoved) {
@@ -136,7 +140,10 @@ public class ConsoleApplicationRunnerUtils {
                     System.out.println("Invalid coordinate. Try again.");
                 }
                 catch (PositionAlreadyOccupiedException e) {
-                    System.out.println("Invalid coordinate. This position is already occupied by another piece");
+                    System.out.println("Invalid coordinate. This position is already occupied by another piece. Try again");
+                }
+                catch (IllegalMoveException e){
+                    System.out.println("Invalid coordinate. Please choose another position orthogonal to any your other piece.");
                 }
             }
         }

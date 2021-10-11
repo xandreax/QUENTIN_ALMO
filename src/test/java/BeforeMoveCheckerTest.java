@@ -1,4 +1,5 @@
 import entities.*;
+import exceptions.IllegalMoveException;
 import exceptions.PositionAlreadyOccupiedException;
 import exceptions.UnsupportedPiecesForPlayerException;
 import exceptions.UsernameTooShortException;
@@ -43,6 +44,51 @@ public class BeforeMoveCheckerTest {
                 Move moveWhite = new Move(player2, coordinates2);
                 game.move(moveBlack);
                 game.move(moveWhite);
+            }
+        });
+        Assertions.assertThrows(IllegalMoveException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                game = new Game(player1, player2);
+                BoardCoordinate coordinates = new BoardCoordinate("a0");
+                BoardCoordinate coordinatesWhite = new BoardCoordinate("d6");
+                BoardCoordinate coordinates2 = new BoardCoordinate("d9");
+                Move moveBlack = new Move(player1, coordinates);
+                Move moveWhite = new Move(player2, coordinatesWhite);
+                Move moveBlack2 = new Move(player1, coordinates2);
+                game.move(moveBlack);
+                game.move(moveWhite);
+                game.move(moveBlack2);
+            }
+        });
+        Assertions.assertThrows(IllegalMoveException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                game = new Game(player1, player2);
+                BoardCoordinate coordinates = new BoardCoordinate("d5");
+                BoardCoordinate coordinates2 = new BoardCoordinate("d9");
+                BoardCoordinate coordinatesWhite = new BoardCoordinate("d6");
+                Move moveBlack = new Move(player1, coordinates);
+                Move moveWhite = new Move(player2, coordinatesWhite);
+                Move moveBlack2 = new Move(player1, coordinates2);
+                game.move(moveBlack);
+                game.move(moveWhite);
+                game.move(moveBlack2);
+            }
+        });
+        Assertions.assertDoesNotThrow(new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                game = new Game(player1, player2);
+                BoardCoordinate coordinates = new BoardCoordinate("d8");
+                BoardCoordinate coordinatesWhite = new BoardCoordinate("d6");
+                BoardCoordinate coordinates2 = new BoardCoordinate("d9");
+                Move moveBlack = new Move(player1, coordinates);
+                Move moveWhite = new Move(player2, coordinatesWhite);
+                Move moveBlack2 = new Move(player1, coordinates2);
+                game.move(moveBlack);
+                game.move(moveWhite);
+                game.move(moveBlack2);
             }
         });
     }
