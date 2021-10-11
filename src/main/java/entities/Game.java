@@ -1,5 +1,8 @@
 package entities;
 
+import exceptions.PositionAlreadyOccupiedException;
+import logic.BeforeMoveChecker;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -41,10 +44,12 @@ public class Game {
         return board;
     }
 
-    public void move(Move move) {
+    public void move(Move move) throws PositionAlreadyOccupiedException {
         //controlli sulla mossa...
         //...
         //se va a buon fine:
+        BeforeMoveChecker bmc = new BeforeMoveChecker(move, getBoard());
+        bmc.checkIfMoveIsPossible();
         getBoard().doMove(move);
     }
 
@@ -53,8 +58,7 @@ public class Game {
         if (obj instanceof Game) {
             Game param = (Game) obj;
             return (this.getUuid().equals(param.getUuid()));
-        }
-        else {
+        } else {
             return false;
         }
     }

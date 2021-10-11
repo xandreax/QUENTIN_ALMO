@@ -2,6 +2,7 @@ package utils;
 
 import entities.*;
 import exceptions.InvalidCoordinateException;
+import exceptions.PositionAlreadyOccupiedException;
 import gui.BoardShellPrinter;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -114,6 +115,9 @@ public class ConsoleApplicationRunnerUtils {
                 catch (InvalidCoordinateException e) {
                     System.out.println("Invalid coordinate. Format should be: a literal from a to m, and right after a number from 0 to 12.Try again.");
                 }
+                catch (PositionAlreadyOccupiedException e) {
+                    System.out.println("Invalid coordinate. This position is already occupied by another piece");
+                }
             }
             hasMoved = false;
             while (!hasMoved) {
@@ -130,6 +134,9 @@ public class ConsoleApplicationRunnerUtils {
                     e.printStackTrace();
                 } catch (InvalidCoordinateException e) {
                     System.out.println("Invalid coordinate. Try again.");
+                }
+                catch (PositionAlreadyOccupiedException e) {
+                    System.out.println("Invalid coordinate. This position is already occupied by another piece");
                 }
             }
         }
