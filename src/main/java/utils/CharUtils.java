@@ -16,7 +16,7 @@ public class CharUtils {
         else if ((c == 'g') || (c == 'G')) return 6;
         else if ((c == 'h') || (c == 'H')) return 7;
         else if ((c == 'i') || (c == 'I')) return 8;
-        else if ((c == 'j') || (c == 'J')) return 8;
+        else if ((c == 'j') || (c == 'J')) return 9;
         else if ((c == 'k') || (c == 'K')) return 10;
         else if ((c == 'l') || (c == 'L')) return 11;
         else if ((c == 'm') || (c == 'M')) return 12;
