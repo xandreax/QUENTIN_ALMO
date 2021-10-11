@@ -50,4 +50,8 @@ public class Board {
     public BoardShellPrinter getPrinter() {
         return new BoardShellPrinter(this);
     }
+
+    public List<Move> getMovesHistory() {
+        return movesHistory;
+    }
 }
