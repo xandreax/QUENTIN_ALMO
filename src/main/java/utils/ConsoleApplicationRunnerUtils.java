@@ -4,7 +4,9 @@ import entities.*;
 import exceptions.IllegalMoveException;
 import exceptions.InvalidCoordinateException;
 import exceptions.PositionAlreadyOccupiedException;
+import exceptions.VictoryException;
 import gui.BoardShellPrinter;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 
@@ -21,15 +23,12 @@ public class ConsoleApplicationRunnerUtils {
                 username1 = br.readLine().trim();
                 if (username1.equals("")) {
                     System.out.println("Empty string is not a valid name. Must be at least 3 characters long.");
-                }
-                else if (username1.length() <= 2) {
+                } else if (username1.length() <= 2) {
                     System.out.println("Username must be at least 3 characters long.");
-                }
-                else {
+                } else {
                     done = true;
                 }
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 System.err.println("Error while trying to read from System.in. Aborted.");
                 e.printStackTrace();
             }
@@ -44,12 +43,10 @@ public class ConsoleApplicationRunnerUtils {
                 }
                 if (username2.length() <= 2) {
                     System.out.println("Username must be at least 3 characters long.");
-                }
-                else {
+                } else {
                     done = true;
                 }
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 System.err.println("Error while trying to read from System.in. Aborted.");
                 e.printStackTrace();
             }
@@ -63,26 +60,22 @@ public class ConsoleApplicationRunnerUtils {
         Pieces[] result = new Pieces[2];
         boolean done = false;
         while (!done) {
-            System.out.print("Player '"+username1+"' please select a color: 0 for BLACK, 1 for WHITE: ");
+            System.out.print("Player '" + username1 + "' please select a color: 0 for BLACK, 1 for WHITE: ");
             try {
                 String temp = br.readLine();
                 int i = Integer.parseInt(temp);
                 if (i == 0) {
                     result[0] = Pieces.BLACK;
                     done = true;
-                }
-                else if (i == 1) {
+                } else if (i == 1) {
                     result[0] = Pieces.WHITE;
                     done = true;
-                }
-                else {
+                } else {
                     System.out.println("Invalid number inserted. Please insert 0 for BLACK, 1 for WHITE.");
                 }
-            }
-            catch(NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Invalid number format inserted.");
-            }
-            catch(IOException e) {
+            } catch (IOException e) {
                 System.err.println("Error while trying to read from System.in. Aborted.");
                 e.printStackTrace();
             }
@@ -108,23 +101,24 @@ public class ConsoleApplicationRunnerUtils {
                     game.move(newMove);
                     counterMoveForPlayer1++;
                     hasMoved = true;
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     System.err.println("Error while trying to read from System.in. Aborted.");
                     e.printStackTrace();
-                }
-                catch (InvalidCoordinateException e) {
+                } catch (InvalidCoordinateException e) {
                     System.out.println("Invalid coordinate. Format should be: a literal from a to m, and right after a number from 0 to 12.Try again.");
-                }
-                catch (PositionAlreadyOccupiedException e) {
+                } catch (PositionAlreadyOccupiedException e) {
                     System.out.println("Invalid coordinate. This position is already occupied by another piece");
-                }
-                catch (IllegalMoveException e){
+                } catch (IllegalMoveException e) {
                     System.out.println("Invalid coordinate. Please choose another position orthogonal to any your other piece.");
+                }
+                catch (VictoryException e){
+                    System.out.println("Victory! "+player1.getUsername()+" has won the game!");
+                    hasMoved = true;
+                    isFinished = true;
                 }
             }
             hasMoved = false;
-            while (!hasMoved) {
+            while (!hasMoved && !isFinished) {
                 System.out.print(player2.getUsername() + "[" + player2.getPieces().getName() + ", move #" + counterMoveForPlayer2 + "] has to move. Insert a valid coordinate: ");
                 try {
                     String temp = br.readLine().trim();
@@ -138,12 +132,15 @@ public class ConsoleApplicationRunnerUtils {
                     e.printStackTrace();
                 } catch (InvalidCoordinateException e) {
                     System.out.println("Invalid coordinate. Try again.");
-                }
-                catch (PositionAlreadyOccupiedException e) {
+                } catch (PositionAlreadyOccupiedException e) {
                     System.out.println("Invalid coordinate. This position is already occupied by another piece. Try again");
-                }
-                catch (IllegalMoveException e){
+                } catch (IllegalMoveException e) {
                     System.out.println("Invalid coordinate. Please choose another position orthogonal to any your other piece.");
+                }
+                catch (VictoryException e){
+                    System.out.println("Victory! "+player1.getUsername()+" has won the game!");
+                    hasMoved = true;
+                    isFinished = true;
                 }
             }
         }

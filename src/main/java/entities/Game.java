@@ -2,6 +2,7 @@ package entities;
 
 import exceptions.IllegalMoveException;
 import exceptions.PositionAlreadyOccupiedException;
+import exceptions.VictoryException;
 import logic.AfterMoveChecker;
 import logic.BeforeMoveChecker;
 
@@ -46,14 +47,15 @@ public class Game {
         return board;
     }
 
-    public void move(Move move) throws PositionAlreadyOccupiedException, IllegalMoveException {
+    public void move(Move move) throws PositionAlreadyOccupiedException, IllegalMoveException, VictoryException {
         //controlli sulla mossa...
         BeforeMoveChecker bmc = new BeforeMoveChecker(move, getBoard());
         bmc.checkIfMoveIsPossible();
         // se va a buon fine: mossa
         getBoard().doMove(move);
         //controlli-logica post mossa
-        AfterMoveChecker amc = new AfterMoveChecker(getBoard());
+        AfterMoveChecker amc = new AfterMoveChecker(getBoard(), move.getPlayer());
+        amc.checkBoardAfterMove();
         //...
     }
 
