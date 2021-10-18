@@ -50,29 +50,11 @@ public class BeforeMoveCheckerTest {
             @Override
             public void execute() throws Throwable {
                 game = new Game(player1, player2);
-                BoardCoordinate coordinates = new BoardCoordinate("a0");
-                BoardCoordinate coordinatesWhite = new BoardCoordinate("d6");
-                BoardCoordinate coordinates2 = new BoardCoordinate("d9");
+                BoardCoordinate coordinates = new BoardCoordinate("d8");
+                BoardCoordinate coordinate2 = new BoardCoordinate("c9");
                 Move moveBlack = new Move(player1, coordinates);
-                Move moveWhite = new Move(player2, coordinatesWhite);
-                Move moveBlack2 = new Move(player1, coordinates2);
+                Move moveBlack2 = new Move(player1, coordinate2);
                 game.move(moveBlack);
-                game.move(moveWhite);
-                game.move(moveBlack2);
-            }
-        });
-        Assertions.assertThrows(IllegalMoveException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                game = new Game(player1, player2);
-                BoardCoordinate coordinates = new BoardCoordinate("d5");
-                BoardCoordinate coordinates2 = new BoardCoordinate("d9");
-                BoardCoordinate coordinatesWhite = new BoardCoordinate("d6");
-                Move moveBlack = new Move(player1, coordinates);
-                Move moveWhite = new Move(player2, coordinatesWhite);
-                Move moveBlack2 = new Move(player1, coordinates2);
-                game.move(moveBlack);
-                game.move(moveWhite);
                 game.move(moveBlack2);
             }
         });
@@ -81,14 +63,14 @@ public class BeforeMoveCheckerTest {
             public void execute() throws Throwable {
                 game = new Game(player1, player2);
                 BoardCoordinate coordinates = new BoardCoordinate("d8");
-                BoardCoordinate coordinatesWhite = new BoardCoordinate("d6");
                 BoardCoordinate coordinates2 = new BoardCoordinate("d9");
+                BoardCoordinate coordinate3 = new BoardCoordinate("c9");
                 Move moveBlack = new Move(player1, coordinates);
-                Move moveWhite = new Move(player2, coordinatesWhite);
                 Move moveBlack2 = new Move(player1, coordinates2);
+                Move moveBlack3 = new Move(player1, coordinate3);
                 game.move(moveBlack);
-                game.move(moveWhite);
                 game.move(moveBlack2);
+                game.move(moveBlack3);
             }
         });
     }
