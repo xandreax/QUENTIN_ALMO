@@ -36,7 +36,8 @@ public class BeforeMoveChecker {
     }
 
     private void checkSouthWestCell() throws InvalidCoordinateException, IllegalMoveException {
-        if (!(move.getCoordinate().getX() == board.getDIMENSION()) || !(move.getCoordinate().getY() == board.getDIMENSION())) {
+        if (move.getCoordinate().getX() == board.getDIMENSION() || move.getCoordinate().getY() == board.getDIMENSION()) {
+        } else {
             BoardCoordinate southWestCoordinate = new BoardCoordinate(move.getCoordinate().getX() + 1, move.getCoordinate().getY() + 1);
             if (board.getPieceByCoordinate(southWestCoordinate).equals(move.getPlayer().getPieces())) {
                 if (!checkIfNorthIsOccupiedBySamePiece(southWestCoordinate) && !checkIfEastIsOccupiedBySamePiece(southWestCoordinate))
@@ -46,7 +47,8 @@ public class BeforeMoveChecker {
     }
 
     private void checkSouthEastCell() throws IllegalMoveException, InvalidCoordinateException {
-        if (!(move.getCoordinate().getX() == board.getDIMENSION()) || !(move.getCoordinate().getY() == 0)) {
+        if (move.getCoordinate().getX() == board.getDIMENSION() || move.getCoordinate().getY() == 0) {
+        } else {
             BoardCoordinate southEastCoordinate = new BoardCoordinate(move.getCoordinate().getX() + 1, move.getCoordinate().getY() - 1);
             if (board.getPieceByCoordinate(southEastCoordinate).equals(move.getPlayer().getPieces())) {
                 if (!checkIfNorthIsOccupiedBySamePiece(southEastCoordinate) && !checkIfWestIsOccupiedBySamePiece(southEastCoordinate))
@@ -56,7 +58,8 @@ public class BeforeMoveChecker {
     }
 
     private void checkNorthEastCell() throws IllegalMoveException, InvalidCoordinateException {
-        if (!(move.getCoordinate().getX() == 0) || !(move.getCoordinate().getY() == 0)) {
+        if (move.getCoordinate().getX() == 0 || move.getCoordinate().getY() == 0) {
+        } else {
             BoardCoordinate northEastCoordinate = new BoardCoordinate(move.getCoordinate().getX() - 1, move.getCoordinate().getY() - 1);
             if (board.getPieceByCoordinate(northEastCoordinate).equals(move.getPlayer().getPieces())) {
                 if (!checkIfSouthIsOccupiedBySamePiece(northEastCoordinate) && !checkIfWestIsOccupiedBySamePiece(northEastCoordinate))
@@ -66,7 +69,8 @@ public class BeforeMoveChecker {
     }
 
     private void checkNorthWestCell() throws IllegalMoveException, InvalidCoordinateException {
-        if (!(move.getCoordinate().getX() == 0) || !(move.getCoordinate().getY() == board.getDIMENSION())) {
+        if (move.getCoordinate().getX() == 0 || move.getCoordinate().getY() == board.getDIMENSION()) {
+        } else {
             BoardCoordinate northWestCoordinate = new BoardCoordinate(move.getCoordinate().getX() - 1, move.getCoordinate().getY() + 1);
             if (board.getPieceByCoordinate(northWestCoordinate).equals(move.getPlayer().getPieces())) {
                 if (!checkIfSouthIsOccupiedBySamePiece(northWestCoordinate) && !checkIfEastIsOccupiedBySamePiece(northWestCoordinate))
