@@ -11,6 +11,9 @@ public class BoardCoordinate implements Coordinate2D {
     protected int y;    //row
 
     //CONSTRUCTORS
+    public BoardCoordinate() {
+    }
+
     public BoardCoordinate(int x, int y) throws InvalidCoordinateException {
         if (IntUtils.isValidIntForBoardCoordinate(x) && IntUtils.isValidIntForBoardCoordinate(y)) {
             this.x = x;
