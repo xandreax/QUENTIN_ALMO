@@ -36,15 +36,14 @@ public class AfterMoveChecker {
         int row = 0, col = 0;
         boolean hasPositionBeenSaved = false;
         while (!allNodesVisited) {
+            BoardCoordinate bc = checkEdgesOfBoard(row, col);
+            row = bc.getX();
+            col = bc.getY();
             while (visitedMatrix[row][col] == 1) { //Node already visited
                 col++; //next element of row
-                if (col == board.getDIMENSION()) {
-                    row++;
-                    col = 0;
-                }
-                if (row >= board.getDIMENSION()){
-                    row = 0;
-                }
+                BoardCoordinate boardCoordinate = checkEdgesOfBoard(row, col);
+                row = boardCoordinate.getX();
+                col = boardCoordinate.getY();
             }
             BoardCoordinate coordinate = new BoardCoordinate(row, col);
             if (matrixPieces[row][col].equals(Pieces.NONE) && hasAtLeastTwoAdjacentPieces(coordinate)) {
@@ -56,7 +55,6 @@ public class AfterMoveChecker {
                     hasPositionBeenSaved = true;
                 }
                 BoardCoordinate emptyNode = findNextEmptyNode(possibleTerritory.getLast(), possibleTerritory);
-                BoardCoordinate firstNodeFound = new BoardCoordinate();
                 while (emptyNode != null){
                     if(hasAtLeastTwoAdjacentPieces(emptyNode)){
                         possibleTerritory.add(emptyNode);
@@ -90,18 +88,22 @@ public class AfterMoveChecker {
             } else {
                 visitedMatrix[row][col] = 1;
                 col++; //next element of row
-                if (col == board.getDIMENSION()) {
-                    row++;
-                    col = 0;
-                }
-                if (row >= board.getDIMENSION()){
-                    row = 0;
-                }
             }
 
             allNodesVisited = hasAllNodesBeenVisited(visitedMatrix);
         }
         return  board;
+    }
+
+    private BoardCoordinate checkEdgesOfBoard(int row, int col) throws InvalidCoordinateException {
+        if (col >= board.getDIMENSION()) {
+            row++;
+            col = 0;
+            if (row >= board.getDIMENSION()){
+                row = 0;
+            }
+        }
+        return new BoardCoordinate(row, col);
     }
 
     private Board updateBoard(LinkedList<BoardCoordinate> territory) {
