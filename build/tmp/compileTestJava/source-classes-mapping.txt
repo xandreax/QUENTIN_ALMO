@@ -1,2 +1,0 @@
-GenericTest.java
- GenericTest
