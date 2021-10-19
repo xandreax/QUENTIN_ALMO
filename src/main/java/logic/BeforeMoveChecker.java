@@ -29,55 +29,48 @@ public class BeforeMoveChecker {
     }
 
     private void checkIfMoveIsLegal() throws IllegalMoveException, InvalidCoordinateException {
-        checkSouthEastCell();
-        checkSouthWestCell();
-        checkNorthEastCell();
-        checkNorthWestCell();
+        if (checkIfSouthEastCellIsIllegal() || checkIfSouthWestCellIsIllegal() || checkIfNorthEastCellIsIllegal() || checkIfNorthWestCellIsIllegal())
+            throw new IllegalMoveException("Move not allowed, this position doesn't share any other orthogonal piece of your color");
     }
 
-    private void checkSouthWestCell() throws InvalidCoordinateException, IllegalMoveException {
-        System.out.println(move.getCoordinate().getX() + " " + move.getCoordinate().getY());
-        if (move.getCoordinate().getX() == board.getDIMENSION() - 1 || move.getCoordinate().getY() == board.getDIMENSION() - 1) {
-        } else {
+    private boolean checkIfSouthWestCellIsIllegal() throws InvalidCoordinateException {
+        if (move.getCoordinate().getX() != board.getDIMENSION() - 1 && move.getCoordinate().getY() != board.getDIMENSION() - 1) {
             BoardCoordinate southWestCoordinate = new BoardCoordinate(move.getCoordinate().getX() + 1, move.getCoordinate().getY() + 1);
             if (board.getPieceByCoordinate(southWestCoordinate).equals(move.getPlayer().getPieces())) {
-                if (!checkIfNorthIsOccupiedBySamePiece(southWestCoordinate) && !checkIfEastIsOccupiedBySamePiece(southWestCoordinate))
-                    throw new IllegalMoveException("Move not allowed, this position doesn't share any other orthogonal piece of your color");
+                return !checkIfNorthIsOccupiedBySamePiece(southWestCoordinate) && !checkIfEastIsOccupiedBySamePiece(southWestCoordinate);
             }
         }
+        return false;
     }
 
-    private void checkSouthEastCell() throws IllegalMoveException, InvalidCoordinateException {
-        if (move.getCoordinate().getX() == board.getDIMENSION() - 1 || move.getCoordinate().getY() == 0) {
-        } else {
+    private boolean checkIfSouthEastCellIsIllegal() throws InvalidCoordinateException {
+        if (move.getCoordinate().getX() != board.getDIMENSION() - 1 && move.getCoordinate().getY() != 0) {
             BoardCoordinate southEastCoordinate = new BoardCoordinate(move.getCoordinate().getX() + 1, move.getCoordinate().getY() - 1);
             if (board.getPieceByCoordinate(southEastCoordinate).equals(move.getPlayer().getPieces())) {
-                if (!checkIfNorthIsOccupiedBySamePiece(southEastCoordinate) && !checkIfWestIsOccupiedBySamePiece(southEastCoordinate))
-                    throw new IllegalMoveException("Move not allowed, this position doesn't share any other orthogonal piece of your color");
+                return !checkIfNorthIsOccupiedBySamePiece(southEastCoordinate) && !checkIfWestIsOccupiedBySamePiece(southEastCoordinate);
             }
         }
+        return false;
     }
 
-    private void checkNorthEastCell() throws IllegalMoveException, InvalidCoordinateException {
-        if (move.getCoordinate().getX() == 0 || move.getCoordinate().getY() == 0) {
-        } else {
+    private boolean checkIfNorthEastCellIsIllegal() throws InvalidCoordinateException {
+        if (move.getCoordinate().getX() != 0 && move.getCoordinate().getY() != 0) {
             BoardCoordinate northEastCoordinate = new BoardCoordinate(move.getCoordinate().getX() - 1, move.getCoordinate().getY() - 1);
             if (board.getPieceByCoordinate(northEastCoordinate).equals(move.getPlayer().getPieces())) {
-                if (!checkIfSouthIsOccupiedBySamePiece(northEastCoordinate) && !checkIfWestIsOccupiedBySamePiece(northEastCoordinate))
-                    throw new IllegalMoveException("Move not allowed, this position doesn't share any other orthogonal piece of your color");
+                return !checkIfSouthIsOccupiedBySamePiece(northEastCoordinate) && !checkIfWestIsOccupiedBySamePiece(northEastCoordinate);
             }
         }
+        return false;
     }
 
-    private void checkNorthWestCell() throws IllegalMoveException, InvalidCoordinateException {
-        if (move.getCoordinate().getX() == 0 || move.getCoordinate().getY() == board.getDIMENSION() - 1) {
-        } else {
+    private boolean checkIfNorthWestCellIsIllegal() throws InvalidCoordinateException {
+        if (move.getCoordinate().getX() != 0 && move.getCoordinate().getY() != board.getDIMENSION() - 1) {
             BoardCoordinate northWestCoordinate = new BoardCoordinate(move.getCoordinate().getX() - 1, move.getCoordinate().getY() + 1);
             if (board.getPieceByCoordinate(northWestCoordinate).equals(move.getPlayer().getPieces())) {
-                if (!checkIfSouthIsOccupiedBySamePiece(northWestCoordinate) && !checkIfEastIsOccupiedBySamePiece(northWestCoordinate))
-                    throw new IllegalMoveException("Move not allowed, this position doesn't share any other orthogonal piece of your color");
+                return !checkIfSouthIsOccupiedBySamePiece(northWestCoordinate) && !checkIfEastIsOccupiedBySamePiece(northWestCoordinate);
             }
         }
+        return false;
     }
 
     private boolean checkIfNorthIsOccupiedBySamePiece(BoardCoordinate coordinate) throws InvalidCoordinateException {
