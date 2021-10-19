@@ -73,5 +73,23 @@ public class BeforeMoveCheckerTest {
                 game.move(moveBlack3);
             }
         });
+        Assertions.assertDoesNotThrow(new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                game = new Game(player1, player2);
+                BoardCoordinate coordinates = new BoardCoordinate("a0");
+                BoardCoordinate coordinates2 = new BoardCoordinate("a12");
+                BoardCoordinate coordinate3 = new BoardCoordinate("a6");
+                BoardCoordinate coordinate4 = new BoardCoordinate("m6");
+                Move moveBlack = new Move(player1, coordinates);
+                Move moveBlack2 = new Move(player1, coordinates2);
+                Move moveBlack3 = new Move(player1, coordinate3);
+                Move moveBlack4 = new Move(player1, coordinate4);
+                game.move(moveBlack);
+                game.move(moveBlack2);
+                game.move(moveBlack3);
+                game.move(moveBlack4);
+            }
+        });
     }
 }
