@@ -16,7 +16,7 @@ public class GUITest {
     public static Player p1;
     public static Player p2;
     public static Game game;
-
+/*
     //METHODS
     @BeforeClass
     public static void init() throws UnsupportedPiecesForPlayerException, UsernameTooShortException {
@@ -51,4 +51,6 @@ public class GUITest {
         board.doMove(temp);
         frame.setVisible(true);
     }
+
+ */
 }
