@@ -66,8 +66,7 @@ public class BoardCoordinate implements Coordinate2D {
                     throw new InvalidCoordinateException("1st literal is char that exceed the correct interval [a-m].");
                 }
                 try {
-                    int parsed = Integer.parseInt(temp.substring(1));
-                    this.y = parsed;
+                    this.y = Integer.parseInt(temp.substring(1));
                 }
                 catch (NumberFormatException e) {
                     throw new InvalidCoordinateException("2nd literal is not a number.");
@@ -86,8 +85,7 @@ public class BoardCoordinate implements Coordinate2D {
                     throw new InvalidCoordinateException("1st literal is char that exceed the correct interval [a-m].");
                 }
                 try {
-                    int parsed = Integer.parseInt(temp.substring(1));
-                    this.y = parsed;
+                    this.y = Integer.parseInt(temp.substring(1));
                 }
                 catch (NumberFormatException e) {
                     throw new InvalidCoordinateException("2nd literal is not a number.");
