@@ -87,15 +87,20 @@ public class ConsoleApplicationRunnerUtils {
 
     public static void startGame(BufferedReader br, Game game, BoardShellPrinter bp, Player player1, Player player2) {
         boolean isFinished = false;
+        String coords = "";
+        int counter = 0;
+        int counterMoveForPlayer1 = 0;
+        int counterMoveForPlayer2 = 0;
         while (!isFinished) {
             bp.printOnStdOut(true);
-            int counterMoveForPlayer1 = 0;
-            int counterMoveForPlayer2 = 0;
+
             boolean hasMoved = false;
             while (!hasMoved) {
-                System.out.print(player1.getUsername() + "[" + player1.getPieces().getName() + ", move #" + counterMoveForPlayer1 + "] has to move. Insert a valid coordinate: ");
+                System.out.print("\n1: "+player1.getUsername() + "[" + player1.getPieces().getName() + ", move #" + counterMoveForPlayer1 + "] has to move. Insert a valid coordinate: ");
                 try {
+                    System.out.println("--------------------");
                     String temp = br.readLine().trim();
+                    coords = temp;
                     BoardCoordinate newBoardCoordinate = new BoardCoordinate(temp);
                     Move newMove = new Move(player1, newBoardCoordinate);
                     game.move(newMove);
@@ -119,14 +124,36 @@ public class ConsoleApplicationRunnerUtils {
             }
             hasMoved = false;
             while (!hasMoved && !isFinished) {
-                System.out.print(player2.getUsername() + "[" + player2.getPieces().getName() + ", move #" + counterMoveForPlayer2 + "] has to move. Insert a valid coordinate: ");
+                System.out.print("\n 2: " + player2.getUsername() + "[" + player2.getPieces().getName() + ", move #" + counterMoveForPlayer2 + "] has to move. Insert a valid coordinate: ");
                 try {
-                    String temp = br.readLine().trim();
-                    BoardCoordinate newBoardCoordinate = new BoardCoordinate(temp);
-                    Move newMove = new Move(player2, newBoardCoordinate);
-                    game.move(newMove);
-                    counterMoveForPlayer2++;
-                    hasMoved = true;
+
+                    /* Verifica se è la prima mossa del player2. Se sì, implementa pie rule */
+                    if(counter == 0){
+                        /* handle condition */
+                        System.out.println("\nAvvalersi del Pie Rule(0) o Proseguire(1)?\n");
+                        String result = br.readLine().trim();
+
+                        if (result.equals("0")) {
+                            System.out.println("\nCambio prima pedina in "+ coords +"\n");
+                            BoardCoordinate updateBoardCoordinate = new BoardCoordinate(coords);
+                            Move newMove = new Move(player2, updateBoardCoordinate);
+                            game.move(newMove, true);
+                            counterMoveForPlayer1++;
+                            counter++;
+                            hasMoved=true;
+                            continue;
+                        }
+                        counter++;
+
+                    } else {
+
+                        String temp = br.readLine().trim();
+                        BoardCoordinate newBoardCoordinate = new BoardCoordinate(temp);
+                        Move newMove = new Move(player2, newBoardCoordinate);
+                        game.move(newMove);
+                        counterMoveForPlayer2++;
+                        hasMoved = true;
+                    }
                 } catch (IOException e) {
                     System.err.println("Error while trying to read from System.in. Aborted.");
                     e.printStackTrace();

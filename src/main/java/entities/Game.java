@@ -1,9 +1,6 @@
 package entities;
 
-import exceptions.IllegalMoveException;
-import exceptions.InvalidCoordinateException;
-import exceptions.PositionAlreadyOccupiedException;
-import exceptions.VictoryException;
+import exceptions.*;
 import logic.AfterMoveChecker;
 import logic.BeforeMoveChecker;
 
@@ -58,6 +55,12 @@ public class Game {
         AfterMoveChecker amc = new AfterMoveChecker(getBoard(), move.getPlayer());
         board = amc.checkAndUpdateBoardAfterMove();
         //...
+    }
+
+    public void move(Move move, boolean firstmove) throws InvalidCoordinateException, VictoryException {
+        getBoard().doMove(move);
+        AfterMoveChecker amc = new AfterMoveChecker(getBoard(), move.getPlayer());
+        board = amc.checkAndUpdateBoardAfterMove();
     }
 
     @Override
