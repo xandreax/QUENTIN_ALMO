@@ -9,7 +9,6 @@ import gui.BoardShellPrinter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Arrays;
 
 public class ConsoleApplicationRunnerUtils {
     //METHODS
@@ -136,16 +135,11 @@ public class ConsoleApplicationRunnerUtils {
 
                         if (result.equals("0")) {
                             System.out.println("\nCambio prima pedina in "+ coords +"\n");
-
-                            Pieces swapPiece1 = game.getPlayer1().getPieces();
-                            Pieces swapPiece2 = game.getPlayer2().getPieces();
-
-                            game.getPlayer1().setPieces(swapPiece2);
-                            game.getPlayer2().setPieces(swapPiece1);
-
-                            counterMoveForPlayer2++;
+                            BoardCoordinate updateBoardCoordinate = new BoardCoordinate(coords);
+                            Move newMove = new Move(player2, updateBoardCoordinate);
+                            game.move(newMove, true);
+                            counterMoveForPlayer1++;
                             counter++;
-
                             hasMoved=true;
                             continue;
                         }
