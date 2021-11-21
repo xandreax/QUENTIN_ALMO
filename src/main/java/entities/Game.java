@@ -57,12 +57,6 @@ public class Game {
         //...
     }
 
-    public void move(Move move, boolean firstmove) throws InvalidCoordinateException, VictoryException {
-        getBoard().doMove(move);
-        AfterMoveChecker amc = new AfterMoveChecker(getBoard(), move.getPlayer());
-        board = amc.checkAndUpdateBoardAfterMove();
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Game) {
