@@ -18,6 +18,14 @@ public class AfterMoveChecker {
         this.player = player;
     }
 
+    /**
+     * This method calls 2 other methods: one checks if new territories have been formed,
+     * the other one if the victory condition has been satisfied.
+     *
+     * @return the updated board if a new territory has been found, the current board otherwise
+     * @throws VictoryException
+     * @throws InvalidCoordinateException
+     */
     public Board checkAndUpdateBoardAfterMove() throws VictoryException, InvalidCoordinateException {
         Board boardChecked = board;
         //Se ci sono state almeno 3 mosse ha senso controllare i territori
@@ -28,42 +36,62 @@ public class AfterMoveChecker {
         return boardChecked;
     }
 
+    /**
+     * This method checks if new territories has been formed after a move has been made.
+     * The algorithm works this way: if an empty node has at least two adjacent pieces,
+     * this node is provisionally saved in a list, then the algorithm checks again for a
+     * node of the same type. If it finds a closed region, meaning that the node borders
+     * only with edges or pieces, then it starts again from the position initially saved.
+     * If here it finds another closed region, then it is a territory and gets called the
+     * method to fill the territory with the right type of pieces.
+     *
+     * @return the updated board if a new territory has been found, the current board otherwise
+     * @throws InvalidCoordinateException
+     */
     private Board checkTerritories() throws InvalidCoordinateException {
         boolean allNodesVisited = false;
-        LinkedList<BoardCoordinate> possibleTerritory = new LinkedList<>();  //List that reset every time that finds a new territory
+        //List that resets every time that finds a new territory
+        LinkedList<BoardCoordinate> possibleTerritory = new LinkedList<>();
         int[][] visitedMatrix = new int[board.getDIMENSION()][board.getDIMENSION()];
         Pieces[][] matrixPieces = board.getMatrix();
         int row = 0, col = 0;
         boolean hasPositionBeenSaved = false;
+        //This loop exits when all nodes in the board have been visited
         while (!allNodesVisited) {
             BoardCoordinate bc = checkEdgesOfBoard(row, col);
             row = bc.getX();
             col = bc.getY();
-            while (visitedMatrix[row][col] == 1) { //Node already visited
+            //This loop is used to skip nodes that has been already visited
+            while (visitedMatrix[row][col] == 1) {
                 col++; //next element of row
                 BoardCoordinate boardCoordinate = checkEdgesOfBoard(row, col);
                 row = boardCoordinate.getX();
                 col = boardCoordinate.getY();
             }
             BoardCoordinate coordinate = new BoardCoordinate(row, col);
+            //Checks if the current coordinate is empty and has at least 2 adjacent pieces
             if (matrixPieces[row][col].equals(Pieces.NONE) && hasAtLeastTwoAdjacentPieces(coordinate)) {
                 possibleTerritory.add(coordinate);
                 visitedMatrix[row][col] = 1;
                 BoardCoordinate savedCoordinate = new BoardCoordinate();
+                //Save the position for the first node found
                 if (!hasPositionBeenSaved) {
                     savedCoordinate = new BoardCoordinate(row, col);
                     hasPositionBeenSaved = true;
                 }
                 BoardCoordinate emptyNode = findNextEmptyNode(possibleTerritory.getLast(), possibleTerritory);
+                //This loop is used to find the next empty node
                 while (emptyNode != null){
                     if(hasAtLeastTwoAdjacentPieces(emptyNode)){
-                        possibleTerritory.add(emptyNode);
+                        possibleTerritory.add(emptyNode); //Add the node to the list
                         emptyNode = findNextEmptyNode(emptyNode, possibleTerritory);
                         if (emptyNode == null){
+                            //If the region is closed start again from the saved position
                             emptyNode = findNextEmptyNode(savedCoordinate, possibleTerritory);;
                         }
                     }
                     else{
+                        //clear the list since it was not a territory
                         possibleTerritory.clear();
                         hasPositionBeenSaved = false;
                         break;
@@ -71,7 +99,7 @@ public class AfterMoveChecker {
                 }
 
                 if (emptyNode == null){
-                    //territorio trovato
+                    //Territory found
                     board = updateBoard(possibleTerritory);
                     row = savedCoordinate.getX();
                     col = savedCoordinate.getY() + 1;
@@ -79,22 +107,33 @@ public class AfterMoveChecker {
                     possibleTerritory.clear();
                 }
                 else{
+                    //Set the node as visited, go to next position and reset the saved position
                     visitedMatrix[emptyNode.getX()][emptyNode.getY()] = 1;
                     row = savedCoordinate.getX();
                     col = savedCoordinate.getY() + 1;
                     hasPositionBeenSaved = false;
                 }
 
-            } else {
+            }
+            //Go to next node
+            else {
                 visitedMatrix[row][col] = 1;
                 col++; //next element of row
             }
-
+            //checks if all nodes has been visited
             allNodesVisited = hasAllNodesBeenVisited(visitedMatrix);
         }
         return  board;
     }
 
+    /**
+     * This method checks if the coordinates are in range of the board dimension
+     *
+     * @param row
+     * @param col
+     * @return the coordinate in the right range if the indexes are out of bounds, the old coordinates otherwise
+     * @throws InvalidCoordinateException
+     */
     private BoardCoordinate checkEdgesOfBoard(int row, int col) throws InvalidCoordinateException {
         if (col >= board.getDIMENSION()) {
             row++;
@@ -106,8 +145,18 @@ public class AfterMoveChecker {
         return new BoardCoordinate(row, col);
     }
 
+    /**
+     * This method counts the number of pieces adjacent to the territory
+     * and then fills the territory with th right kind. If the number of
+     * pieces are the same, the territory is filled with the opposite color
+     * of the last player move.
+     *
+     * @param territory
+     * @return the board updated with the pieces of the right colour
+     */
     private Board updateBoard(LinkedList<BoardCoordinate> territory) {
         int counterBlack = 0, counterWhite = 0;
+        //Counts the total number of white and black pieces adjacent to the territory
         for (BoardCoordinate coordinate : territory){
             Map<Pieces, Integer> adjacentPiecesNumber = countAdjacentPieces(coordinate);
             Integer nBlack = adjacentPiecesNumber.get(Pieces.BLACK);
@@ -132,12 +181,25 @@ public class AfterMoveChecker {
         return board;
     }
 
+    /**
+     * This method fills the territory with the specified type of piece as argument
+     *
+     * @param territory :list of BoardCoordinate
+     * @param blackOrWhite is the type of piece
+     */
     private void fillTerritory(LinkedList<BoardCoordinate> territory, Pieces blackOrWhite) {
         for (BoardCoordinate coordinate : territory){
             board.getMatrix()[coordinate.getX()][coordinate.getY()] = blackOrWhite;
         }
     }
 
+    /**
+     * This method counts how many pieces and of which type are adjacent to
+     * the coordinate passed as input
+     *
+     * @param coordinate
+     * @return a map with the type of the piece and its respective number
+     */
     private Map<Pieces, Integer> countAdjacentPieces(BoardCoordinate coordinate) {
         Map<Pieces, Integer> piecesIntegerMap = new HashMap<>();
         int countWhite, countBlack;
@@ -155,6 +217,14 @@ public class AfterMoveChecker {
         return piecesIntegerMap;
     }
 
+    /**
+     * This method is called by "countAdjacentPieces" and it returns a structure
+     * that keeps count of the number of black and white pieces in the given coordinate
+     *
+     * @param row
+     * @param col
+     * @return a structure with the number of white and black pieces for the given coordinate
+     */
     private BlackAndWhite countBnW(int row, int col){
         int countWhite = 0, countBlack = 0;
         if (isNotEdge(row) && isNotEdge(col)){
@@ -168,10 +238,19 @@ public class AfterMoveChecker {
         return new BlackAndWhite(countBlack, countWhite);
     }
 
+    /**
+     * This method finds the next node which is not occupied by any piece
+     *
+     * @param emptyNode : the last empty node found
+     * @param territory : the current possible territory
+     * @return the first empty board coordinate found adjacent to the last empty node, null if none are found
+     * @throws InvalidCoordinateException
+     */
     private BoardCoordinate findNextEmptyNode(BoardCoordinate emptyNode, LinkedList<BoardCoordinate> territory) throws InvalidCoordinateException {
         BoardCoordinate nextEmpty = new BoardCoordinate();
         int row = emptyNode.getX();
         int col = emptyNode.getY();
+        //Checks to the right
         if (isNotEdge(col + 1)) {
             if (board.getMatrix()[row][col + 1].equals(Pieces.NONE) && !territory.contains(new BoardCoordinate(row, col+1))) {
                 nextEmpty.setX(row);
@@ -179,7 +258,7 @@ public class AfterMoveChecker {
                 return nextEmpty;
             }
         }
-
+        //Checks to the left
         if (isNotEdge(col - 1)) {
             if (board.getMatrix()[row][col - 1].equals(Pieces.NONE) && !territory.contains(new BoardCoordinate(row, col-1))) {
                 nextEmpty.setX(row);
@@ -188,6 +267,7 @@ public class AfterMoveChecker {
             }
         }
 
+        //Checks down
         if (isNotEdge(row + 1)) {
             if (board.getMatrix()[row + 1][col].equals(Pieces.NONE) && !territory.contains(new BoardCoordinate(row + 1, col))) {
                 nextEmpty.setX(row + 1);
@@ -195,7 +275,7 @@ public class AfterMoveChecker {
                 return nextEmpty;
             }
         }
-
+        //Checks up
         if (isNotEdge(row - 1)) {
             if (board.getMatrix()[row - 1][col].equals(Pieces.NONE) && !territory.contains(new BoardCoordinate(row -1, col))) {
                 nextEmpty.setX(row - 1);
@@ -206,15 +286,27 @@ public class AfterMoveChecker {
         return null;
     }
 
+    /**
+     * Checks if the index is in a certain range
+     *
+     * @param index
+     * @return true if the index is in range of the board dimension, false otherwise
+     */
     private boolean isNotEdge(int index) {
         return (index >= 0 && index < board.getDIMENSION());
     }
 
-
+    /**
+     * This method checks if a coordinate has at least two adjacent pieces
+     *
+     * @param coordinate
+     * @return true if the coordinate has at least two adjacent pieces, false otherwise
+     */
     private boolean hasAtLeastTwoAdjacentPieces(BoardCoordinate coordinate) {
         boolean down, up, right, left;
         int row = coordinate.getX();
         int col = coordinate.getY();
+        //First checks the limits of the boards, then if row and col are not edges checks all 4 directions
         if (row == 0 && col == 0){
             down = !board.getMatrix()[row + 1][col].equals(Pieces.NONE);
             right = !board.getMatrix()[row][col + 1].equals(Pieces.NONE);
@@ -267,6 +359,15 @@ public class AfterMoveChecker {
         return (down && up) || (down && right) || (down && left) || (up && right) || (left && up) || (left && right);
     }
 
+    /**
+     * This method checks if the sums of all the elements in the matrix
+     * is equals to the dimension of the matrix.
+     * This is used in the method "checkTerritories" because when a node is visited
+     * in the matrix for checking the territories, the visited node is set to 1.
+     *
+     * @param matrix
+     * @return true if all nodes has been visited, false otherwise.
+     */
     private boolean hasAllNodesBeenVisited(int[][] matrix) {
         int counter = 0;
         for (int[] ints : matrix) {
@@ -277,7 +378,13 @@ public class AfterMoveChecker {
         return counter == (matrix.length * matrix.length);
     }
 
-    //check Victory condition -> return exception
+    /**
+     * This method is used to check if the game has came to a conclusion.
+     * If the victory condition is satisfied, an exception will be thrown
+     * and the game will end.
+     *
+     * @throws VictoryException
+     */
     private void checkVictoryCondition() throws VictoryException {
         int dimension = board.getDIMENSION();
         int[][] matrixTemp = new int[dimension][dimension];
@@ -288,6 +395,14 @@ public class AfterMoveChecker {
         }
     }
 
+    /**
+     * This method checks for each player if the victory condition has been reached.
+     *
+     * @param matrix
+     * @param matrixTemp
+     * @param playerColor
+     * @return true if the matrix has a path from side to side, false otherwise
+     */
     private static boolean hasPath(Pieces[][] matrix, int[][] matrixTemp, Pieces playerColor) {
         if (playerColor.equals(Pieces.WHITE) /* cambiare condizioni con pie rule*/) {
             for (int i = 0; i < matrix.length; i++) {
@@ -303,8 +418,18 @@ public class AfterMoveChecker {
         return false;
     }
 
-    //algoritmo Deep First Search per cercare possibili path
-    //https://stackoverflow.com/questions/20708659/find-if-path-exists-in-matrix
+
+    /**
+     * Recursive algorithm Deep First Search to find possible path in a matrix
+     * //https://stackoverflow.com/questions/20708659/find-if-path-exists-in-matrix
+     *
+     * @param matrix
+     * @param matrixTemp
+     * @param i
+     * @param j
+     * @param playerColor
+     * @return true if the matrix has a path of pieces from side to side, false otherwise
+     */
     private static boolean hasPathHelper(Pieces[][] matrix, int[][] matrixTemp, int i, int j, Pieces playerColor) {
         if (i < 0 || j < 0 || i >= matrix.length || j >= matrix[0].length || matrixTemp[i][j] >= 0)
             return false;
