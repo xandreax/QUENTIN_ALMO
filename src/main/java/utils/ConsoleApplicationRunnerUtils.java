@@ -9,6 +9,7 @@ import gui.BoardShellPrinter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class ConsoleApplicationRunnerUtils {
     //METHODS
@@ -87,7 +88,6 @@ public class ConsoleApplicationRunnerUtils {
 
     public static void startGame(BufferedReader br, Game game, BoardShellPrinter bp, Player player1, Player player2) {
         boolean isFinished = false;
-        String coords = "";
         int counter = 0;
         int counterMoveForPlayer1 = 0;
         int counterMoveForPlayer2 = 0;
@@ -100,7 +100,6 @@ public class ConsoleApplicationRunnerUtils {
                 try {
                     System.out.println("--------------------");
                     String temp = br.readLine().trim();
-                    coords = temp;
                     BoardCoordinate newBoardCoordinate = new BoardCoordinate(temp);
                     Move newMove = new Move(player1, newBoardCoordinate);
                     game.move(newMove);
@@ -134,12 +133,17 @@ public class ConsoleApplicationRunnerUtils {
                         String result = br.readLine().trim();
 
                         if (result.equals("0")) {
-                            System.out.println("\nCambio prima pedina in "+ coords +"\n");
-                            BoardCoordinate updateBoardCoordinate = new BoardCoordinate(coords);
-                            Move newMove = new Move(player2, updateBoardCoordinate);
-                            game.move(newMove, true);
-                            counterMoveForPlayer1++;
+                            System.out.println("\nCambio colore giocatori.\n");
+
+                            Pieces swapPiece1 = game.getPlayer1().getPieces();
+                            Pieces swapPiece2 = game.getPlayer2().getPieces();
+
+                            game.getPlayer1().setPieces(swapPiece2);
+                            game.getPlayer2().setPieces(swapPiece1);
+
+                            counterMoveForPlayer2++;
                             counter++;
+
                             hasMoved=true;
                             continue;
                         }
