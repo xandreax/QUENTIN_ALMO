@@ -165,7 +165,7 @@ public class ConsoleApplicationRunnerUtils {
                     System.out.println("Invalid coordinate. Please choose another position orthogonal to any your other piece.");
                 }
                 catch (VictoryException e){
-                    System.out.println("Victory! "+player1.getUsername()+" has won the game!");
+                    System.out.println("Victory! "+ player2.getUsername() +" has won the game!");
                     hasMoved = true;
                     isFinished = true;
                 }
