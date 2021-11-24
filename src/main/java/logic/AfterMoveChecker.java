@@ -87,7 +87,7 @@ public class AfterMoveChecker {
                         emptyNode = findNextEmptyNode(emptyNode, possibleTerritory);
                         if (emptyNode == null){
                             //If the region is closed start again from the saved position
-                            emptyNode = findNextEmptyNode(savedCoordinate, possibleTerritory);;
+                            emptyNode = findNextEmptyNode(savedCoordinate, possibleTerritory);
                         }
                     }
                     else{
