@@ -2,7 +2,7 @@ package entities;
 
 import exceptions.*;
 import logic.AfterMoveChecker;
-import logic.BeforeMoveChecker;
+import logic.BeforeMove.BeforeMoveChecker;
 
 import java.util.Date;
 import java.util.UUID;
