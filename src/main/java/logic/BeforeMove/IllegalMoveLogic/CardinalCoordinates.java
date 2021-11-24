@@ -14,6 +14,14 @@ public class CardinalCoordinates {
     protected BoardCoordinate eastCell;
     protected BoardCoordinate westCell;
 
+    /**
+     * This constructor defines all the possible cardinal cells of a given coordinate on the board.
+     *
+     * @param coordinate
+     * @param boardDimension
+     * @throws InvalidCoordinateException
+     */
+
     public CardinalCoordinates(BoardCoordinate coordinate, int boardDimension) throws InvalidCoordinateException {
         if(coordinate.getX() != 0){
             northCell = new BoardCoordinate(coordinate.getX()-1, coordinate.getY());
