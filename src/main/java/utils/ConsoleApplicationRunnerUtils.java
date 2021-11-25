@@ -9,6 +9,7 @@ import gui.BoardShellPrinter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class ConsoleApplicationRunnerUtils {
     //METHODS
@@ -87,7 +88,6 @@ public class ConsoleApplicationRunnerUtils {
 
     public static void startGame(BufferedReader br, Game game, BoardShellPrinter bp, Player player1, Player player2) {
         boolean isFinished = false;
-        String coords = "";
         int counter = 0;
         int counterMoveForPlayer1 = 0;
         int counterMoveForPlayer2 = 0;
@@ -97,10 +97,12 @@ public class ConsoleApplicationRunnerUtils {
             boolean hasMoved = false;
             while (!hasMoved) {
                 System.out.print("\n1: "+player1.getUsername() + "[" + player1.getPieces().getName() + ", move #" + counterMoveForPlayer1 + "] has to move. Insert a valid coordinate: ");
-                try {
-                    System.out.println("--------------------");
-                    String temp = br.readLine().trim();
-                    coords = temp;
+                System.out.println("HAS MOVES PL1 " +game.getAvailableMoves(game.getBoard(), player1));
+                if(game.getAvailableMoves(game.getBoard(), player1)) {
+
+                    try {
+                        System.out.println("--------------------");
+                        String temp = br.readLine().trim();
                     BoardCoordinate newBoardCoordinate = new BoardCoordinate(temp);
                     Move newMove = new Move(player1, newBoardCoordinate);
                     game.move(newMove);
@@ -119,37 +121,38 @@ public class ConsoleApplicationRunnerUtils {
                 catch (VictoryException e){
                     System.out.println("Victory! "+player1.getUsername()+" has won the game!");
                     hasMoved = true;
-                    isFinished = true;
+                    isFinished = true;}
                 }
             }
             hasMoved = false;
             while (!hasMoved && !isFinished) {
                 System.out.print("\n 2: " + player2.getUsername() + "[" + player2.getPieces().getName() + ", move #" + counterMoveForPlayer2 + "] has to move. Insert a valid coordinate: ");
-                try {
+                System.out.println("HAS MOVES PL2 " +game.getAvailableMoves(game.getBoard(), player2));
+                if (game.getAvailableMoves(game.getBoard(), player2)) {
+                    try {
 
-                    /* Verifica se è la prima mossa del player2. Se sì, implementa pie rule */
-                    if(counter == 0){
-                        /* handle condition */
-                        System.out.println("\nAvvalersi del Pie Rule(0) o Proseguire(1)?\n");
-                        String result = br.readLine().trim();
+                        /* Verifica se è la prima mossa del player2. Se sì, implementa pie rule */
+                        if (counter == 0) {
+                            /* handle condition */
+                            System.out.println("\nAvvalersi del Pie Rule(0) o Proseguire(1)?\n");
+                            String result = br.readLine().trim();
 
-                        if (result.equals("0")) {
-                            System.out.println("\nCambio prima pedina in "+ coords +"\n");
-                            Pieces swapPiece1 = game.getPlayer1().getPieces();
-                            Pieces swapPiece2 = game.getPlayer2().getPieces();
+                            if (result.equals("0")) {
+                                Pieces swapPiece1 = game.getPlayer1().getPieces();
+                                Pieces swapPiece2 = game.getPlayer2().getPieces();
 
-                            game.getPlayer1().setPieces(swapPiece2);
-                            game.getPlayer2().setPieces(swapPiece1);
+                                game.getPlayer1().setPieces(swapPiece2);
+                                game.getPlayer2().setPieces(swapPiece1);
 
-                            counterMoveForPlayer2++;
+                                counterMoveForPlayer2++;
+                                counter++;
+
+                                hasMoved = true;
+                                continue;
+                            }
                             counter++;
 
-                            hasMoved=true;
-                            continue;
-                        }
-                        counter++;
-
-                    } else {
+                        } else {
 
                         String temp = br.readLine().trim();
                         BoardCoordinate newBoardCoordinate = new BoardCoordinate(temp);
@@ -171,7 +174,7 @@ public class ConsoleApplicationRunnerUtils {
                 catch (VictoryException e){
                     System.out.println("Victory! "+ player2.getUsername() +" has won the game!");
                     hasMoved = true;
-                    isFinished = true;
+                    isFinished = true;}
                 }
             }
         }

@@ -66,4 +66,37 @@ public class Game {
             return false;
         }
     }
+
+    /**
+     * Checks if player has available moves
+     *
+     * @return boolean
+     */
+    public boolean getAvailableMoves(Board board, Player player) {
+
+        for(int i = 0; i<board.DIMENSION-1; i++)
+        {
+            for(int j = 0; j<board.DIMENSION-1; j++) {
+
+                if(board.getMatrix()[i][j].toString().equals("NONE"))
+                {
+                    try {
+                        Move move = new Move(player, new BoardCoordinate(i, j));
+                        BeforeMoveChecker bmc = new BeforeMoveChecker(move, board);
+                        bmc.checkIfMoveIsPossible();
+
+                        return true;
+                    } catch (InvalidCoordinateException e) {
+                        System.out.println("Invalid coordinate. Format should be: a literal from a to m, and right after a number from 0 to 12.Try again.");
+                    } catch (PositionAlreadyOccupiedException e) {
+                        System.out.println("Invalid coordinate. This position is already occupied by another piece");
+                    } catch (IllegalMoveException e) {
+                        System.out.println("Invalid coordinate. Please choose another position orthogonal to any your other piece.");
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
 }
