@@ -33,92 +33,44 @@ public class BoardShellPrinter {
 
     private String stamp() {
         String result = "";
-        String interRowStamp = "|   |   |   |   |   |   |   |   |   |   |   |   |";
-        result = result.concat("  ------------------- BLACK LINE ------------------\n");
-        for (int i = 0; i < this.board.getDIMENSION(); i++) {
-            if (i == 3) result = result.concat("W ");
-            else if (i == 4) result = result.concat("I ");
-            else if (i == 5) result = result.concat("E ");
-            else if (i == 7) result = result.concat("L ");
-            else if (i == 8) result = result.concat("N ");
-            else result = result.concat("| ");
-            for (int j = 0; j < this.board.getDIMENSION(); j++) {
-                if (j == this.board.getDIMENSION() - 1) {
-                    result = result.concat(this.board.getMatrix()[i][j].getSymbol());
+        result = result.concat(String.format("%24s%s%s%n", "-".repeat(19), " BLACK LINE ", "-".repeat(18)));
+        for (int y = 0; y < 2*this.board.getDIMENSION() - 1; y++) {
+            String borderString = IntUtils.mapBorderChar(y);
+            if ((y % 2) == 0) {
+                result = result.concat(String.format("%4s%2s", borderString, this.board.getMatrix()[0][y/2].getSymbol()));
+                for (int x = 1; x < this.board.getDIMENSION(); x++) {
+                    result = result.concat(String.format("%4s", " - "+this.board.getMatrix()[x][y/2].getSymbol()));
                 }
-                else {
-                    result = result.concat(this.board.getMatrix()[i][j].getSymbol() + " - ");
-                }
+                result = result.concat(String.format("%2s%n", borderString));
             }
-            if (i == 3) result = result.concat(" W\n");
-            else if (i == 4) result = result.concat(" I\n");
-            else if (i == 5) result = result.concat(" E\n");
-            else if (i == 7) result = result.concat(" L\n");
-            else if (i == 8) result = result.concat(" N\n");
-            else result = result.concat(" |\n");
-            if (i != this.board.getDIMENSION() - 1) {
-                if (i == 3) result = result.concat("H ");
-                else if (i == 4) result = result.concat("T ");
-                else if (i == 7) result = result.concat("I ");
-                else if (i == 8) result = result.concat("E ");
-                else result = result.concat("| ");
-                result = result.concat(interRowStamp);
-                if (i == 3) result = result.concat(" H\n");
-                else if (i == 4) result = result.concat(" T\n");
-                else if (i == 7) result = result.concat(" I\n");
-                else if (i == 8) result = result.concat(" E\n");
-                else result = result.concat(" |\n");
+            else {
+                result = result.concat(String.format("%4s%2s%4s%4s%4s%4s%4s%4s%4s%4s%4s%4s%4s%4s%2s%n", borderString, "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", borderString));
             }
         }
-        result = result.concat("  ------------------- BLACK LINE ------------------\n\n");
+        result = result.concat(String.format("%24s%s%s%n%n", "-".repeat(19), " BLACK LINE ", "-".repeat(18)));
         return result;
     }
 
     private String stampWithLegend() {
         String result = "";
-        String interRowStamp = "|   |   |   |   |   |   |   |   |   |   |   |   |";
-        result = result.concat("      0   1   2   3   4   5   6   7   8   9   10  11  12\n\n");
-        result = result.concat("      ------------------- BLACK LINE ------------------\n");
-        for (int i = 0; i < this.board.getDIMENSION(); i++) {
-            //left indexes and white line
-            if (i == 3) result = result.concat(IntUtils.mapInputIndexToInputChar(i) + "   W ");
-            else if (i == 4) result = result.concat(IntUtils.mapInputIndexToInputChar(i) + "   I ");
-            else if (i == 5) result = result.concat(IntUtils.mapInputIndexToInputChar(i) + "   E ");
-            else if (i == 7) result = result.concat(IntUtils.mapInputIndexToInputChar(i) + "   L ");
-            else if (i == 8) result = result.concat(IntUtils.mapInputIndexToInputChar(i) + "   N ");
-            else result = result.concat(IntUtils.mapInputIndexToInputChar(i) + "   | ");
-            //board's matrix
-            for (int j = 0; j < this.board.getDIMENSION(); j++) {
-                if (j == this.board.getDIMENSION() - 1) {
-                    result = result.concat(this.board.getMatrix()[i][j].getSymbol());
+        result = result.concat(String.format("%7s%4s%4s%4s%4s%4s%4s%4s%4s%4s%5s%4s%4s%n%n", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"));
+        result = result.concat(String.format("%25s%s%s%n", "-".repeat(19), " BLACK LINE ", "-".repeat(18)));
+        for (int y = 0; y < 2*this.board.getDIMENSION() - 1; y++) {
+            String borderString = IntUtils.mapBorderChar(y);
+            String legendString = IntUtils.mapLegendChar(y);
+            if ((y % 2) == 0) {
+                result = result.concat(String.format("%s%4s%2s", legendString, borderString, this.board.getMatrix()[0][y/2].getSymbol()));
+                for (int x = 1; x < this.board.getDIMENSION(); x++) {
+                    result = result.concat(String.format("%4s", " - "+this.board.getMatrix()[x][y/2].getSymbol()));
                 }
-                else {
-                    result = result.concat(this.board.getMatrix()[i][j].getSymbol() + " - ");
-                }
+                result = result.concat(String.format("%2s%4s%n", borderString, legendString));
             }
-            //white line and right indexes
-            if (i == 3) result = result.concat(" W    " + IntUtils.mapInputIndexToInputChar(i) + "\n");
-            else if (i == 4) result = result.concat(" I    " + IntUtils.mapInputIndexToInputChar(i) + "\n");
-            else if (i == 5) result = result.concat(" E    " + IntUtils.mapInputIndexToInputChar(i) + "\n");
-            else if (i == 7) result = result.concat(" L    " + IntUtils.mapInputIndexToInputChar(i) + "\n");
-            else if (i == 8) result = result.concat(" N    " + IntUtils.mapInputIndexToInputChar(i) + "\n");
-            else result = result.concat(" |    " + IntUtils.mapInputIndexToInputChar(i) +"\n");
-            if (i != this.board.getDIMENSION() - 1) {
-                if (i == 3) result = result.concat("    H ");
-                else if (i == 4) result = result.concat("    T ");
-                else if (i == 7) result = result.concat("    I ");
-                else if (i == 8) result = result.concat("    E ");
-                else result = result.concat("    | ");
-                result = result.concat(interRowStamp);
-                if (i == 3) result = result.concat(" H\n");
-                else if (i == 4) result = result.concat(" T\n");
-                else if (i == 7) result = result.concat(" I\n");
-                else if (i == 8) result = result.concat(" E\n");
-                else result = result.concat(" |\n");
+            else {
+                result = result.concat(String.format("%s%4s%2s%4s%4s%4s%4s%4s%4s%4s%4s%4s%4s%4s%4s%2s%4s%n", legendString, borderString, "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", borderString, legendString));
             }
         }
-        result = result.concat("      ------------------- BLACK LINE ------------------\n\n");
-        result = result.concat("      0   1   2   3   4   5   6   7   8   9   10  11  12\n");
+        result = result.concat(String.format("%25s%s%s%n%n", "-".repeat(19), " BLACK LINE ", "-".repeat(18)));
+        result = result.concat(String.format("%7s%4s%4s%4s%4s%4s%4s%4s%4s%4s%5s%4s%4s%n%n", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"));
         return result;
     }
 }
