@@ -12,6 +12,7 @@ import java.util.*;
 public class AfterMoveChecker {
     protected Board board;
     protected Player player;
+    private List<BoardCoordinate> countedPieces = new ArrayList<>();
 
     public AfterMoveChecker(Board board, Player player) {
         this.board = board;
@@ -154,7 +155,7 @@ public class AfterMoveChecker {
      * @param territory
      * @return the board updated with the pieces of the right colour
      */
-    private Board updateBoard(LinkedList<BoardCoordinate> territory) {
+    private Board updateBoard(LinkedList<BoardCoordinate> territory) throws InvalidCoordinateException {
         int counterBlack = 0, counterWhite = 0;
         //Counts the total number of white and black pieces adjacent to the territory
         for (BoardCoordinate coordinate : territory){
@@ -200,7 +201,7 @@ public class AfterMoveChecker {
      * @param coordinate
      * @return a map with the type of the piece and its respective number
      */
-    private Map<Pieces, Integer> countAdjacentPieces(BoardCoordinate coordinate) {
+    private Map<Pieces, Integer> countAdjacentPieces(BoardCoordinate coordinate) throws InvalidCoordinateException {
         Map<Pieces, Integer> piecesIntegerMap = new HashMap<>();
         int countWhite, countBlack;
         int row = coordinate.getX();
@@ -225,14 +226,17 @@ public class AfterMoveChecker {
      * @param col
      * @return a structure with the number of white and black pieces for the given coordinate
      */
-    private BlackAndWhite countBnW(int row, int col){
+    private BlackAndWhite countBnW(int row, int col) throws InvalidCoordinateException {
         int countWhite = 0, countBlack = 0;
         if (isNotEdge(row) && isNotEdge(col)){
-            if (board.getMatrix()[row][col].equals(Pieces.WHITE)){
+            BoardCoordinate coordinate = new BoardCoordinate(row,col);
+            if (board.getMatrix()[row][col].equals(Pieces.WHITE) && !countedPieces.contains(coordinate)){
                 countWhite++;
+                countedPieces.add(coordinate);
             }
-            else if (board.getMatrix()[row][col].equals(Pieces.BLACK)) {
+            else if (board.getMatrix()[row][col].equals(Pieces.BLACK) && !countedPieces.contains(coordinate)) {
                 countBlack++;
+                countedPieces.add(coordinate);
             }
         }
         return new BlackAndWhite(countBlack, countWhite);

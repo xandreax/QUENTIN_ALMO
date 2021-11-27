@@ -97,31 +97,31 @@ public class ConsoleApplicationRunnerUtils {
             boolean hasMoved = false;
             while (!hasMoved) {
                 System.out.print("\n1: "+player1.getUsername() + "[" + player1.getPieces().getName() + ", move #" + counterMoveForPlayer1 + "] has to move. Insert a valid coordinate: ");
-                System.out.println("HAS MOVES PL1 " +game.getAvailableMoves(game.getBoard(), player1));
+                //System.out.println("HAS MOVES PL1 " +game.getAvailableMoves(game.getBoard(), player1));
                 if(game.getAvailableMoves(game.getBoard(), player1)) {
 
                     try {
-                        System.out.println("--------------------");
+                        //System.out.println("--------------------");
                         String temp = br.readLine().trim();
-                    BoardCoordinate newBoardCoordinate = new BoardCoordinate(temp);
-                    Move newMove = new Move(player1, newBoardCoordinate);
-                    game.move(newMove);
-                    counterMoveForPlayer1++;
-                    hasMoved = true;
-                } catch (IOException e) {
-                    System.err.println("Error while trying to read from System.in. Aborted.");
-                    e.printStackTrace();
-                } catch (InvalidCoordinateException e) {
-                    System.out.println("Invalid coordinate. Format should be: a literal from a to m, and right after a number from 0 to 12.Try again.");
-                } catch (PositionAlreadyOccupiedException e) {
-                    System.out.println("Invalid coordinate. This position is already occupied by another piece");
-                } catch (IllegalMoveException e) {
-                    System.out.println("Invalid coordinate. Please choose another position orthogonal to any your other piece.");
-                }
-                catch (VictoryException e){
-                    System.out.println("Victory! "+player1.getUsername()+" has won the game!");
-                    hasMoved = true;
-                    isFinished = true;}
+                        BoardCoordinate newBoardCoordinate = new BoardCoordinate(temp);
+                        Move newMove = new Move(player1, newBoardCoordinate);
+                        game.move(newMove);
+                        counterMoveForPlayer1++;
+                        hasMoved = true;
+                    } catch (IOException e) {
+                        System.err.println("Error while trying to read from System.in. Aborted.");
+                        e.printStackTrace();
+                    } catch (InvalidCoordinateException e) {
+                        System.out.println("Invalid coordinate. Format should be: a literal from a to m, and right after a number from 0 to 12.Try again.");
+                    } catch (PositionAlreadyOccupiedException e) {
+                        System.out.println("Invalid coordinate. This position is already occupied by another piece");
+                    } catch (IllegalMoveException e) {
+                        System.out.println("Invalid coordinate. Please choose another position orthogonal to any your other piece.");
+                    }
+                    catch (VictoryException e){
+                        System.out.println("Victory! "+player1.getUsername()+" has won the game!");
+                        hasMoved = true;
+                        isFinished = true;}
                 }
             }
             hasMoved = false;
@@ -154,27 +154,27 @@ public class ConsoleApplicationRunnerUtils {
 
                         } else {
 
-                        String temp = br.readLine().trim();
-                        BoardCoordinate newBoardCoordinate = new BoardCoordinate(temp);
-                        Move newMove = new Move(player2, newBoardCoordinate);
-                        game.move(newMove);
-                        counterMoveForPlayer2++;
-                        hasMoved = true;
+                            String temp = br.readLine().trim();
+                            BoardCoordinate newBoardCoordinate = new BoardCoordinate(temp);
+                            Move newMove = new Move(player2, newBoardCoordinate);
+                            game.move(newMove);
+                            counterMoveForPlayer2++;
+                            hasMoved = true;
+                        }
+                    } catch (IOException e) {
+                        System.err.println("Error while trying to read from System.in. Aborted.");
+                        e.printStackTrace();
+                    } catch (InvalidCoordinateException e) {
+                        System.out.println("Invalid coordinate. Try again.");
+                    } catch (PositionAlreadyOccupiedException e) {
+                        System.out.println("Invalid coordinate. This position is already occupied by another piece. Try again");
+                    } catch (IllegalMoveException e) {
+                        System.out.println("Invalid coordinate. Please choose another position orthogonal to any your other piece.");
                     }
-                } catch (IOException e) {
-                    System.err.println("Error while trying to read from System.in. Aborted.");
-                    e.printStackTrace();
-                } catch (InvalidCoordinateException e) {
-                    System.out.println("Invalid coordinate. Try again.");
-                } catch (PositionAlreadyOccupiedException e) {
-                    System.out.println("Invalid coordinate. This position is already occupied by another piece. Try again");
-                } catch (IllegalMoveException e) {
-                    System.out.println("Invalid coordinate. Please choose another position orthogonal to any your other piece.");
-                }
-                catch (VictoryException e){
-                    System.out.println("Victory! "+ player2.getUsername() +" has won the game!");
-                    hasMoved = true;
-                    isFinished = true;}
+                    catch (VictoryException e){
+                        System.out.println("Victory! "+ player2.getUsername() +" has won the game!");
+                        hasMoved = true;
+                        isFinished = true;}
                 }
             }
         }
