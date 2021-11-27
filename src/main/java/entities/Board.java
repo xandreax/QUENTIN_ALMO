@@ -54,6 +54,22 @@ public class Board {
         return new BoardShellPrinter(this);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Board) {
+            Board board = (Board) obj;
+            for (int row = 0; row < this.getDIMENSION(); row++){
+                for (int col = 0; col < this.getDIMENSION(); col ++){
+                    if (!board.getMatrix()[row][col].name.equals(this.matrix[row][col].name))
+                        return false;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public List<Move> getMovesHistory() {
         return movesHistory;
     }
