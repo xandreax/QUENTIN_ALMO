@@ -34,12 +34,12 @@ public class BoardShellPrinter {
     private String stamp() {
         String result = "";
         result = result.concat(String.format("%24s%s%s%n", "-".repeat(19), " BLACK LINE ", "-".repeat(18)));
-        for (int r = 0; r < 2*this.board.getDIMENSION() - 1; r++) {
-            String borderString = IntUtils.mapBorderChar(r);
-            if ((r % 2) == 0) {
-                result = result.concat(String.format("%4s%2s", borderString, this.board.getMatrix()[r/2][0].getSymbol()));
-                for (int c = 1; c < this.board.getDIMENSION(); c++) {
-                    result = result.concat(String.format("%4s", " - "+this.board.getMatrix()[r/2][c].getSymbol()));
+        for (int y = 0; y < 2*this.board.getDIMENSION() - 1; y++) {
+            String borderString = IntUtils.mapBorderChar(y);
+            if ((y % 2) == 0) {
+                result = result.concat(String.format("%4s%2s", borderString, this.board.getMatrix()[0][y/2].getSymbol()));
+                for (int x = 1; x < this.board.getDIMENSION(); x++) {
+                    result = result.concat(String.format("%4s", " - "+this.board.getMatrix()[x][y/2].getSymbol()));
                 }
                 result = result.concat(String.format("%2s%n", borderString));
             }

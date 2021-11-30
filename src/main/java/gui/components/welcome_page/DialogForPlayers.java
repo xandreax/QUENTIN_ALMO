@@ -1,6 +1,9 @@
-package gui.components;
+package gui.components.welcome_page;
 
 import entities.Pieces;
+import gui.components.GameFrame;
+import gui.components.GenericButton;
+
 import javax.swing.*;
 import java.awt.*;
 

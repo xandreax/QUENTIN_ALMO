@@ -60,14 +60,14 @@ public class AfterMoveChecker {
         //This loop exits when all nodes in the board have been visited
         while (!allNodesVisited) {
             BoardCoordinate bc = checkEdgesOfBoard(row, col);
-            row = bc.getX();
-            col = bc.getY();
+            row = bc.getRow();
+            col = bc.getColumn();
             //This loop is used to skip nodes that has been already visited
             while (visitedMatrix[row][col] == 1) {
                 col++; //next element of row
                 BoardCoordinate boardCoordinate = checkEdgesOfBoard(row, col);
-                row = boardCoordinate.getX();
-                col = boardCoordinate.getY();
+                row = boardCoordinate.getRow();
+                col = boardCoordinate.getColumn();
             }
             BoardCoordinate coordinate = new BoardCoordinate(row, col);
             //Checks if the current coordinate is empty and has at least 2 adjacent pieces
@@ -102,16 +102,16 @@ public class AfterMoveChecker {
                 if (emptyNode == null){
                     //Territory found
                     board = updateBoard(possibleTerritory);
-                    row = savedCoordinate.getX();
-                    col = savedCoordinate.getY() + 1;
+                    row = savedCoordinate.getRow();
+                    col = savedCoordinate.getColumn() + 1;
                     hasPositionBeenSaved = false;
                     possibleTerritory.clear();
                 }
                 else{
                     //Set the node as visited, go to next position and reset the saved position
-                    visitedMatrix[emptyNode.getX()][emptyNode.getY()] = 1;
-                    row = savedCoordinate.getX();
-                    col = savedCoordinate.getY() + 1;
+                    visitedMatrix[emptyNode.getRow()][emptyNode.getColumn()] = 1;
+                    row = savedCoordinate.getRow();
+                    col = savedCoordinate.getColumn() + 1;
                     hasPositionBeenSaved = false;
                 }
 
@@ -190,7 +190,7 @@ public class AfterMoveChecker {
      */
     private void fillTerritory(LinkedList<BoardCoordinate> territory, Pieces blackOrWhite) {
         for (BoardCoordinate coordinate : territory){
-            board.getMatrix()[coordinate.getX()][coordinate.getY()] = blackOrWhite;
+            board.getMatrix()[coordinate.getRow()][coordinate.getColumn()] = blackOrWhite;
         }
     }
 
@@ -204,8 +204,8 @@ public class AfterMoveChecker {
     private Map<Pieces, Integer> countAdjacentPieces(BoardCoordinate coordinate) throws InvalidCoordinateException {
         Map<Pieces, Integer> piecesIntegerMap = new HashMap<>();
         int countWhite, countBlack;
-        int row = coordinate.getX();
-        int col = coordinate.getY();
+        int row = coordinate.getRow();
+        int col = coordinate.getColumn();
 
         BlackAndWhite bn1 = countBnW(row -1, col);
         BlackAndWhite bn2 = countBnW(row +1, col);
@@ -252,21 +252,21 @@ public class AfterMoveChecker {
      */
     private BoardCoordinate findNextEmptyNode(BoardCoordinate emptyNode, LinkedList<BoardCoordinate> territory) throws InvalidCoordinateException {
         BoardCoordinate nextEmpty = new BoardCoordinate();
-        int row = emptyNode.getX();
-        int col = emptyNode.getY();
+        int row = emptyNode.getRow();
+        int col = emptyNode.getColumn();
         //Checks to the right
         if (isNotEdge(col + 1)) {
             if (board.getMatrix()[row][col + 1].equals(Pieces.NONE) && !territory.contains(new BoardCoordinate(row, col+1))) {
-                nextEmpty.setX(row);
-                nextEmpty.setY(col + 1);
+                nextEmpty.setRow(row);
+                nextEmpty.setColumn(col + 1);
                 return nextEmpty;
             }
         }
         //Checks to the left
         if (isNotEdge(col - 1)) {
             if (board.getMatrix()[row][col - 1].equals(Pieces.NONE) && !territory.contains(new BoardCoordinate(row, col-1))) {
-                nextEmpty.setX(row);
-                nextEmpty.setY(col - 1);
+                nextEmpty.setRow(row);
+                nextEmpty.setColumn(col - 1);
                 return nextEmpty;
             }
         }
@@ -274,16 +274,16 @@ public class AfterMoveChecker {
         //Checks down
         if (isNotEdge(row + 1)) {
             if (board.getMatrix()[row + 1][col].equals(Pieces.NONE) && !territory.contains(new BoardCoordinate(row + 1, col))) {
-                nextEmpty.setX(row + 1);
-                nextEmpty.setY(col);
+                nextEmpty.setRow(row + 1);
+                nextEmpty.setColumn(col);
                 return nextEmpty;
             }
         }
         //Checks up
         if (isNotEdge(row - 1)) {
             if (board.getMatrix()[row - 1][col].equals(Pieces.NONE) && !territory.contains(new BoardCoordinate(row -1, col))) {
-                nextEmpty.setX(row - 1);
-                nextEmpty.setY(col);
+                nextEmpty.setRow(row - 1);
+                nextEmpty.setColumn(col);
                 return nextEmpty;
             }
         }
@@ -308,8 +308,8 @@ public class AfterMoveChecker {
      */
     private boolean hasAtLeastTwoAdjacentPieces(BoardCoordinate coordinate) {
         boolean down, up, right, left;
-        int row = coordinate.getX();
-        int col = coordinate.getY();
+        int row = coordinate.getRow();
+        int col = coordinate.getColumn();
         //First checks the limits of the boards, then if row and col are not edges checks all 4 directions
         if (row == 0 && col == 0){
             down = !board.getMatrix()[row + 1][col].equals(Pieces.NONE);

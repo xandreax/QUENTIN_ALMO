@@ -23,28 +23,28 @@ public class CardinalCoordinates {
      */
 
     public CardinalCoordinates(BoardCoordinate coordinate, int boardDimension) throws InvalidCoordinateException {
-        if(coordinate.getX() != 0){
-            northCell = new BoardCoordinate(coordinate.getX()-1, coordinate.getY());
-            if(coordinate.getY() != 0) {
-                northWestCell = new BoardCoordinate(coordinate.getX() - 1, coordinate.getY() - 1);
-                westCell = new BoardCoordinate(coordinate.getX(), coordinate.getY() - 1);
+        if(coordinate.getRow() != 0){
+            northCell = new BoardCoordinate(coordinate.getRow()-1, coordinate.getColumn());
+            if(coordinate.getColumn() != 0) {
+                northWestCell = new BoardCoordinate(coordinate.getRow() - 1, coordinate.getColumn() - 1);
+                westCell = new BoardCoordinate(coordinate.getRow(), coordinate.getColumn() - 1);
             }
-            if(coordinate.getY() != boardDimension - 1) {
-                northEastCell = new BoardCoordinate(coordinate.getX() - 1, coordinate.getY() + 1);
-                eastCell = new BoardCoordinate(coordinate.getX(), coordinate.getY() + 1);
+            if(coordinate.getColumn() != boardDimension - 1) {
+                northEastCell = new BoardCoordinate(coordinate.getRow() - 1, coordinate.getColumn() + 1);
+                eastCell = new BoardCoordinate(coordinate.getRow(), coordinate.getColumn() + 1);
             }
         }
-        if(coordinate.getX() != boardDimension - 1) {
-            southCell = new BoardCoordinate(coordinate.getX() + 1, coordinate.getY());
-            if (coordinate.getY() != 0) {
-                southWestCell = new BoardCoordinate(coordinate.getX() + 1, coordinate.getY() - 1);
+        if(coordinate.getRow() != boardDimension - 1) {
+            southCell = new BoardCoordinate(coordinate.getRow() + 1, coordinate.getColumn());
+            if (coordinate.getColumn() != 0) {
+                southWestCell = new BoardCoordinate(coordinate.getRow() + 1, coordinate.getColumn() - 1);
                 if(westCell == null)
-                    westCell = new BoardCoordinate(coordinate.getX(), coordinate.getY() - 1);
+                    westCell = new BoardCoordinate(coordinate.getRow(), coordinate.getColumn() - 1);
             }
-            if (coordinate.getY() != boardDimension - 1) {
-                southEastCell = new BoardCoordinate(coordinate.getX() + 1, coordinate.getY() + 1);
+            if (coordinate.getColumn() != boardDimension - 1) {
+                southEastCell = new BoardCoordinate(coordinate.getRow() + 1, coordinate.getColumn() + 1);
                 if(eastCell == null)
-                    eastCell = new BoardCoordinate(coordinate.getX(), coordinate.getY() + 1);
+                    eastCell = new BoardCoordinate(coordinate.getRow(), coordinate.getColumn() + 1);
             }
         }
     }

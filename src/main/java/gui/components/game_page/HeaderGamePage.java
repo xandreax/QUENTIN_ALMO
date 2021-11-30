@@ -1,6 +1,8 @@
-package gui.components;
+package gui.components.game_page;
 
 import entities.Player;
+import gui.components.GameFrame;
+
 import javax.swing.*;
 import java.awt.*;
 

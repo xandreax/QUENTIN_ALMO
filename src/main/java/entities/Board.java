@@ -2,10 +2,8 @@ package entities;
 
 import gui.BoardShellPrinter;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 public class Board {
     //FIELDS
@@ -43,11 +41,11 @@ public class Board {
     }
 
     public Pieces getPieceByCoordinate(BoardCoordinate xy) {
-        return this.getMatrix()[xy.getX()][xy.getY()];
+        return this.getMatrix()[xy.getRow()][xy.getColumn()];
     }
 
     public void setPieceByCoordinate(BoardCoordinate xy, Pieces piece) {
-        this.getMatrix()[xy.getX()][xy.getY()] = piece;
+        this.getMatrix()[xy.getRow()][xy.getColumn()] = piece;
     }
 
     public BoardShellPrinter getPrinter() {

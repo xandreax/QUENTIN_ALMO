@@ -39,7 +39,7 @@ public class BeforeMoveChecker {
      * @throws PositionAlreadyOccupiedException
      */
     private void checkIfPositionIsOccupied() throws PositionAlreadyOccupiedException {
-        if (!board.getMatrix()[move.getCoordinate().getX()][move.getCoordinate().getY()].equals(Pieces.NONE)) {
+        if (!board.getMatrix()[move.getCoordinate().getRow()][move.getCoordinate().getColumn()].equals(Pieces.NONE)) {
             throw new PositionAlreadyOccupiedException("Move not allowed, this position is already occupied by another piece");
         }
     }

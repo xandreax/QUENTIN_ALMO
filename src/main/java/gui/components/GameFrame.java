@@ -2,6 +2,11 @@ package gui.components;
 
 import entities.*;
 import exceptions.*;
+import gui.components.game_page.*;
+import gui.components.welcome_page.DialogForPlayers;
+import gui.components.welcome_page.DiscardButtonActionListener;
+import gui.components.welcome_page.PanelWelcomePage;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -14,17 +19,12 @@ public class GameFrame extends JFrame {
     public static Color BOARD_COLOR = new Color(0, 105, 9);
     protected int screenHeight;
     protected int screenWidth;
-    protected int shorterDimension;
+    protected int side;
     protected boolean isGameOn;
-    protected Board board;
-    protected Player player1;
-    protected Player player2;
     protected int countMovesPlayer1;
     protected int countMovesPlayer2;
     protected Game game;
-    protected HeaderGamePage header;
     protected boolean isPlayer1Turn;
-    protected BoardPanel boardPanel;
 
     //CONSTRUCTORS
     public GameFrame() {
@@ -48,7 +48,7 @@ public class GameFrame extends JFrame {
         //this.getContentPane().setBackground(BACKGROUND_COLOR);
         ImageIcon logo = new ImageIcon("src/main/java/gui/logo.png");
         this.setIconImage(logo.getImage());
-        this.shorterDimension = 9*Math.min(this.getWidth(), this.getHeight())/10;
+        this.side = 9*Math.min(this.getWidth(), this.getHeight())/10;
         this.setLayout(new GridBagLayout());
         this.isGameOn = false;
         this.initWelcomePage();
@@ -56,10 +56,10 @@ public class GameFrame extends JFrame {
             @Override
             public void componentResized(ComponentEvent e) {
                 super.componentResized(e);
-                GameFrame.this.shorterDimension = 7*Math.min(GameFrame.this.getWidth(), GameFrame.this.getHeight())/8;
+                GameFrame.this.side = 7*Math.min(GameFrame.this.getWidth(), GameFrame.this.getHeight())/8;
                 GameFrame.this.getContentPane().removeAll();
                 if (GameFrame.this.isGameOn) {
-                    GameFrame.this.refreshGamePage(GameFrame.this.game, GameFrame.this.header, GameFrame.this.player1, GameFrame.this.player2);
+                    GameFrame.this.refreshGamePage();
                 }
                 else {
                     GameFrame.this.initWelcomePage();
@@ -71,90 +71,26 @@ public class GameFrame extends JFrame {
     }
 
     //METHODS
+    public int getSide() {
+        return side;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
     public boolean isGameOn() {
         return isGameOn;
     }
 
-    public Board getBoard() {
-        return board;
-    }
-
-    public Player getPlayer1() {
-        return player1;
-    }
-
-    public Player getPlayer2() {
-        return player2;
-    }
-
     public void initWelcomePage() {
-        JPanel mainPanel = new JPanel();
-        mainPanel.setPreferredSize(new Dimension(this.shorterDimension, this.shorterDimension));
-        mainPanel.setSize(new Dimension(this.shorterDimension, this.shorterDimension));
-        mainPanel.setOpaque(true);
-        mainPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3, true));
-        mainPanel.setBackground(BOARD_COLOR);
-        mainPanel.setLayout(new GridBagLayout());
+        PanelWelcomePage panelWelcomePage = new PanelWelcomePage(this);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
-        this.getContentPane().add(mainPanel, gbc);
-
-        JLabel top = new JLabel();
-        ImageIcon logo = new ImageIcon("src/main/java/gui/logo_big.png");
-
-        top.setIcon(logo);
-        //top.setIcon(scaleImageIcon(logo, this.mainPanel.getWidth()/4, this.mainPanel.getHeight()/5));
-
-        top.setText("Quentin");
-        top.setFont(new Font("Purisa", Font.BOLD, 34));
-        top.setForeground(Color.WHITE);
-        top.setOpaque(false);
-        top.setHorizontalAlignment(SwingConstants.CENTER);
-        top.setVerticalAlignment(SwingConstants.CENTER);
-        GridBagConstraints gbcTop = new GridBagConstraints();
-        gbcTop.gridx = 0;
-        gbcTop.gridy = 0;
-        gbcTop.gridwidth = 1;
-        gbcTop.gridheight = 1;
-        gbcTop.weightx = 1;
-        gbcTop.weighty = 0.5f;
-        gbcTop.anchor = GridBagConstraints.CENTER;
-        gbcTop.fill = GridBagConstraints.BOTH;
-        mainPanel.add(top, gbcTop);
-
-        JPanel bottom = new JPanel();
-        bottom.setOpaque(false);
-        GridBagConstraints gbcBottom = new GridBagConstraints();
-        gbcBottom.gridx = 0;
-        gbcBottom.gridy = 1;
-        gbcBottom.gridwidth = 1;
-        gbcBottom.gridheight = 1;
-        gbcBottom.weightx = 1;
-        gbcBottom.weighty = 0.5f;
-        gbcBottom.anchor = GridBagConstraints.CENTER;
-        gbcBottom.fill = GridBagConstraints.BOTH;
-        GenericButton buttonStart = new GenericButton("Start game", this);
-        buttonStart.setPreferredSize(new Dimension(mainPanel.getWidth()/2, 50));
-        buttonStart.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                GameFrame.this.initNewGame();
-            }
-        });
-        GridBagConstraints gbcButton = new GridBagConstraints();
-        gbcButton.gridx = 0;
-        gbcButton.gridy = 0;
-        gbcButton.gridwidth = 1;
-        gbcButton.gridheight = 1;
-        gbcButton.weightx = 0;
-        gbcButton.weighty = 0;
-        gbcButton.anchor = GridBagConstraints.CENTER;
-        gbcButton.fill = GridBagConstraints.NONE;
-        bottom.add(buttonStart, gbcButton);
-        mainPanel.add(bottom, gbcBottom);
+        this.getContentPane().add(panelWelcomePage, gbc);
     }
 
     public void initNewGame() {
@@ -175,8 +111,6 @@ public class GameFrame extends JFrame {
                         public void actionPerformed(ActionEvent e) {
                             try {
                                 Player player2 = new Player(dialog2.getTextField().getText(), Pieces.WHITE);
-                                GameFrame.this.player1 = player1;
-                                GameFrame.this.player2 = player2;
                                 GameFrame.this.countMovesPlayer1 = 0;
                                 GameFrame.this.countMovesPlayer2 = 0;
                                 GameFrame.this.startGame(player1, player2);
@@ -200,88 +134,68 @@ public class GameFrame extends JFrame {
 
     public void startGame(Player player1, Player player2) {
         this.game = new Game(player1, player2);
-
-        JPanel panel = new JPanel();
-        panel.setBackground(BOARD_COLOR);
-        panel.setLayout(new GridBagLayout());
-
-        this.header = new HeaderGamePage(this, player1, player2);
-        GridBagConstraints gbcHeader = new GridBagConstraints();
-        gbcHeader.gridx = 0;
-        gbcHeader.gridy = 0;
-        gbcHeader.weightx = 1;
-        gbcHeader.weighty = 0.2;
-        gbcHeader.anchor = GridBagConstraints.PAGE_START;
-        gbcHeader.fill = GridBagConstraints.HORIZONTAL;
-        gbcHeader.insets = new Insets(0, 0, 20, 0);
-        panel.add(this.header, gbcHeader);
-
-        this.boardPanel = new BoardPanel(this, this.game.getBoard(), 9*this.shorterDimension/10);
-        GridBagConstraints gbcBoardPanel = new GridBagConstraints();
-        gbcBoardPanel.gridx = 0;
-        gbcBoardPanel.gridy = 1;
-        gbcBoardPanel.weightx = 1;
-        gbcBoardPanel.weighty = 0.8;
-        gbcBoardPanel.anchor = GridBagConstraints.PAGE_END;
-
         this.getContentPane().removeAll();
-
-        panel.add(this.boardPanel, gbcBoardPanel);
-        this.getContentPane().add(panel);
-
+        PanelGamePage panelGamePage = new PanelGamePage(this);
+        this.getContentPane().add(panelGamePage);
         this.validate();
         this.isGameOn = true;
         this.isPlayer1Turn = true;
-
-        this.header.highlightTurn(getPlayerWithBlackPieces(this.player1, this.player2));
+        PanelGamePage p = (PanelGamePage) this.getContentPane().getComponent(0);
+        p.getHeader().highlightTurn(getPlayerWithBlackPieces(this.getGame().getPlayer1(), this.getGame().getPlayer2()));
     }
 
     public void closeGame() {
         if (this.isGameOn) {
             this.getContentPane().removeAll();
             this.isGameOn = false;
+            this.game = null;
+            this.countMovesPlayer1 = 0;
+            this.countMovesPlayer2 = 0;
+            this.isPlayer1Turn = false;
             this.initWelcomePage();
             this.validate();
         }
     }
 
-    public void renderMove(Move move) {
+    public void renderMove() {
         if (!this.isGameOn) {
             throw new IllegalStateException("There is not a game going on.");
         }
         else {
-            this.boardPanel.updateHoverButtons();
-            this.boardPanel.repaint();
+            PanelGamePage p = (PanelGamePage) this.getContentPane().getComponent(0);
+            p.getBoardPanel().updateHoverButtons();
+            p.getBoardPanel().repaint();
         }
     }
 
     public void handleMove(BoardCoordinate boardCoordinate) {
+        PanelGamePage p = (PanelGamePage) this.getContentPane().getComponent(0);
         Player turnPlayer = null;
         if (this.isPlayer1Turn) {
-            turnPlayer = this.player1;
-            if (! this.game.getAvailableMoves(this.game.getBoard(), this.player1)) {
-                this.toggleNoAvailableMovesDialog(this.player1);
+            turnPlayer = this.getGame().getPlayer1();
+            if (! this.game.getAvailableMoves(this.game.getBoard(), this.getGame().getPlayer1())) {
+                this.toggleNoAvailableMovesDialog(this.getGame().getPlayer1());
                 return;
             }
         }
         else {
-            turnPlayer = this.player2;
-            if (! this.game.getAvailableMoves(this.game.getBoard(), this.player2)) {
-                this.toggleNoAvailableMovesDialog(this.player2);
+            turnPlayer = this.getGame().getPlayer2();
+            if (! this.game.getAvailableMoves(this.game.getBoard(), this.getGame().getPlayer2())) {
+                this.toggleNoAvailableMovesDialog(this.getGame().getPlayer2());
                 return;
             }
         }
         Move newMove = new Move(turnPlayer, boardCoordinate);
         try {
             this.game.move(newMove);
-            this.renderMove(newMove);
+            this.renderMove();
             if (this.isPlayer1Turn) {
                 this.countMovesPlayer1++;
-                this.header.highlightTurn(this.player2);
+                p.getHeader().highlightTurn(this.getGame().getPlayer2());
             }
             else {
                 this.countMovesPlayer2++;
-                this.header.highlightTurn(this.player1);
+                p.getHeader().highlightTurn(this.getGame().getPlayer1());
             }
             this.isPlayer1Turn = !this.isPlayer1Turn;
         }
@@ -300,34 +214,10 @@ public class GameFrame extends JFrame {
         this.controlPieRule();
     }
 
-    private void refreshGamePage(Game game, HeaderGamePage header, Player player1, Player player2) {
+    private void refreshGamePage() {
         if (this.isGameOn) {
-
-            JPanel panel = new JPanel();
-            panel.setBackground(BOARD_COLOR);
-            panel.setLayout(new GridBagLayout());
-
-            GridBagConstraints gbcHeader = new GridBagConstraints();
-            gbcHeader.gridx = 0;
-            gbcHeader.gridy = 0;
-            gbcHeader.weightx = 1;
-            gbcHeader.weighty = 0.2;
-            gbcHeader.anchor = GridBagConstraints.PAGE_START;
-            gbcHeader.fill = GridBagConstraints.HORIZONTAL;
-            gbcHeader.insets = new Insets(0, 0, 20, 0);
-            panel.add(header, gbcHeader);
-
-            this.boardPanel = new BoardPanel(this, game.getBoard(), 9*this.shorterDimension/10);
-            GridBagConstraints gbcBoardPanel = new GridBagConstraints();
-            gbcBoardPanel.gridx = 0;
-            gbcBoardPanel.gridy = 1;
-            gbcBoardPanel.weightx = 1;
-            gbcBoardPanel.weighty = 0.8;
-            gbcBoardPanel.anchor = GridBagConstraints.PAGE_END;
-
-            panel.add(this.boardPanel, gbcBoardPanel);
-            this.getContentPane().add(panel);
-
+            PanelGamePage panelGamePage = new PanelGamePage(this);
+            this.getContentPane().add(panelGamePage);
             this.validate();
             this.isGameOn = true;
         }
@@ -337,75 +227,63 @@ public class GameFrame extends JFrame {
     }
 
     public void doPieRule() {
-        if (this.player1.getPieces() == Pieces.WHITE) {
-            this.player1.setPieces(Pieces.BLACK);
-            this.player2.setPieces(Pieces.WHITE);
+        PanelGamePage p = (PanelGamePage) this.getContentPane().getComponent(0);
+        if (this.getGame().getPlayer1().getPieces() == Pieces.WHITE) {
+            this.getGame().getPlayer1().setPieces(Pieces.BLACK);
+            this.getGame().getPlayer2().setPieces(Pieces.WHITE);
         }
         else {
-            this.player1.setPieces(Pieces.WHITE);
-            this.player2.setPieces(Pieces.BLACK);
-        }
-        for (int i = 0; i < this.game.getBoard().getDIMENSION(); i++) {
-            for (int j = 0; j < this.game.getBoard().getDIMENSION(); j++) {
-                if (this.game.getBoard().getMatrix()[i][j] == Pieces.BLACK) {
-                    this.game.getBoard().getMatrix()[i][j] = Pieces.WHITE;
-                }
-                else if (this.game.getBoard().getMatrix()[i][j] == Pieces.WHITE) {
-                    this.game.getBoard().getMatrix()[i][j] = Pieces.BLACK;
-                }
-                else {
-                    //
-                }
-            }
+            this.getGame().getPlayer1().setPieces(Pieces.WHITE);
+            this.getGame().getPlayer2().setPieces(Pieces.BLACK);
         }
         if (this.isPlayer1Turn) {
             this.countMovesPlayer1++;
-            this.header.highlightTurn(this.player2);
+            p.getHeader().highlightTurn(this.getGame().getPlayer2());
         }
         else {
             this.countMovesPlayer2++;
-            this.header.highlightTurn(this.player1);
+            p.getHeader().highlightTurn(this.getGame().getPlayer1());
         }
         this.isPlayer1Turn = !this.isPlayer1Turn;
-        this.header.swapPieces();
-        this.boardPanel.repaint();
+        p.getHeader().swapPieces();
+        p.getBoardPanel().repaint();
     }
 
     //AUXILIARY METHODS
     private void controlPieRule() {
-        if (this.player1.getPieces() == Pieces.BLACK) {
+        if (this.getGame().getPlayer1().getPieces() == Pieces.BLACK) {
             if (this.countMovesPlayer2 == 0) {
-                this.togglePieRuleDialog(this.player2);
+                this.togglePieRuleDialog(this.getGame().getPlayer2());
             }
         }
         else {
             if (this.countMovesPlayer1 == 0) {
-                this.togglePieRuleDialog(this.player1);
+                this.togglePieRuleDialog(this.getGame().getPlayer1());
             }
         }
     }
 
     private void toggleAlertDialog(String message) {
         AlertDialog alertDialog = new AlertDialog(message, this);
-        alertDialog.setPreferredSize(new Dimension(this.shorterDimension/2, this.shorterDimension/8));
+        alertDialog.setPreferredSize(new Dimension(this.side /2, this.side /8));
         alertDialog.setVisible(true);
     }
 
     private void toggleVictoryDialog(Player player) {
         VictoryDialog victoryDialog = new VictoryDialog(this, player);
-        victoryDialog.setPreferredSize(new Dimension(this.shorterDimension/2, this.shorterDimension/8));
+        victoryDialog.setPreferredSize(new Dimension(this.side /2, this.side /8));
         victoryDialog.setVisible(true);
     }
 
     private void togglePieRuleDialog(Player player) {
         PieRuleDialog pieRuleDialog = new PieRuleDialog(this, player);
-        pieRuleDialog.setPreferredSize(new Dimension(this.shorterDimension/2, this.shorterDimension/8));
+        pieRuleDialog.setPreferredSize(new Dimension(this.side /2, this.side /8));
         pieRuleDialog.setVisible(true);
     }
 
     private void toggleNoAvailableMovesDialog(Player player) {
         NoAvailableMovesDialog noAvailableMovesDialog = new NoAvailableMovesDialog(this, player);
-        noAvailableMovesDialog.setPreferredSize(new Dimension(this.shorterDimension/2, this.shorterDimension/8));
+        noAvailableMovesDialog.setPreferredSize(new Dimension(this.side /2, this.side /8));
         noAvailableMovesDialog.setVisible(true);
     }
 
@@ -413,11 +291,6 @@ public class GameFrame extends JFrame {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         String[] fontFamilies = ge.getAvailableFontFamilyNames();
         for (String s: fontFamilies) System.out.println(s);
-    }
-
-    private static ImageIcon scaleImageIcon(ImageIcon icon, int width, int height) {
-        Image scaledImage = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        return new ImageIcon(scaledImage);
     }
 
     private static Player getPlayerWithBlackPieces(Player player1, Player player2) {
