@@ -6,7 +6,7 @@ public class PositionAlreadyOccupiedException extends Throwable{
 
     //CONSTRUCTORS
     public PositionAlreadyOccupiedException() {
-        this.message = "Generic PositionAlreadyOccupiedException";
+        this.message = "This position is already occupied by another piece";
     }
 
     public PositionAlreadyOccupiedException(String message) {

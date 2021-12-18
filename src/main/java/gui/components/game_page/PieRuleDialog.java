@@ -58,10 +58,10 @@ public class PieRuleDialog extends JDialog {
         gbcTextArea.gridx = 0;
         gbcTextArea.gridy = 0;
         gbcTextArea.gridheight = 1;
-        gbcTextArea.gridwidth = 1;
-        gbcTextArea.weighty = 0.5;
-        gbcTextArea.weightx = 0;
-        gbcTextArea.anchor = GridBagConstraints.PAGE_START;
+        gbcTextArea.gridwidth = 2;
+        gbcTextArea.weighty = 0.25;
+        gbcTextArea.weightx = 0.25;
+        gbcTextArea.anchor = GridBagConstraints.CENTER;
         gbcTextArea.fill = GridBagConstraints.NONE;
         this.getContentPane().add(this.textArea, gbcTextArea);
 
@@ -71,8 +71,10 @@ public class PieRuleDialog extends JDialog {
         gbcButtonYes.gridheight = 1;
         gbcButtonYes.gridwidth = 1;
         gbcButtonYes.weighty = 0.33;
-        gbcButtonYes.weightx = 0;
-        gbcButtonYes.anchor = GridBagConstraints.PAGE_END;
+        gbcButtonYes.weightx = 0.33;
+        gbcButtonYes.anchor = GridBagConstraints.CENTER;
+        gbcButtonYes.ipadx = 10;
+        gbcButtonYes.ipady = 10;
         gbcButtonYes.fill = GridBagConstraints.NONE;
         this.getContentPane().add(this.buttonYes, gbcButtonYes);
 
@@ -81,9 +83,11 @@ public class PieRuleDialog extends JDialog {
         gbcButtonNo.gridy = 1;
         gbcButtonNo.gridheight = 1;
         gbcButtonNo.gridwidth = 1;
-        gbcButtonNo.weighty = 0.66;
-        gbcButtonNo.weightx = 0;
-        gbcButtonNo.anchor = GridBagConstraints.PAGE_END;
+        gbcButtonNo.weighty = 0.33;
+        gbcButtonNo.weightx = 0.33;
+        gbcButtonNo.ipadx = 10;
+        gbcButtonNo.ipady = 10;
+        gbcButtonNo.anchor = GridBagConstraints.CENTER;
         gbcButtonNo.fill = GridBagConstraints.NONE;
         this.getContentPane().add(this.buttonNo, gbcButtonNo);
     }

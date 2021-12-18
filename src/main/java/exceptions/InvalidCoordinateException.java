@@ -6,7 +6,7 @@ public class InvalidCoordinateException extends Throwable {
 
     //CONSTRUCTORS
     public InvalidCoordinateException() {
-        this.message = "Generic InvalidCoordinateException";
+        this.message = "The inserted coordinate is not valid, please use a valid one";
     }
 
     public InvalidCoordinateException(String message) {

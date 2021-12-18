@@ -6,7 +6,7 @@ public class IllegalMoveException extends Throwable{
 
     //CONSTRUCTORS
     public IllegalMoveException() {
-        this.message = "Generic IllegalMoveException";
+        this.message = "This move is not valid, please try again with a valid one";
     }
 
     public IllegalMoveException(String message) {

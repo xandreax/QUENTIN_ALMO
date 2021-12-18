@@ -35,6 +35,7 @@ public class VictoryDialog extends JDialog {
         this.textArea = new JTextArea(player.getUsername() + " HAS WON!!!");
         this.textArea.setFont(gf.getApplicationFont());
         this.textArea.setForeground(Color.RED);
+        this.textArea.setBackground(Color.WHITE);
 
         this.buttonOk = new GenericButton("Ok", gf);
         this.buttonOk.addActionListener(new ActionListener() {
@@ -51,8 +52,8 @@ public class VictoryDialog extends JDialog {
         gbcTextArea.gridheight = 1;
         gbcTextArea.gridwidth = 1;
         gbcTextArea.weighty = 0.5;
-        gbcTextArea.weightx = 0;
-        gbcTextArea.anchor = GridBagConstraints.PAGE_START;
+        gbcTextArea.weightx = 0.5;
+        gbcTextArea.anchor = GridBagConstraints.CENTER;
         gbcTextArea.fill = GridBagConstraints.NONE;
         this.getContentPane().add(this.textArea, gbcTextArea);
 
@@ -62,8 +63,10 @@ public class VictoryDialog extends JDialog {
         gbcButtonOk.gridheight = 1;
         gbcButtonOk.gridwidth = 1;
         gbcButtonOk.weighty = 0.5;
-        gbcButtonOk.weightx = 0;
-        gbcButtonOk.anchor = GridBagConstraints.PAGE_END;
+        gbcButtonOk.weightx = 0.5;
+        gbcButtonOk.ipadx = 10;
+        gbcButtonOk.ipady = 10;
+        gbcButtonOk.anchor = GridBagConstraints.CENTER;
         gbcButtonOk.fill = GridBagConstraints.NONE;
         this.getContentPane().add(this.buttonOk, gbcButtonOk);
     }

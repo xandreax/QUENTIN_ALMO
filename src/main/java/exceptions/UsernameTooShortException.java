@@ -6,7 +6,7 @@ public class UsernameTooShortException extends Throwable{
 
     //CONSTRUCTORS
     public UsernameTooShortException() {
-        this.message = "Generic UsernameTooShortException";
+        this.message = "This username is too short, please use a longer one";
     }
 
     public UsernameTooShortException(String message) {
