@@ -1,12 +1,9 @@
 import entities.*;
 import exceptions.*;
-import logic.AfterMoveChecker;
+import logic.AfterMove.AfterMoveChecker;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Assertions;
 import org.junit.Test;
-import org.junit.jupiter.api.function.Executable;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class TerritoriesTest {
 

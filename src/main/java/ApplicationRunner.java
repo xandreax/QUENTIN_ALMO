@@ -4,17 +4,20 @@ import entities.Player;
 import exceptions.UnsupportedPiecesForPlayerException;
 import exceptions.UsernameTooShortException;
 import gui.BoardShellPrinter;
-import utils.ConsoleApplicationRunnerUtils;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+
+import static utils.consoleApplicationRunnerUtils.ConsoleAskPieces.askForPieces;
+import static utils.consoleApplicationRunnerUtils.ConsoleAskUsernames.askForUsernames;
+import static utils.consoleApplicationRunnerUtils.ConsoleStartGame.startGame;
 
 public class ApplicationRunner {
     //ENTRY POINT
     public static void main(String[] args) {
         System.out.println("---------- LET'S PLAY QUENTIN! ----------");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] usernames = ConsoleApplicationRunnerUtils.askForUsernames(br);
-        Pieces[] pieces = ConsoleApplicationRunnerUtils.askForPieces(br, usernames[0]);
+        String[] usernames = askForUsernames(br);
+        Pieces[] pieces = askForPieces(br, usernames[0]);
         Player player1 = null;
         Player player2 = null;
         try {
@@ -35,6 +38,6 @@ public class ApplicationRunner {
         System.out.println("ID game: "+game.getUuid());
         System.out.println("Begin time: "+game.getBeginTime());
         System.out.println("\nCoordinate input format should be: a literal from a to m, and right after a number from 0 to 12.");
-        ConsoleApplicationRunnerUtils.startGame(br, game, bp, player1, player2);
+        startGame(br, game, bp, player1, player2);
     }
 }

@@ -1,7 +1,7 @@
 package entities;
 
 import exceptions.*;
-import logic.AfterMoveChecker;
+import logic.AfterMove.AfterMoveChecker;
 import logic.BeforeMove.BeforeMoveChecker;
 
 import java.util.Date;
@@ -46,15 +46,11 @@ public class Game {
     }
 
     public void move(Move move) throws PositionAlreadyOccupiedException, IllegalMoveException, VictoryException, InvalidCoordinateException {
-        //controlli sulla mossa...
         BeforeMoveChecker bmc = new BeforeMoveChecker(move, getBoard());
         bmc.checkIfMoveIsPossible();
-        // se va a buon fine: mossa
         getBoard().doMove(move);
-        //controlli-logica post mossa
         AfterMoveChecker amc = new AfterMoveChecker(getBoard(), move.getPlayer());
         board = amc.checkAndUpdateBoardAfterMove();
-        //...
     }
 
     @Override
@@ -83,17 +79,12 @@ public class Game {
                         BeforeMoveChecker bmc = new BeforeMoveChecker(move, board);
                         bmc.checkIfMoveIsPossible();
                         return true;
-                    } catch (InvalidCoordinateException e) {
-                        System.out.println("Invalid coordinate. Format should be: a literal from a to m, and right after a number from 0 to 12.Try again.");
-                    } catch (PositionAlreadyOccupiedException e) {
-                        System.out.println("Invalid coordinate. This position is already occupied by another piece");
-                    } catch (IllegalMoveException e) {
-                        System.out.println("Invalid coordinate. Please choose another position orthogonal to any your other piece.");
+                    } catch (InvalidCoordinateException | PositionAlreadyOccupiedException | IllegalMoveException e) {
+                        //move not allowed
                     }
                 }
             }
         }
-
         return false;
     }
 }

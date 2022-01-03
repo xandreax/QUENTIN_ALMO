@@ -54,6 +54,6 @@ public class BeforeMoveChecker {
     private void checkIfMoveIsLegal() throws IllegalMoveException, InvalidCoordinateException {
         CardinalCoordinates cardinals = new CardinalCoordinates(move.getCoordinate(), board.getDIMENSION());
         if(checkIfExistDiagonalIllegalPiece(cardinals, board, move.getPlayer().getPieces()))
-            throw new IllegalMoveException("Move not allowed, this position doesn't share any other orthogonal piece of your color");
+            throw new IllegalMoveException("Move not allowed, " +move.getCoordinate().getRow()+move.getCoordinate().getColumn()+" this position doesn't share any other orthogonal piece of your color");
     }
 }
