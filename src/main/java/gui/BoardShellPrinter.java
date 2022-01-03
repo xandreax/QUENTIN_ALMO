@@ -1,7 +1,7 @@
 package gui;
 
 import entities.Board;
-import utils.IntUtils;
+import utils.coordinateUtils.IntUtils;
 
 public class BoardShellPrinter {
     //FIELDS

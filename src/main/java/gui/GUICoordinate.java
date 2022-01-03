@@ -2,7 +2,7 @@ package gui;
 
 import entities.Coordinate2D;
 import exceptions.InvalidCoordinateException;
-import utils.IntUtils;
+import utils.coordinateUtils.IntUtils;
 
 public class GUICoordinate implements Coordinate2D {
     //FIELDS
