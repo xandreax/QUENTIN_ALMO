@@ -1,4 +1,4 @@
-package logic;
+package logic.AfterMove;
 
 import entities.Board;
 import entities.BoardCoordinate;
@@ -8,6 +8,8 @@ import exceptions.InvalidCoordinateException;
 import exceptions.VictoryException;
 
 import java.util.*;
+
+import static logic.AfterMove.VictoryCondition.VictoryCondition.checkVictoryCondition;
 
 public class AfterMoveChecker {
     protected Board board;
@@ -33,7 +35,7 @@ public class AfterMoveChecker {
         if (board.getMovesHistory().size() > 2) {
             boardChecked = checkTerritories();
         }
-        checkVictoryCondition();
+        checkVictoryCondition(board, player);
         return boardChecked;
     }
 
