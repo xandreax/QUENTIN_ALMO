@@ -1,4 +1,4 @@
-package logic.afterMove.territoryLogic;
+package logic.aftermove.territories;
 
 import entities.Board;
 import entities.BoardCoordinate;
@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static logic.afterMove.territoryLogic.TerritoriesLogic.isNotEdge;
+import static logic.aftermove.territories.TerritoriesLogic.isNotEdge;
 
 public class CounterColourTerritory {
 

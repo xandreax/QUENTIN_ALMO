@@ -1,4 +1,4 @@
-package logic.beforeMove.illegalMoveLogic;
+package logic.beforemove.illegalmove;
 
 import entities.Board;
 import entities.BoardCoordinate;

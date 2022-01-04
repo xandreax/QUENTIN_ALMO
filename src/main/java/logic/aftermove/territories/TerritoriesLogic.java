@@ -1,4 +1,4 @@
-package logic.afterMove.territoryLogic;
+package logic.aftermove.territories;
 
 import entities.Board;
 import entities.BoardCoordinate;
@@ -8,8 +8,8 @@ import exceptions.InvalidCoordinateException;
 
 import java.util.LinkedList;
 
-import static logic.afterMove.territoryLogic.TerritorySearch.findNextEmptyNode;
-import static logic.afterMove.territoryLogic.TerritorySearch.hasAtLeastTwoAdjacentPieces;
+import static logic.aftermove.territories.TerritorySearch.findNextEmptyNode;
+import static logic.aftermove.territories.TerritorySearch.hasAtLeastTwoAdjacentPieces;
 
 public class TerritoriesLogic {
     /**

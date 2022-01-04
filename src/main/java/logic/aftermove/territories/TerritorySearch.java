@@ -1,4 +1,4 @@
-package logic.afterMove.territoryLogic;
+package logic.aftermove.territories;
 
 import entities.Board;
 import entities.BoardCoordinate;
@@ -7,7 +7,7 @@ import exceptions.InvalidCoordinateException;
 
 import java.util.LinkedList;
 
-import static logic.afterMove.territoryLogic.TerritoriesLogic.isNotEdge;
+import static logic.aftermove.territories.TerritoriesLogic.isNotEdge;
 
 public class TerritorySearch {
 

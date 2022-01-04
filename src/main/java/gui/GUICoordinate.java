@@ -2,7 +2,7 @@ package gui;
 
 import entities.Coordinate2D;
 import exceptions.InvalidCoordinateException;
-import utils.coordinateUtils.IntUtils;
+import utils.coordinate.IntUtils;
 
 /**
  * This class represents a single coordinate defined as a screen pixel.
