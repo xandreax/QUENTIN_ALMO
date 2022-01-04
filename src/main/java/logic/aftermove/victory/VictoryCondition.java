@@ -6,6 +6,7 @@ import entities.Player;
 import exceptions.VictoryException;
 
 import java.util.Arrays;
+import java.util.Map;
 
 public class VictoryCondition {
 
@@ -13,6 +14,8 @@ public class VictoryCondition {
      * This method is used to check if the game has come to a conclusion.
      * If the victory condition is satisfied, an exception will be thrown
      * and the game will end.
+     * If the board is full and no chain exists, then the player with the
+     * major number of pieces will win the game.
      *
      * @param board
      * @param player
@@ -24,7 +27,18 @@ public class VictoryCondition {
         for (int i = 0; i < dimension; i++)
             Arrays.fill(matrixTemp[i], -1);
         if (hasPath(board.getMatrix(), matrixTemp, player.getPieces())) {
-            throw new VictoryException("Victory! " + player.getPieces().getName() + " wins the game");
+            throw new VictoryException(player.getPieces());
+        }
+        int blacks = 0, whites = 0;
+        for(int i = 0; i< board.getDIMENSION()-1; i++) {
+            for(int j = 0; j< board.getDIMENSION()-1; j++) {
+                if (board.getMatrix()[i][j].equals(Pieces.BLACK)) blacks++;
+                else if (board.getMatrix()[i][j].equals(Pieces.WHITE)) whites++;
+            }
+        }
+        if (blacks+whites == board.getDIMENSION()* board.getDIMENSION()){
+            if (blacks > whites) throw new VictoryException(Pieces.BLACK);
+            else throw new VictoryException(Pieces.WHITE);
         }
     }
 

@@ -1,21 +1,14 @@
 package exceptions;
 
+import entities.Pieces;
+
 public class VictoryException extends Throwable{
     //FIELDS
-    protected final String message;
+    protected final Pieces piece;
 
-    //CONSTRUCTORS
-    public VictoryException() {
-        this.message = "Victory!";
+    public VictoryException(Pieces piece) {
+        this.piece = piece;
     }
 
-    public VictoryException(String message) {
-        this.message = message;
-    }
-
-    //METHODS
-    @Override
-    public String getMessage() {
-        return message;
-    }
+    public Pieces getPiece() {return piece;}
 }

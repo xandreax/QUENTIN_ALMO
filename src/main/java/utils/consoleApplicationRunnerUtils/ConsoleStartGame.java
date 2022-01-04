@@ -49,7 +49,10 @@ public class ConsoleStartGame {
                                     counter++;
                                 }
                             } catch (VictoryException e) {
-                                System.out.println("Victory! " + player.getUsername() + " has won the game!");
+                                Player winner;
+                                if (e.getPiece().equals(game.getPlayer1().getPieces())) winner = game.getPlayer1();
+                                else winner = game.getPlayer2();
+                                System.out.println("Victory! " + winner.getUsername() + " has won the game!");
                                 isFinished = true;
                                 break;
                             }

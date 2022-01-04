@@ -40,7 +40,7 @@ public class ConsoleMoveLoop {
             System.out.println("Invalid coordinate. Please choose another position orthogonal to any your other piece.");
             return false;
         } catch (VictoryException e) {
-            throw  new VictoryException();
+            throw new VictoryException(player.getPieces());
         }
     }
 }

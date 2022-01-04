@@ -1,9 +1,12 @@
 package logic.aftermove;
 
 import entities.Board;
+import entities.Pieces;
 import entities.Player;
 import exceptions.InvalidCoordinateException;
 import exceptions.VictoryException;
+
+import java.util.Map;
 
 import static logic.aftermove.territories.TerritoriesLogic.checkTerritories;
 import static logic.aftermove.victory.VictoryCondition.checkVictoryCondition;
