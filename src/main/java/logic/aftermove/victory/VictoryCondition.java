@@ -6,7 +6,6 @@ import entities.Player;
 import exceptions.VictoryException;
 
 import java.util.Arrays;
-import java.util.Map;
 
 public class VictoryCondition {
 

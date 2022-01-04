@@ -6,9 +6,9 @@ import exceptions.UsernameTooShortException;
 import gui.BoardShellPrinter;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import static utils.consoleApplicationRunnerUtils.ConsoleAskPieces.askForPieces;
-import static utils.consoleApplicationRunnerUtils.ConsoleAskUsernames.askForUsernames;
-import static utils.consoleApplicationRunnerUtils.ConsoleStartGame.startGame;
+
+import static utils.ConsoleApplicationRunnerUtils.*;
+
 
 public class ShellApplicationRunner {
     //METHODS

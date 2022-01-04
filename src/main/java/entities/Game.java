@@ -68,11 +68,11 @@ public class Game {
      *
      * @return boolean
      */
-    public boolean getAvailableMoves(Board board, Player player) {
+    public boolean checkIfThereAreAvailableMoves(Board board, Player player) {
         for(int i = 0; i<board.DIMENSION-1; i++)
         {
             for(int j = 0; j<board.DIMENSION-1; j++) {
-                if(board.getMatrix()[i][j].toString().equals("NONE"))
+                if(board.getMatrix()[i][j].equals(Pieces.NONE))
                 {
                     try {
                         Move move = new Move(player, new BoardCoordinate(i, j));

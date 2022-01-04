@@ -175,14 +175,14 @@ public class GameFrame extends JFrame {
         Player turnPlayer = null;
         if (this.isPlayer1Turn) {
             turnPlayer = this.getGame().getPlayer1();
-            if (! this.game.getAvailableMoves(this.game.getBoard(), this.getGame().getPlayer1())) {
+            if (! this.game.checkIfThereAreAvailableMoves(this.game.getBoard(), this.getGame().getPlayer1())) {
                 this.toggleNoAvailableMovesDialog(this.getGame().getPlayer1());
                 return;
             }
         }
         else {
             turnPlayer = this.getGame().getPlayer2();
-            if (! this.game.getAvailableMoves(this.game.getBoard(), this.getGame().getPlayer2())) {
+            if (! this.game.checkIfThereAreAvailableMoves(this.game.getBoard(), this.getGame().getPlayer2())) {
                 this.toggleNoAvailableMovesDialog(this.getGame().getPlayer2());
                 return;
             }
