@@ -27,12 +27,12 @@ public class GUICoordinate implements Coordinate2D {
     //METHODS
     @Override
     public int getRow() {
-        return this.y;
+        return this.x;
     }
 
     @Override
     public int getColumn() {
-        return this.x;
+        return this.y;
     }
 }
 
