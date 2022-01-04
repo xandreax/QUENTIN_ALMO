@@ -68,23 +68,25 @@ public class CounterColourTerritory {
         }
         return new BlackAndWhite(countBlack, countWhite);
     }
+
+    private class BlackAndWhite {
+        private final int nBlack;
+        private final int nWhite;
+
+        public BlackAndWhite(int nBlack, int nWhite) {
+            this.nBlack = nBlack;
+            this.nWhite = nWhite;
+        }
+
+        public int getnBlack() {
+            return nBlack;
+        }
+
+        public int getnWhite() {
+            return nWhite;
+        }
+    }
 }
-final class BlackAndWhite {
-    private final int nBlack;
-    private final int nWhite;
 
-    public BlackAndWhite(int nBlack, int nWhite) {
-        this.nBlack = nBlack;
-        this.nWhite = nWhite;
-    }
-
-    public int getnBlack() {
-        return nBlack;
-    }
-
-    public int getnWhite() {
-        return nWhite;
-    }
-}
 
 
