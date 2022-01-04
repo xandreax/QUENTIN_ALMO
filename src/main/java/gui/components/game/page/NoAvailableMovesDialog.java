@@ -1,9 +1,8 @@
-package gui.components.game_page;
+package gui.components.game.page;
 
 import entities.Player;
 import gui.components.GameFrame;
 import gui.components.GenericButton;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -31,7 +30,7 @@ public class NoAvailableMovesDialog extends JDialog {
         this.setLayout(new GridBagLayout());
 
         this.textArea = new JTextArea(player.getUsername() + " has no available moves.");
-        this.textArea.setFont(gf.getApplicationFont());
+        this.textArea.setFont(gf.getApplicationFont(false));
         this.textArea.setForeground(Color.RED);
 
         this.buttonOk = new GenericButton("Ok", gf);
@@ -66,11 +65,4 @@ public class NoAvailableMovesDialog extends JDialog {
     }
 
     //METHODS
-    public JTextArea getTextArea() {
-        return textArea;
-    }
-
-    public GenericButton getButtonOk() {
-        return buttonOk;
-    }
 }

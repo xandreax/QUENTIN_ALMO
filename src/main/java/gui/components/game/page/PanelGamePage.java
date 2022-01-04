@@ -1,4 +1,4 @@
-package gui.components.game_page;
+package gui.components.game.page;
 
 import gui.components.GameFrame;
 import javax.swing.*;
@@ -50,9 +50,5 @@ public class PanelGamePage extends JPanel {
 
     public BoardPanel getBoardPanel() {
         return boardPanel;
-    }
-
-    public void setBoardPanel(BoardPanel boardPanel) {
-        this.boardPanel = boardPanel;
     }
 }

@@ -1,4 +1,4 @@
-package gui.components.game_page;
+package gui.components.game.page;
 
 import entities.Coordinate2D;
 import entities.Pieces;

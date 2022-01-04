@@ -6,13 +6,12 @@ import exceptions.UsernameTooShortException;
 import gui.BoardShellPrinter;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-
 import static utils.consoleApplicationRunnerUtils.ConsoleAskPieces.askForPieces;
 import static utils.consoleApplicationRunnerUtils.ConsoleAskUsernames.askForUsernames;
 import static utils.consoleApplicationRunnerUtils.ConsoleStartGame.startGame;
 
-public class ApplicationRunner {
-    //ENTRY POINT
+public class ShellApplicationRunner {
+    //METHODS
     public static void main(String[] args) {
         System.out.println("---------- LET'S PLAY QUENTIN! ----------");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

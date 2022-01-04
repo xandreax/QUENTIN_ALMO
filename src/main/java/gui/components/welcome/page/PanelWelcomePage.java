@@ -1,4 +1,4 @@
-package gui.components.welcome_page;
+package gui.components.welcome.page;
 
 import gui.components.GameFrame;
 import gui.components.GenericButton;
@@ -89,10 +89,4 @@ public class PanelWelcomePage extends JPanel {
     }
 
     //METHODS
-
-    //AUXILIARY METHODS
-    private static ImageIcon scaleImageIcon(ImageIcon icon, int width, int height) {
-        Image scaledImage = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        return new ImageIcon(scaledImage);
-    }
 }

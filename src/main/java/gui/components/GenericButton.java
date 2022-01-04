@@ -1,7 +1,6 @@
 package gui.components;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -31,7 +30,7 @@ public class GenericButton extends JButton {
         this.setText(text);
         this.setEnabled(true);
         this.setBackground(BACKGROUND_COLOR);
-        this.setFont(gf.getApplicationFont());
+        this.setFont(gf.getApplicationFont(false));
         this.setForeground(FONT_COLOR);
         this.setFocusPainted(false);
         this.setBorder(BorderFactory.createLineBorder(BORDER_COLOR, THICKNESS, ROUNDNESS));

@@ -2,11 +2,13 @@ package gui.components;
 
 import entities.*;
 import exceptions.*;
-import gui.components.game_page.*;
-import gui.components.welcome_page.DialogForPlayers;
-import gui.components.welcome_page.DiscardButtonActionListener;
-import gui.components.welcome_page.PanelWelcomePage;
-
+import gui.components.game.page.NoAvailableMovesDialog;
+import gui.components.game.page.PanelGamePage;
+import gui.components.game.page.PieRuleDialog;
+import gui.components.game.page.VictoryDialog;
+import gui.components.welcome.page.DialogForPlayers;
+import gui.components.welcome.page.DiscardButtonActionListener;
+import gui.components.welcome.page.PanelWelcomePage;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -287,12 +289,6 @@ public class GameFrame extends JFrame {
         noAvailableMovesDialog.setVisible(true);
     }
 
-    private static void printAllAvailableFonts() {
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        String[] fontFamilies = ge.getAvailableFontFamilyNames();
-        for (String s: fontFamilies) System.out.println(s);
-    }
-
     private static Player getPlayerWithBlackPieces(Player player1, Player player2) {
         if (player1.getPieces() == Pieces.BLACK) {
             return player1;
@@ -305,45 +301,31 @@ public class GameFrame extends JFrame {
         }
     }
 
-    public Font getApplicationFont() {
-        if (this.getHeight() <= 480) {
-            return new Font("Monaco", Font.PLAIN, 8);
-        }
-        else if (this.getHeight() <= 540) {
-            return new Font("Monaco", Font.PLAIN, 10);
-        }
-        else if (this.getHeight() <= 720) {
-            return new Font("Monaco", Font.PLAIN, 13);
-        }
-        else if (this.getHeight() <= 980) {
-            return new Font("Monaco", Font.PLAIN, 17);
-        }
-        else if (this.getHeight() <= 1200) {
-            return new Font("Monaco", Font.PLAIN, 21);
+    public Font getApplicationFont(boolean isBold) {
+        int fontStyle;
+        if (isBold) {
+            fontStyle = Font.BOLD;
         }
         else {
-            return new Font("Monaco", Font.PLAIN, 26);
+            fontStyle = Font.PLAIN;
         }
-    }
-
-    public Font getBoldApplicationFont() {
         if (this.getHeight() <= 480) {
-            return new Font("Monaco", Font.BOLD, 8);
+            return new Font("Monaco", fontStyle, 8);
         }
         else if (this.getHeight() <= 540) {
-            return new Font("Monaco", Font.BOLD, 10);
+            return new Font("Monaco", fontStyle, 10);
         }
         else if (this.getHeight() <= 720) {
-            return new Font("Monaco", Font.BOLD, 13);
+            return new Font("Monaco", fontStyle, 13);
         }
         else if (this.getHeight() <= 980) {
-            return new Font("Monaco", Font.BOLD, 17);
+            return new Font("Monaco", fontStyle, 17);
         }
         else if (this.getHeight() <= 1200) {
-            return new Font("Monaco", Font.BOLD, 21);
+            return new Font("Monaco", fontStyle, 21);
         }
         else {
-            return new Font("Monaco", Font.BOLD, 26);
+            return new Font("Monaco", fontStyle, 26);
         }
     }
 
@@ -364,28 +346,28 @@ public class GameFrame extends JFrame {
             return new Dimension(400, 160);
         }
         else {
-            return new Dimension(450, 180);
+            return new Dimension(500, 180);
         }
     }
 
     public Dimension getAlertDialogDimension() {
         if (this.screenHeight <= 480) {
-            return new Dimension(200, 80);
+            return new Dimension(500, 80);
         }
         else if (this.screenHeight <= 540) {
-            return new Dimension(300, 100);
+            return new Dimension(650, 100);
         }
         else if (this.screenHeight <= 720) {
-            return new Dimension(400, 120);
+            return new Dimension(750, 120);
         }
         else if (this.screenHeight <= 980) {
-            return new Dimension(500, 140);
+            return new Dimension(850, 140);
         }
         else if (this.screenHeight <= 1200) {
-            return new Dimension(600, 160);
+            return new Dimension(1000, 160);
         }
         else {
-            return new Dimension(700, 180);
+            return new Dimension(1200, 180);
         }
     }
 }

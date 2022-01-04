@@ -1,9 +1,8 @@
-package gui.components.game_page;
+package gui.components.game.page;
 
 import entities.Player;
 import gui.components.GameFrame;
 import gui.components.GenericButton;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,7 +24,7 @@ public class PieRuleDialog extends JDialog {
         this.setTitle("Pie Rule");
         this.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setMinimumSize(gf.getAlertDialogDimension());
+        this.setMinimumSize(gf.getDialogDimension());
         this.setSize(gf.getDialogDimension());
         this.setUndecorated(false);
         this.setResizable(true);
@@ -34,7 +33,7 @@ public class PieRuleDialog extends JDialog {
         this.setLayout(new GridBagLayout());
 
         this.textArea = new JTextArea(player.getUsername() + " wanna use Pie Rule?");
-        this.textArea.setFont(gf.getApplicationFont());
+        this.textArea.setFont(gf.getApplicationFont(false));
         this.textArea.setForeground(Color.BLACK);
 
         this.buttonYes = new GenericButton("Yes", gf);

@@ -1,9 +1,8 @@
-package gui.components.welcome_page;
+package gui.components.welcome.page;
 
 import entities.Pieces;
 import gui.components.GameFrame;
 import gui.components.GenericButton;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -29,7 +28,7 @@ public class DialogForPlayers extends JDialog {
         this.setLayout(new GridBagLayout());
 
         this.textField = new JTextField();
-        this.textField.setFont(gf.getApplicationFont());
+        this.textField.setFont(gf.getApplicationFont(false));
         GridBagConstraints gbcTextField = new GridBagConstraints();
         gbcTextField.gridx = 0;
         gbcTextField.gridy = 0;

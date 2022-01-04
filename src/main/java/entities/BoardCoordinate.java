@@ -5,6 +5,10 @@ import utils.coordinateUtils.CharUtils;
 import utils.coordinateUtils.IntUtils;
 import utils.coordinateUtils.StringUtils;
 
+/**
+ * This class represents a single coordinate defined as a line intersection in the context of the table board.
+ *
+ */
 public class BoardCoordinate implements Coordinate2D {
     //FIELDS
     protected int row;

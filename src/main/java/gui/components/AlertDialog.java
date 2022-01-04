@@ -25,7 +25,7 @@ public class AlertDialog extends JDialog {
         this.setLayout(new GridBagLayout());
 
         this.textArea = new JTextArea(text);
-        this.textArea.setFont(gf.getApplicationFont());
+        this.textArea.setFont(gf.getApplicationFont(false));
         this.textArea.setForeground(Color.RED);
 
         this.buttonOk = new GenericButton("Ok", gf);
@@ -60,11 +60,4 @@ public class AlertDialog extends JDialog {
     }
 
     //METHODS
-    public JTextArea getTextArea() {
-        return textArea;
-    }
-
-    public GenericButton getButtonOk() {
-        return buttonOk;
-    }
 }

@@ -1,8 +1,6 @@
-package gui.components.welcome_page;
+package gui.components.welcome.page;
 
 import gui.components.GameFrame;
-import gui.components.welcome_page.DialogForPlayers;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Set;

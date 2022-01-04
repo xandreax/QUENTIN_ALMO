@@ -1,8 +1,7 @@
-package gui.components.game_page;
+package gui.components.game.page;
 
 import entities.Player;
 import gui.components.GameFrame;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -29,11 +28,11 @@ public class HeaderGamePage extends JPanel {
         this.turnText = new JTextArea("..");
         this.player2Text = new JTextArea("["+player2.getPieces().getName().toUpperCase()+"] "+player2.getUsername());
 
-        this.player1Text.setFont(gf.getApplicationFont());
+        this.player1Text.setFont(gf.getApplicationFont(false));
         this.player1Text.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-        this.turnText.setFont(gf.getApplicationFont());
+        this.turnText.setFont(gf.getApplicationFont(false));
         this.turnText.setAlignmentX(JTextArea.CENTER_ALIGNMENT);
-        this.player2Text.setFont(gf.getApplicationFont());
+        this.player2Text.setFont(gf.getApplicationFont(false));
         this.player2Text.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 
         this.add(this.player1Text);
@@ -44,19 +43,19 @@ public class HeaderGamePage extends JPanel {
     //METHODS
     public void highlightTurn(Player player) {
         if (this.player1.equals(player)) {
-            this.player1Text.setFont(this.currentGameFrame.getBoldApplicationFont());
+            this.player1Text.setFont(this.currentGameFrame.getApplicationFont(true));
             this.player1Text.setForeground(Color.RED);
             this.turnText.setText(this.player1.getUsername()+"'s turn");
 
-            this.player2Text.setFont(this.currentGameFrame.getApplicationFont());
+            this.player2Text.setFont(this.currentGameFrame.getApplicationFont(false));
             this.player2Text.setForeground(Color.BLACK);
         }
         else {
-            this.player2Text.setFont(this.currentGameFrame.getBoldApplicationFont());
+            this.player2Text.setFont(this.currentGameFrame.getApplicationFont(true));
             this.player2Text.setForeground(Color.RED);
             this.turnText.setText(this.player2.getUsername()+"'s turn");
 
-            this.player1Text.setFont(this.currentGameFrame.getApplicationFont());
+            this.player1Text.setFont(this.currentGameFrame.getApplicationFont(false));
             this.player1Text.setForeground(Color.BLACK);
         }
     }
@@ -64,29 +63,5 @@ public class HeaderGamePage extends JPanel {
     public void swapPieces() {
         this.player1Text.setText("["+player1.getPieces().getName().toUpperCase()+"] "+player1.getUsername());
         this.player2Text.setText("["+player2.getPieces().getName().toUpperCase()+"] "+player2.getUsername());
-    }
-
-    public JTextArea getPlayer1Text() {
-        return player1Text;
-    }
-
-    public void setPlayer1Text(JTextArea player1Text) {
-        this.player1Text = player1Text;
-    }
-
-    public JTextArea getTurnText() {
-        return turnText;
-    }
-
-    public void setTurnText(JTextArea turnText) {
-        this.turnText = turnText;
-    }
-
-    public JTextArea getPlayer2Text() {
-        return player2Text;
-    }
-
-    public void setPlayer2Text(JTextArea player2Text) {
-        this.player2Text = player2Text;
     }
 }
