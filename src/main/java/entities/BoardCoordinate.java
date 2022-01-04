@@ -1,9 +1,9 @@
 package entities;
 
 import exceptions.InvalidCoordinateException;
-import utils.coordinateUtils.CharUtils;
-import utils.coordinateUtils.IntUtils;
-import utils.coordinateUtils.StringUtils;
+import utils.coordinate.CharUtils;
+import utils.coordinate.IntUtils;
+import utils.coordinate.StringUtils;
 
 public class BoardCoordinate implements Coordinate2D {
     //FIELDS

@@ -1,12 +1,12 @@
-package logic.afterMove;
+package logic.aftermove;
 
 import entities.Board;
 import entities.Player;
 import exceptions.InvalidCoordinateException;
 import exceptions.VictoryException;
 
-import static logic.afterMove.territoryLogic.TerritoriesLogic.checkTerritories;
-import static logic.afterMove.victoryCondition.VictoryCondition.checkVictoryCondition;
+import static logic.aftermove.territories.TerritoriesLogic.checkTerritories;
+import static logic.aftermove.victory.VictoryCondition.checkVictoryCondition;
 
 public class AfterMoveChecker {
     protected Board board;

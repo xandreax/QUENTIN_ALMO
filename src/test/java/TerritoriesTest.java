@@ -1,6 +1,6 @@
 import entities.*;
 import exceptions.*;
-import logic.afterMove.AfterMoveChecker;
+import logic.aftermove.AfterMoveChecker;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Assertions;
 import org.junit.Test;

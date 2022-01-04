@@ -1,4 +1,4 @@
-package utils.coordinateUtils;
+package utils.coordinate;
 
 public class StringUtils {
     //METHODS

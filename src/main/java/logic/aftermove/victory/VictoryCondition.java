@@ -1,4 +1,4 @@
-package logic.afterMove.victoryCondition;
+package logic.aftermove.victory;
 
 import entities.Board;
 import entities.Pieces;

@@ -1,8 +1,8 @@
 package entities;
 
 import exceptions.*;
-import logic.afterMove.AfterMoveChecker;
-import logic.beforeMove.BeforeMoveChecker;
+import logic.aftermove.AfterMoveChecker;
+import logic.beforemove.BeforeMoveChecker;
 
 import java.util.Date;
 import java.util.UUID;
