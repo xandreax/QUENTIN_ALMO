@@ -1,4 +1,4 @@
-package logic.BeforeMove.IllegalMoveLogic;
+package logic.beforeMove.illegalMoveLogic;
 
 import entities.BoardCoordinate;
 import exceptions.InvalidCoordinateException;

@@ -1,4 +1,4 @@
-package logic.AfterMove;
+package logic.afterMove;
 
 import entities.Board;
 import entities.BoardCoordinate;
@@ -9,7 +9,7 @@ import exceptions.VictoryException;
 
 import java.util.*;
 
-import static logic.AfterMove.VictoryCondition.VictoryCondition.checkVictoryCondition;
+import static logic.afterMove.VictoryCondition.VictoryCondition.checkVictoryCondition;
 
 public class AfterMoveChecker {
     protected Board board;

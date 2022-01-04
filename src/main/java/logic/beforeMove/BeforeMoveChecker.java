@@ -1,4 +1,4 @@
-package logic.BeforeMove;
+package logic.beforeMove;
 
 import entities.Board;
 import entities.Move;
@@ -6,9 +6,9 @@ import entities.Pieces;
 import exceptions.IllegalMoveException;
 import exceptions.InvalidCoordinateException;
 import exceptions.PositionAlreadyOccupiedException;
-import logic.BeforeMove.IllegalMoveLogic.CardinalCoordinates;
+import logic.beforeMove.illegalMoveLogic.CardinalCoordinates;
 
-import static logic.BeforeMove.IllegalMoveLogic.IllegalMoveLogic.checkIfExistDiagonalIllegalPiece;
+import static logic.beforeMove.illegalMoveLogic.IllegalMoveLogic.checkIfExistDiagonalIllegalPiece;
 
 public class BeforeMoveChecker {
     protected Move move;
