@@ -29,8 +29,8 @@ public class VictoryCondition {
             throw new VictoryException(player.getPieces());
         }
         int blacks = 0, whites = 0;
-        for(int i = 0; i< board.getDIMENSION()-1; i++) {
-            for(int j = 0; j< board.getDIMENSION()-1; j++) {
+        for(int i = 0; i< board.getDIMENSION(); i++) {
+            for(int j = 0; j< board.getDIMENSION(); j++) {
                 if (board.getMatrix()[i][j].equals(Pieces.BLACK)) blacks++;
                 else if (board.getMatrix()[i][j].equals(Pieces.WHITE)) whites++;
             }
