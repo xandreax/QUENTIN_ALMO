@@ -31,7 +31,7 @@ public class AfterMoveChecker {
         if (board.getMovesHistory().size() > 2) {
             boardChecked = checkTerritories(board, player);
         }
-        checkVictoryCondition(board, player);
+        checkVictoryCondition(boardChecked, player);
         return boardChecked;
     }
 }
