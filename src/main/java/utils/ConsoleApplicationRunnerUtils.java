@@ -90,41 +90,47 @@ public class ConsoleApplicationRunnerUtils {
         boolean isFinished = false;
         int counter = 0;
         Player[] players = new Player[2];
-        players[0] = player1;
-        players[1] = player2;
+        if (player1.getPieces().equals(Pieces.BLACK)) {
+            players[0] = player1;
+            players[1] = player2;
+        } else {
+            players[0] = player2;
+            players[1] = player1;
+        }
         while (!isFinished) {
             bp.printOnStdOut(true);
             for (Player player : players) {
                 if (!isFinished) {
-                    /* If it's player2 first turn: ask the pie rule*/
-                    if (counter <= 1 && player.getPieces().equals(Pieces.WHITE)) {
-                        while (true) {
-                            System.out.println("\nPlayer " + player.getUsername() + ", make use of the Pie rule?(0) or continue(1)?\n");
-                            try {
-                                String temp = br.readLine();
-                                int i = Integer.parseInt(temp);
-                                if (i == 0) {
-                                    Pieces swapPiece1 = game.getPlayer1().getPieces();
-                                    Pieces swapPiece2 = game.getPlayer2().getPieces();
-                                    game.getPlayer1().setPieces(swapPiece2);
-                                    game.getPlayer2().setPieces(swapPiece1);
-                                    counter++;
-                                    break;
-                                } else if (i == 1) {
-                                    break;
-                                } else {
-                                    System.out.println("Invalid number inserted. Please insert 0 for PieRule, 1 for continue.");
-                                }
-                            } catch (NumberFormatException e) {
-                                System.out.println("Invalid number format inserted.");
-                            } catch (IOException e) {
-                                System.err.println("Error while trying to read from System.in. Aborted.");
-                                e.printStackTrace();
-                            }
-                        }
-                    }
                     if (game.checkIfThereAreAvailableMoves(game.getBoard(), player)) {
                         boolean hasMoved = false;
+                        /* If it's player2 first turn: ask the pie rule*/
+                        if (counter <= 1 && player.getPieces().equals(Pieces.WHITE)) {
+                            while (true) {
+                                System.out.println("\nPlayer " + player.getUsername() + ", make use of the Pie rule?(0) or continue(1)?\n");
+                                try {
+                                    String temp = br.readLine();
+                                    int i = Integer.parseInt(temp);
+                                    if (i == 0) {
+                                        Pieces swapPiece1 = game.getPlayer1().getPieces();
+                                        Pieces swapPiece2 = game.getPlayer2().getPieces();
+                                        game.getPlayer1().setPieces(swapPiece2);
+                                        game.getPlayer2().setPieces(swapPiece1);
+                                        counter++;
+                                        hasMoved = true;
+                                        break;
+                                    } else if (i == 1) {
+                                        break;
+                                    } else {
+                                        System.out.println("Invalid number inserted. Please insert 0 for PieRule, 1 for continue.");
+                                    }
+                                } catch (NumberFormatException e) {
+                                    System.out.println("Invalid number format inserted.");
+                                } catch (IOException e) {
+                                    System.err.println("Error while trying to read from System.in. Aborted.");
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
                         while (!hasMoved) {
                             System.out.print("\n" + player.getUsername() + "[" + player.getPieces().getName() + "] has to move. Insert a valid coordinate: ");
                             try {
