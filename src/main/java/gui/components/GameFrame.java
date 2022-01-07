@@ -31,8 +31,6 @@ public class GameFrame extends JFrame {
     //CONSTRUCTORS
     public GameFrame() {
         super();
-        //printAllAvailableFonts();
-        //JFrame setup
         this.setTitle("Quentin");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         double sw = screenSize.getWidth();
@@ -47,7 +45,6 @@ public class GameFrame extends JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(false);
         this.setResizable(true);
-        //this.getContentPane().setBackground(BACKGROUND_COLOR);
         ImageIcon logo = new ImageIcon("src/main/java/gui/logo.png");
         this.setIconImage(logo.getImage());
         this.side = 9*Math.min(this.getWidth(), this.getHeight())/10;
@@ -79,10 +76,6 @@ public class GameFrame extends JFrame {
 
     public Game getGame() {
         return game;
-    }
-
-    public boolean isGameOn() {
-        return isGameOn;
     }
 
     public void initWelcomePage() {
@@ -144,19 +137,6 @@ public class GameFrame extends JFrame {
         this.isPlayer1Turn = true;
         PanelGamePage p = (PanelGamePage) this.getContentPane().getComponent(0);
         p.getHeader().highlightTurn(getPlayerWithBlackPieces(this.getGame().getPlayer1(), this.getGame().getPlayer2()));
-    }
-
-    public void closeGame() {
-        if (this.isGameOn) {
-            this.getContentPane().removeAll();
-            this.isGameOn = false;
-            this.game = null;
-            this.countMovesPlayer1 = 0;
-            this.countMovesPlayer2 = 0;
-            this.isPlayer1Turn = false;
-            this.initWelcomePage();
-            this.validate();
-        }
     }
 
     public void renderMove() {

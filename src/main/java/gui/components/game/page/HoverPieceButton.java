@@ -20,12 +20,10 @@ public class HoverPieceButton extends JButton {
         this.hoverBorder = BorderFactory.createLineBorder(Color.WHITE, THICKNESS, ROUNDNESS);
 
         this.setEnabled(true);
-
         this.setOpaque(false); // Must add
         this.setContentAreaFilled(false);
         this.setBorderPainted(false); // I'd like to enable it.
         this.setBorder(this.hoverBorder);
-
         this.setVisible(true);
 
         this.addMouseListener(new MouseAdapter() {
@@ -47,14 +45,12 @@ public class HoverPieceButton extends JButton {
             @Override
             public void mouseEntered(MouseEvent e) {
                 super.mouseEntered(e);
-                //HoverPieceButton.this.setBorder(HoverPieceButton.this.hoverBorder);
                 HoverPieceButton.this.setBorderPainted(true);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 super.mouseExited(e);
-                //HoverPieceButton.this.setBorder(null);
                 HoverPieceButton.this.setBorderPainted(false);
             }
         });

@@ -23,7 +23,6 @@ public class HeaderGamePage extends JPanel {
         this.currentGameFrame = gf;
         this.player1 = player1;
         this.player2 = player2;
-
         this.player1Text = new JTextArea("["+player1.getPieces().getName().toUpperCase()+"] "+player1.getUsername());
         this.turnText = new JTextArea("..");
         this.player2Text = new JTextArea("["+player2.getPieces().getName().toUpperCase()+"] "+player2.getUsername());

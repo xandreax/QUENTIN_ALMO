@@ -34,7 +34,6 @@ public class PanelWelcomePage extends JPanel {
         ImageIcon logo = new ImageIcon("src/main/java/gui/logo_big.png");
 
         top.setIcon(logo);
-        //top.setIcon(scaleImageIcon(logo, this.mainPanel.getWidth()/4, this.mainPanel.getHeight()/5));
 
         top.setText("Quentin");
         top.setFont(new Font("Purisa", Font.BOLD, 34));

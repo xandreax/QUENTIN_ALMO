@@ -25,7 +25,6 @@ public class BoardPanel extends JLayeredPane {
         super();
         this.currentGameFrame = gameFrame;
         this.side = 9 * gameFrame.getSide() / 10;
-        //this.side = gameFrame.getSide();
         this.setMinimumSize(new Dimension(side, side));
         this.setSize(new Dimension(side, side));
         this.setPreferredSize(new Dimension(side, side));
@@ -33,16 +32,14 @@ public class BoardPanel extends JLayeredPane {
         this.setVisible(true);
         this.setLayout(null);
 
-
         this.boardSide = 9*this.side/10;
         this.cellSide = this.boardSide / 14;      //int of division (ROUNDING). 14 not 12 to have some padding then...
-        this.innerBoardSide = this.cellSide *12;      //dimensionWithoutPadding <= boardSide
+        this.innerBoardSide = this.cellSide *12;
         this.padding = (this.side - this.boardSide) / 2;
         this.innerPadding = (this.boardSide - this.innerBoardSide) / 2;
         this.pieceUnit = (int) (this.cellSide / 1.5);
         this.guiCoordinates = new GUICoordinate[13][13];
 
-        // set guiCoordinates and creates hover buttons
         this.setAndCreateHoverButtons();
     }
 
@@ -59,7 +56,6 @@ public class BoardPanel extends JLayeredPane {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        //Graphics2D g2D = (Graphics2D) g;
 
         g.setColor(Color.WHITE);
         //east
