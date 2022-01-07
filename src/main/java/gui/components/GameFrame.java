@@ -214,7 +214,8 @@ public class GameFrame extends JFrame {
         catch (IllegalMoveException e) {
             this.toggleAlertDialog("Invalid coordinate. Please choose another position orthogonal to any your other piece.");
         }
-        catch (VictoryException e){
+        catch (VictoryException e) {
+            this.renderMove();
             Player winner;
             if (e.getPiece().equals(game.getPlayer1().getPieces())) winner = game.getPlayer1();
             else winner = game.getPlayer2();
