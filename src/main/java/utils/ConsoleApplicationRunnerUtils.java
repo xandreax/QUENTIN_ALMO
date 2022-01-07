@@ -150,6 +150,7 @@ public class ConsoleApplicationRunnerUtils {
                             } catch (IllegalMoveException e) {
                                 System.out.println("Invalid coordinate. Please choose another position orthogonal to any your other piece.");
                             } catch (VictoryException e) {
+                                bp.printOnStdOut(true);
                                 Player winner;
                                 if (e.getPiece().equals(game.getPlayer1().getPieces())) winner = game.getPlayer1();
                                 else winner = game.getPlayer2();
