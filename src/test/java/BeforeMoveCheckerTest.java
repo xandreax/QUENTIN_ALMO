@@ -27,9 +27,9 @@ public class BeforeMoveCheckerTest {
             @Override
             public void execute() throws Throwable {
                 game = new Game(player1, player2);
-                BoardCoordinate coordinates = new BoardCoordinate("d5");
-                Move moveBlack = new Move(player1, coordinates);
-                Move moveWhite = new Move(player2, coordinates);
+                BoardCoordinate coordinate = new BoardCoordinate("d5");
+                Move moveBlack = new Move(player1, coordinate);
+                Move moveWhite = new Move(player2, coordinate);
                 game.move(moveBlack);
                 game.move(moveWhite);
             }
@@ -38,10 +38,10 @@ public class BeforeMoveCheckerTest {
             @Override
             public void execute() throws Throwable {
                 game = new Game(player1, player2);
-                BoardCoordinate coordinates = new BoardCoordinate("d5");
-                BoardCoordinate coordinates2 = new BoardCoordinate("d6");
-                Move moveBlack = new Move(player1, coordinates);
-                Move moveWhite = new Move(player2, coordinates2);
+                BoardCoordinate coordinate1 = new BoardCoordinate("d5");
+                BoardCoordinate coordinate2 = new BoardCoordinate("d6");
+                Move moveBlack = new Move(player1, coordinate1);
+                Move moveWhite = new Move(player2, coordinate2);
                 game.move(moveBlack);
                 game.move(moveWhite);
             }
@@ -50,9 +50,9 @@ public class BeforeMoveCheckerTest {
             @Override
             public void execute() throws Throwable {
                 game = new Game(player1, player2);
-                BoardCoordinate coordinates = new BoardCoordinate("d8");
+                BoardCoordinate coordinate1 = new BoardCoordinate("d8");
                 BoardCoordinate coordinate2 = new BoardCoordinate("c9");
-                Move moveBlack = new Move(player1, coordinates);
+                Move moveBlack = new Move(player1, coordinate1);
                 Move moveBlack2 = new Move(player1, coordinate2);
                 game.move(moveBlack);
                 game.move(moveBlack2);
@@ -62,11 +62,11 @@ public class BeforeMoveCheckerTest {
             @Override
             public void execute() throws Throwable {
                 game = new Game(player1, player2);
-                BoardCoordinate coordinates = new BoardCoordinate("k5");
-                BoardCoordinate coordinates2 = new BoardCoordinate("m4");
+                BoardCoordinate coordinate1 = new BoardCoordinate("k5");
+                BoardCoordinate coordinate2 = new BoardCoordinate("m4");
                 BoardCoordinate coordinate3 = new BoardCoordinate("l4");
-                Move moveBlack = new Move(player1, coordinates);
-                Move moveBlack2 = new Move(player1, coordinates2);
+                Move moveBlack = new Move(player1, coordinate1);
+                Move moveBlack2 = new Move(player1, coordinate2);
                 Move moveBlack3 = new Move(player1, coordinate3);
                 game.move(moveBlack);
                 game.move(moveBlack2);
@@ -77,11 +77,11 @@ public class BeforeMoveCheckerTest {
             @Override
             public void execute() throws Throwable {
                 game = new Game(player1, player2);
-                BoardCoordinate coordinates = new BoardCoordinate("d8");
-                BoardCoordinate coordinates2 = new BoardCoordinate("d9");
+                BoardCoordinate coordinate1 = new BoardCoordinate("d8");
+                BoardCoordinate coordinate2 = new BoardCoordinate("d9");
                 BoardCoordinate coordinate3 = new BoardCoordinate("c9");
-                Move moveBlack = new Move(player1, coordinates);
-                Move moveBlack2 = new Move(player1, coordinates2);
+                Move moveBlack = new Move(player1, coordinate1);
+                Move moveBlack2 = new Move(player1, coordinate2);
                 Move moveBlack3 = new Move(player1, coordinate3);
                 game.move(moveBlack);
                 game.move(moveBlack2);
@@ -92,12 +92,12 @@ public class BeforeMoveCheckerTest {
             @Override
             public void execute() throws Throwable {
                 game = new Game(player1, player2);
-                BoardCoordinate coordinates = new BoardCoordinate("a0");
-                BoardCoordinate coordinates2 = new BoardCoordinate("a12");
+                BoardCoordinate coordinate1 = new BoardCoordinate("a0");
+                BoardCoordinate coordinate2 = new BoardCoordinate("a12");
                 BoardCoordinate coordinate3 = new BoardCoordinate("a6");
                 BoardCoordinate coordinate4 = new BoardCoordinate("c12");
-                Move moveBlack = new Move(player1, coordinates);
-                Move moveBlack2 = new Move(player1, coordinates2);
+                Move moveBlack = new Move(player1, coordinate1);
+                Move moveBlack2 = new Move(player1, coordinate2);
                 Move moveBlack3 = new Move(player1, coordinate3);
                 Move moveBlack4 = new Move(player1, coordinate4);
                 game.move(moveBlack);
