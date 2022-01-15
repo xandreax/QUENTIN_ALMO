@@ -51,7 +51,7 @@ public class Game {
         BeforeMoveChecker bmc = new BeforeMoveChecker(move, getBoard());
         bmc.checkIfMoveIsPossible();
         getBoard().doMove(move);
-        AfterMoveChecker amc = new AfterMoveChecker(getBoard(), move.getPlayer());
+        AfterMoveChecker amc = new AfterMoveChecker(this, move.getPlayer());
         board = amc.checkAndUpdateBoardAfterMove();
     }
 
@@ -104,12 +104,12 @@ public class Game {
      * @throws InvalidCoordinateException
      */
 
-    public Board checkTerritories(Board board, Player player) throws InvalidCoordinateException {
+    public Board checkTerritories(Player player) throws InvalidCoordinateException {
         boolean allNodesVisited = false;
         //List that resets every time that finds a new territory
         LinkedList<BoardCoordinate> possibleTerritory = new LinkedList<>();
         int[][] visitedMatrix = new int[board.getDIMENSION()][board.getDIMENSION()];
-        Pieces[][] matrixPieces = board.getMatrix();
+        BoardCoordinate savedCoordinate = new BoardCoordinate();
         int row = 0, col = 0;
         boolean hasPositionBeenSaved = false;
         //This loop exits when all nodes in the board have been visited
@@ -120,39 +120,18 @@ public class Game {
             //This loop is used to skip nodes that has been already visited
             while (visitedMatrix[row][col] == 1) {
                 col++; //next element of row
-                BoardCoordinate boardCoordinate = board.checkEdgesOfBoard(row, col);
-                row = boardCoordinate.getRow();
-                col = boardCoordinate.getColumn();
+                bc = board.checkEdgesOfBoard(row, col);
+                row = bc.getRow();
+                col = bc.getColumn();
             }
             BoardCoordinate coordinate = new BoardCoordinate(row, col);
             //Checks if the current coordinate is empty and has at least 2 adjacent pieces
-            if (matrixPieces[row][col].equals(Pieces.NONE) && coordinate.hasAtLeastTwoAdjacentPieces(board)) {
+            if (board.getMatrix()[row][col].equals(Pieces.NONE) && coordinate.hasAtLeastTwoAdjacentPieces(board)) {
                 possibleTerritory.add(coordinate);
                 visitedMatrix[row][col] = 1;
-                BoardCoordinate savedCoordinate = new BoardCoordinate();
-                //Save the position for the first node found
-                if (!hasPositionBeenSaved) {
-                    savedCoordinate = new BoardCoordinate(row, col);
-                    hasPositionBeenSaved = true;
-                }
+                savedCoordinate = getSavedCoordinate(row, col, hasPositionBeenSaved, savedCoordinate);
                 BoardCoordinate emptyNode = findNextEmptyNode(possibleTerritory.getLast(), possibleTerritory, board);
-                //This loop is used to find the next empty node
-                while (emptyNode != null){
-                    if(emptyNode.hasAtLeastTwoAdjacentPieces(board)){
-                        possibleTerritory.add(emptyNode); //Add the node to the list
-                        emptyNode = findNextEmptyNode(emptyNode, possibleTerritory, board);
-                        if (emptyNode == null){
-                            //If the region is closed start again from the saved position
-                            emptyNode = findNextEmptyNode(savedCoordinate, possibleTerritory, board);
-                        }
-                    }
-                    else{
-                        //clear the list since it was not a territory
-                        possibleTerritory.clear();
-                        hasPositionBeenSaved = false;
-                        break;
-                    }
-                }
+                emptyNode = findNextEmptyNodeDoLoop(possibleTerritory, savedCoordinate, emptyNode);
 
                 if (emptyNode == null){
                     //Territory found
@@ -170,7 +149,6 @@ public class Game {
                     col = savedCoordinate.getColumn() + 1;
                     hasPositionBeenSaved = false;
                 }
-
             }
             //Go to next node
             else {
@@ -180,7 +158,36 @@ public class Game {
             //checks if all nodes has been visited
             allNodesVisited = hasAllNodesBeenVisited(visitedMatrix);
         }
-        return  board;
+        return board;
+    }
+
+    private BoardCoordinate getSavedCoordinate(int row, int col, boolean hasPositionBeenSaved, BoardCoordinate savedCoordinate) throws InvalidCoordinateException {
+        //Save the position for the first node found
+        if (!hasPositionBeenSaved) {
+            savedCoordinate = new BoardCoordinate(row, col);
+            hasPositionBeenSaved = true;
+        }
+        return savedCoordinate;
+    }
+
+    private BoardCoordinate findNextEmptyNodeDoLoop(LinkedList<BoardCoordinate> possibleTerritory, BoardCoordinate savedCoordinate, BoardCoordinate emptyNode) throws InvalidCoordinateException {
+        //This loop is used to find the next empty node
+        while (emptyNode != null){
+            if(emptyNode.hasAtLeastTwoAdjacentPieces(board)){
+                possibleTerritory.add(emptyNode); //Add the node to the list
+                emptyNode = findNextEmptyNode(emptyNode, possibleTerritory, board);
+                if (emptyNode == null){
+                    //If the region is closed start again from the saved position
+                    emptyNode = findNextEmptyNode(savedCoordinate, possibleTerritory, board);
+                }
+            }
+            else{
+                //clear the list since it was not a territory
+                possibleTerritory.clear();
+                break;
+            }
+        }
+        return emptyNode;
     }
 
     /**
@@ -206,15 +213,15 @@ public class Game {
     /**
      * This method finds the next node which is not occupied by any piece
      *
-     * @param emptyNode : the last empty node found
+     * @param lastEmptyNode : the last empty node found
      * @param territory : the current possible territory
      * @return the first empty board coordinate found adjacent to the last empty node, null if none are found
      * @throws InvalidCoordinateException
      */
-    private BoardCoordinate findNextEmptyNode(BoardCoordinate emptyNode, LinkedList<BoardCoordinate> territory, Board board) throws InvalidCoordinateException {
+    private BoardCoordinate findNextEmptyNode(BoardCoordinate lastEmptyNode, LinkedList<BoardCoordinate> territory, Board board) throws InvalidCoordinateException {
         BoardCoordinate nextEmpty = new BoardCoordinate();
-        int row = emptyNode.getRow();
-        int col = emptyNode.getColumn();
+        int row = lastEmptyNode.getRow();
+        int col = lastEmptyNode.getColumn();
         //Checks to the right
         if (board.isNotEdge(col + 1)) {
             if (board.getMatrix()[row][col + 1].equals(Pieces.NONE) && !territory.contains(new BoardCoordinate(row, col+1))) {

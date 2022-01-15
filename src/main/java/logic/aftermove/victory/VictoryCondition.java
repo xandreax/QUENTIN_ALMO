@@ -9,6 +9,8 @@ import java.util.Arrays;
 
 public class VictoryCondition {
 
+    public VictoryCondition(){}
+
     /**
      * This method is used to check if the game has come to a conclusion.
      * If the victory condition is satisfied, an exception will be thrown
@@ -20,7 +22,7 @@ public class VictoryCondition {
      * @param player
      * @throws VictoryException
      */
-    public static void checkVictoryCondition(Board board, Player player) throws VictoryException{
+    public void checkVictoryCondition(Board board, Player player) throws VictoryException{
         int dimension = board.getDIMENSION();
         int[][] matrixTemp = new int[dimension][dimension];
         for (int i = 0; i < dimension; i++)
@@ -49,7 +51,7 @@ public class VictoryCondition {
      * @param playerColor
      * @return true if the matrix has a path from side to side, false otherwise
      */
-    private static boolean hasPath(Pieces[][] matrix, int[][] matrixTemp, Pieces playerColor) {
+    private boolean hasPath(Pieces[][] matrix, int[][] matrixTemp, Pieces playerColor) {
         if (playerColor.equals(Pieces.WHITE)) {
             for (int i = 0; i < matrix.length; i++) {
                 if (hasPathHelper(matrix, matrixTemp, i, 0, playerColor))
@@ -78,7 +80,7 @@ public class VictoryCondition {
      * @param playerColor
      * @return true if the matrix has a path of pieces from side to side, false otherwise
      */
-    private static boolean hasPathHelper(Pieces[][] matrix, int[][] matrixTemp, int i, int j, Pieces playerColor) {
+    private boolean hasPathHelper(Pieces[][] matrix, int[][] matrixTemp, int i, int j, Pieces playerColor) {
         if (i < 0 || j < 0 || i >= matrix.length || j >= matrix[0].length || matrixTemp[i][j] >= 0)
             return false;
         matrixTemp[i][j] = 0;

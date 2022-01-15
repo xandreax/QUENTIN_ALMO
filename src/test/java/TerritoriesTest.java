@@ -38,7 +38,7 @@ public class TerritoriesTest {
         game.move(new Move(player1, c5));
         game.move(new Move(player2, c6));
         game.move(new Move(player1, c7));
-        AfterMoveChecker afterMoveChecker = new AfterMoveChecker(game.getBoard(), player1);
+        AfterMoveChecker afterMoveChecker = new AfterMoveChecker(game, player1);
         updatedBoard = afterMoveChecker.checkAndUpdateBoardAfterMove();
 
         myBoard.setPieceByCoordinate(new BoardCoordinate("a3"), Pieces.BLACK);
@@ -65,7 +65,7 @@ public class TerritoriesTest {
         game2.move(new Move(player3, c1));
         game2.move(new Move(player4, c2));
         game2.move(new Move(player3, c3));
-        AfterMoveChecker afterMoveChecker = new AfterMoveChecker(game2.getBoard(), player3);
+        AfterMoveChecker afterMoveChecker = new AfterMoveChecker(game2, player3);
         updatedBoard2 = afterMoveChecker.checkAndUpdateBoardAfterMove();
 
         myBoard2.setPieceByCoordinate(new BoardCoordinate("a1"), Pieces.BLACK);

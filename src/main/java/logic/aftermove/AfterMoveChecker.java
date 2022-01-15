@@ -5,21 +5,15 @@ import entities.Game;
 import entities.Player;
 import exceptions.InvalidCoordinateException;
 import exceptions.VictoryException;
-
-import static logic.aftermove.victory.VictoryCondition.checkVictoryCondition;
+import logic.aftermove.victory.VictoryCondition;
 
 public class AfterMoveChecker {
-    private Board board;
-    private Player player;
-    private Game game;
+    private final Player player;
+    private final Game game;
 
-    public AfterMoveChecker(Board board, Player player) {
-        this.board = board;
-        this.player = player;
-    }
-
-    public AfterMoveChecker(Game game){
+    public AfterMoveChecker(Game game, Player player) {
         this.game = game;
+        this.player = player;
     }
 
     /**
@@ -31,12 +25,13 @@ public class AfterMoveChecker {
      * @throws InvalidCoordinateException
      */
     public Board checkAndUpdateBoardAfterMove() throws VictoryException, InvalidCoordinateException {
-        Board boardChecked = board;
+        Board board = game.getBoard();
+        VictoryCondition victoryCondition = new VictoryCondition();
         //If there have been at least 3 moves it makes sense to check the territories
         if (board.getMovesHistory().size() > 2) {
-            boardChecked = game.checkTerritories(board, player);
+            board = game.checkTerritories(player);
         }
-        checkVictoryCondition(boardChecked, player);
-        return boardChecked;
+        victoryCondition.checkVictoryCondition(board, player);
+        return board;
     }
 }

@@ -3,6 +3,7 @@ package logic.beforemove;
 import entities.Board;
 import entities.Move;
 import entities.Pieces;
+import entities.Player;
 import exceptions.IllegalMoveException;
 import exceptions.InvalidCoordinateException;
 import exceptions.PositionAlreadyOccupiedException;
@@ -11,8 +12,8 @@ import logic.beforemove.illegalmove.CardinalCoordinates;
 import static logic.beforemove.illegalmove.IllegalMoveLogic.checkIfExistDiagonalIllegalPiece;
 
 public class BeforeMoveChecker {
-    protected Move move;
-    protected Board board;
+    private final Move move;
+    private final Board board;
 
     public BeforeMoveChecker(Move move, Board board) {
         this.move = move;
@@ -39,7 +40,7 @@ public class BeforeMoveChecker {
      * @throws PositionAlreadyOccupiedException
      */
     private void checkIfPositionIsOccupied() throws PositionAlreadyOccupiedException {
-        if (!board.getMatrix()[move.getCoordinate().getRow()][move.getCoordinate().getColumn()].equals(Pieces.NONE)) {
+        if (!board.getPieceByCoordinate(move.getCoordinate()).equals(Pieces.NONE)) {
             throw new PositionAlreadyOccupiedException("Move not allowed, this position is already occupied by another piece");
         }
     }
@@ -53,7 +54,8 @@ public class BeforeMoveChecker {
      */
     private void checkIfMoveIsLegal() throws IllegalMoveException, InvalidCoordinateException {
         CardinalCoordinates cardinals = new CardinalCoordinates(move.getCoordinate(), board.getDIMENSION());
-        if(checkIfExistDiagonalIllegalPiece(cardinals, board, move.getPlayer().getPieces()))
+        Player player = move.getPlayer();
+        if(checkIfExistDiagonalIllegalPiece(cardinals, board, player.getPieces()))
             throw new IllegalMoveException("Move not allowed, " +move.getCoordinate().getRow()+move.getCoordinate().getColumn()+" this position doesn't share any other orthogonal piece of your color");
     }
 }
