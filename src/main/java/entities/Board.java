@@ -1,6 +1,8 @@
 package entities;
 
+import exceptions.InvalidCoordinateException;
 import gui.BoardShellPrinter;
+import logic.aftermove.territories.UpdaterBoard;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -68,7 +70,38 @@ public class Board {
         }
     }
 
+    /**
+     * Checks if the index is in the board range
+     *
+     * @param index
+     * @return true if the index is in range of the board dimension, false otherwise
+     */
+    public boolean isNotEdge(int index) {
+        return (index >= 0 && index < DIMENSION);
+    }
+
+    /**
+     * This method checks if the coordinates are in range of the board dimension
+     *
+     * @param row
+     * @param col
+     * @return the coordinate in the right range if the indexes are out of bounds, the old coordinates otherwise
+     * @throws InvalidCoordinateException
+     */
+    public BoardCoordinate checkEdgesOfBoard(int row, int col) throws InvalidCoordinateException {
+        if (col >= DIMENSION) {
+            row++;
+            col = 0;
+            if (row >= DIMENSION){
+                row = 0;
+            }
+        }
+        return new BoardCoordinate(row, col);
+    }
+
     public List<Move> getMovesHistory() {
         return movesHistory;
     }
+
+
 }

@@ -11,8 +11,8 @@ import utils.coordinate.StringUtils;
  */
 public class BoardCoordinate implements Coordinate2D {
     //FIELDS
-    protected int row;
-    protected int column;
+    private int row;
+    private int column;
 
     //CONSTRUCTORS
     public BoardCoordinate() {
@@ -132,5 +132,67 @@ public class BoardCoordinate implements Coordinate2D {
         else {
             return false;
         }
+    }
+
+
+    /**
+     * This method checks if a coordinate has at least two adjacent pieces
+     *
+     * @param board
+     * @return true if the coordinate has at least two adjacent pieces, false otherwise
+     */
+    public boolean hasAtLeastTwoAdjacentPieces(Board board) {
+        boolean down, up, right, left;
+        //First checks the limits of the board, then if row and column are not edges checks all 4 directions
+        if (row == 0 && column == 0){
+            down = !board.getMatrix()[row + 1][column].equals(Pieces.NONE);
+            right = !board.getMatrix()[row][column + 1].equals(Pieces.NONE);
+            return down && right;
+        }
+        if (row == board.getDIMENSION()-1 && column == 0){
+            up = !board.getMatrix()[row - 1][column].equals(Pieces.NONE);
+            right = !board.getMatrix()[row][column + 1].equals(Pieces.NONE);
+            return up && right;
+        }
+        if (column == board.getDIMENSION()-1 && row == 0){
+            down = !board.getMatrix()[row + 1][column].equals(Pieces.NONE);
+            left = !board.getMatrix()[row][column - 1].equals(Pieces.NONE);
+            return left && down;
+        }
+        if (row == board.getDIMENSION()-1 && column == board.getDIMENSION() -1){
+            up = !board.getMatrix()[row - 1][column].equals(Pieces.NONE);
+            left = !board.getMatrix()[row][column - 1].equals(Pieces.NONE);
+            return up && left;
+        }
+        if (row == board.getDIMENSION() - 1) {
+            up = !board.getMatrix()[row - 1][column].equals(Pieces.NONE);
+            right = !board.getMatrix()[row][column + 1].equals(Pieces.NONE);
+            left = !board.getMatrix()[row][column - 1].equals(Pieces.NONE);
+            return (up && right) || (up && left) || (right && left);
+        }
+        if (row == 0) {
+            down = !board.getMatrix()[row + 1][column].equals(Pieces.NONE);
+            right = !board.getMatrix()[row][column + 1].equals(Pieces.NONE);
+            left = !board.getMatrix()[row][column - 1].equals(Pieces.NONE);
+            return (down && right) || (down && left) || (right && left);
+        }
+        if (column == 0) {
+            down = !board.getMatrix()[row + 1][column].equals(Pieces.NONE);
+            up = !board.getMatrix()[row - 1][column].equals(Pieces.NONE);
+            right = !board.getMatrix()[row][column + 1].equals(Pieces.NONE);
+            return (down && up) || (down && right) || (right && up);
+        }
+        if (column == board.getDIMENSION() - 1) {
+            down = !board.getMatrix()[row + 1][column].equals(Pieces.NONE);
+            up = !board.getMatrix()[row - 1][column].equals(Pieces.NONE);
+            left = !board.getMatrix()[row][column - 1].equals(Pieces.NONE);
+            return (down && up) || (down && left) || (left && up);
+        }
+
+        down = !board.getMatrix()[row + 1][column].equals(Pieces.NONE);
+        up = !board.getMatrix()[row - 1][column].equals(Pieces.NONE);
+        right = !board.getMatrix()[row][column + 1].equals(Pieces.NONE);
+        left = !board.getMatrix()[row][column - 1].equals(Pieces.NONE);
+        return (down && up) || (down && right) || (down && left) || (up && right) || (left && up) || (left && right);
     }
 }

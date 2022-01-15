@@ -10,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static logic.aftermove.territories.TerritoriesLogic.isNotEdge;
-
 public class CounterColourTerritory {
 
     private List<BoardCoordinate> countedPieces = new ArrayList<>();
@@ -55,7 +53,7 @@ public class CounterColourTerritory {
      */
     private BlackAndWhite countBnW(int row, int col) throws InvalidCoordinateException {
         int countWhite = 0, countBlack = 0;
-        if (isNotEdge(row, board.getDIMENSION()) && isNotEdge(col, board.getDIMENSION())){
+        if (board.isNotEdge(row) && board.isNotEdge(col)){
             BoardCoordinate coordinate = new BoardCoordinate(row,col);
             if (board.getMatrix()[row][col].equals(Pieces.WHITE) && !countedPieces.contains(coordinate)){
                 countWhite++;

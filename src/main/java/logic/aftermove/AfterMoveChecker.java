@@ -1,20 +1,25 @@
 package logic.aftermove;
 
 import entities.Board;
+import entities.Game;
 import entities.Player;
 import exceptions.InvalidCoordinateException;
 import exceptions.VictoryException;
 
-import static logic.aftermove.territories.TerritoriesLogic.checkTerritories;
 import static logic.aftermove.victory.VictoryCondition.checkVictoryCondition;
 
 public class AfterMoveChecker {
-    protected Board board;
-    protected Player player;
+    private Board board;
+    private Player player;
+    private Game game;
 
     public AfterMoveChecker(Board board, Player player) {
         this.board = board;
         this.player = player;
+    }
+
+    public AfterMoveChecker(Game game){
+        this.game = game;
     }
 
     /**
@@ -29,7 +34,7 @@ public class AfterMoveChecker {
         Board boardChecked = board;
         //If there have been at least 3 moves it makes sense to check the territories
         if (board.getMovesHistory().size() > 2) {
-            boardChecked = checkTerritories(board, player);
+            boardChecked = game.checkTerritories(board, player);
         }
         checkVictoryCondition(boardChecked, player);
         return boardChecked;

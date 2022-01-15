@@ -1,6 +1,10 @@
 package entities;
 
+import exceptions.InvalidCoordinateException;
+import logic.aftermove.territories.UpdaterBoard;
+
 import java.util.Date;
+import java.util.LinkedList;
 
 public class Move {
     //FIELDS
