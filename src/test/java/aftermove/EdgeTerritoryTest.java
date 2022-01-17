@@ -31,7 +31,7 @@ public class EdgeTerritoryTest {
         AfterMoveChecker afterMoveChecker = new AfterMoveChecker(game, player1);
         updatedBoard = afterMoveChecker.checkAndUpdateBoardAfterMove();
 
-        coordinateBlackList.add("a0");
+        coordinateBlackList = Arrays.asList("a1", "b1", "a0");
         setPiecesOnBoard(coordinateWhiteList, Pieces.WHITE);
         setPiecesOnBoard(coordinateBlackList, Pieces.BLACK);
     }

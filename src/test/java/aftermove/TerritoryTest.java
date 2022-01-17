@@ -32,8 +32,7 @@ public class TerritoryTest {
         AfterMoveChecker afterMoveChecker = new AfterMoveChecker(game, player1);
         updatedBoard = afterMoveChecker.checkAndUpdateBoardAfterMove();
 
-        coordinateBlackList.add("a4");
-        coordinateBlackList.add("b4");
+        coordinateBlackList = Arrays.asList("a3", "b3", "c3", "c4", "a4", "b4");
         setPiecesOnBoard(coordinateWhiteList, Pieces.WHITE);
         setPiecesOnBoard(coordinateBlackList, Pieces.BLACK);
     }
