@@ -55,11 +55,11 @@ public class CounterColourTerritory {
         int countWhite = 0, countBlack = 0;
         if (board.isNotEdge(row) && board.isNotEdge(col)){
             BoardCoordinate coordinate = new BoardCoordinate(row,col);
-            if (board.getMatrix()[row][col].equals(Pieces.WHITE) && !countedPieces.contains(coordinate)){
+            if (board.getPieceByCoordinate(coordinate).equals(Pieces.WHITE) && !countedPieces.contains(coordinate)){
                 countWhite++;
                 countedPieces.add(coordinate);
             }
-            else if (board.getMatrix()[row][col].equals(Pieces.BLACK) && !countedPieces.contains(coordinate)) {
+            else if (board.getPieceByCoordinate(coordinate).equals(Pieces.BLACK) && !countedPieces.contains(coordinate)) {
                 countBlack++;
                 countedPieces.add(coordinate);
             }

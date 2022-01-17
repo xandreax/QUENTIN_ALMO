@@ -1,5 +1,6 @@
 package gui.components.game.page;
 
+import entities.Board;
 import entities.Coordinate2D;
 import entities.Pieces;
 import exceptions.InvalidCoordinateException;
@@ -20,21 +21,21 @@ public class BoardPanel extends JLayeredPane {
     public static final int SIX = 6;
     public static final int NINE = 9;
     //FIELDS
-    protected GameFrame currentGameFrame;
-    protected int side;
-    protected int boardSide;
-    protected int padding;
-    protected int innerBoardSide;
-    protected int innerPadding;
-    protected int cellSide;
-    protected int pieceUnit;
-    protected GUICoordinate[][] guiCoordinates;
+    private final GameFrame currentGameFrame;
+    private final Board board;
+    private final int boardSide;
+    private final int padding;
+    private final int innerBoardSide;
+    private final int innerPadding;
+    private final int cellSide;
+    private final int pieceUnit;
+    private final GUICoordinate[][] guiCoordinates;
 
     //CONSTRUCTORS
-    public BoardPanel(GameFrame gameFrame) {
+    public BoardPanel(GameFrame gameFrame, Board board) {
         super();
         this.currentGameFrame = gameFrame;
-        this.side = RATIO_NUM * gameFrame.getSide() / RATIO_DEN;
+        int side = RATIO_NUM * gameFrame.getSide() / RATIO_DEN;
         this.setMinimumSize(new Dimension(side, side));
         this.setSize(new Dimension(side, side));
         this.setPreferredSize(new Dimension(side, side));
@@ -42,21 +43,16 @@ public class BoardPanel extends JLayeredPane {
         this.setVisible(true);
         this.setLayout(null);
 
-        this.boardSide = RATIO_NUM*this.side/RATIO_DEN;
+        this.boardSide = RATIO_NUM* side /RATIO_DEN;
         this.cellSide = this.boardSide / PAD_1;      //int of division (ROUNDING). 14 not 12 to have some padding then...
         this.innerBoardSide = this.cellSide * PAD_2;
-        this.padding = (this.side - this.boardSide) / TWO;
+        this.padding = (side - this.boardSide) / TWO;
         this.innerPadding = (this.boardSide - this.innerBoardSide) / TWO;
         this.pieceUnit = (int) (this.cellSide / PIECE_UNIT_DENOM);
         this.guiCoordinates = new GUICoordinate[DIMENSION][DIMENSION];
+        this.board = board;
 
         this.setAndCreateHoverButtons();
-    }
-
-    //METHODS
-
-    public GameFrame getCurrentGameFrame() {
-        return currentGameFrame;
     }
 
     public GUICoordinate[][] getGuiCoordinates() {
@@ -93,7 +89,7 @@ public class BoardPanel extends JLayeredPane {
         // draw board lines
         int paddingSum = this.padding + this.innerPadding;
         g.setColor(Color.BLACK);
-        for (int i = 0; i < this.getCurrentGameFrame().getGame().getBoard().getDIMENSION(); i++) {
+        for (int i = 0; i < board.getDIMENSION(); i++) {
             g.drawLine(paddingSum +i*this.cellSide, paddingSum, paddingSum +i*this.cellSide, paddingSum +this.innerBoardSide);
             g.drawLine(paddingSum, paddingSum +i*this.cellSide, paddingSum +this.innerBoardSide, paddingSum +i*this.cellSide);
         }
@@ -102,24 +98,24 @@ public class BoardPanel extends JLayeredPane {
         drawLittleRectsForHelp(g, this.guiCoordinates);
 
         // draw pieces of the board
-        for (int i = 0; i < this.getCurrentGameFrame().getGame().getBoard().getDIMENSION(); i++) {
-            for (int j = 0; j < this.getCurrentGameFrame().getGame().getBoard().getDIMENSION(); j++) {
-                drawPiece(g, this.guiCoordinates[i][j], this.getCurrentGameFrame().getGame().getBoard().getMatrix()[i][j], this.pieceUnit);
+        for (int i = 0; i < board.getDIMENSION(); i++) {
+            for (int j = 0; j < board.getDIMENSION(); j++) {
+                drawPiece(g, this.guiCoordinates[i][j], board.getMatrix()[i][j], this.pieceUnit);
             }
         }
     }
 
     public void setAndCreateHoverButtons() {
         int paddingSum = this.padding + this.innerPadding;
-        for (int row = 0; row < this.getCurrentGameFrame().getGame().getBoard().getDIMENSION(); row++) {
-            for (int col = 0; col < this.getCurrentGameFrame().getGame().getBoard().getDIMENSION(); col++) {
+        for (int row = 0; row < board.getDIMENSION(); row++) {
+            for (int col = 0; col < board.getDIMENSION(); col++) {
                 try {
                     guiCoordinates[row][col] = new GUICoordinate(paddingSum +col * this.cellSide, paddingSum +row * this.cellSide);
                 }
                 catch (InvalidCoordinateException e) {
                     e.printStackTrace();
                 }
-                if (this.getCurrentGameFrame().getGame().getBoard().getMatrix()[row][col] == Pieces.NONE) {
+                if (board.getMatrix()[row][col] == Pieces.NONE) {
                     HoverPieceButton button = new HoverPieceButton();
                     button.setBounds(this.getGuiCoordinates()[row][col].getRow() - (this.cellSide /2), this.getGuiCoordinates()[row][col].getColumn() - (this.cellSide /2), this.cellSide, this.cellSide);
                     button.addMouseListener(new HoverButtonMouseListener(this.currentGameFrame, row, col));
@@ -131,9 +127,9 @@ public class BoardPanel extends JLayeredPane {
 
     public void updateHoverButtons() {
         this.removeAll();
-        for (int row = 0; row < this.getCurrentGameFrame().getGame().getBoard().getDIMENSION(); row++) {
-            for (int col = 0; col < this.getCurrentGameFrame().getGame().getBoard().getDIMENSION(); col++) {
-                if (this.getCurrentGameFrame().getGame().getBoard().getMatrix()[row][col] == Pieces.NONE) {
+        for (int row = 0; row < board.getDIMENSION(); row++) {
+            for (int col = 0; col < board.getDIMENSION(); col++) {
+                if (board.getMatrix()[row][col] == Pieces.NONE) {
                     HoverPieceButton button = new HoverPieceButton();
                     button.setBounds(this.getGuiCoordinates()[row][col].getRow() - (this.cellSide/TWO), this.getGuiCoordinates()[row][col].getColumn() - (this.cellSide/TWO), this.cellSide, this.cellSide);
                     button.addMouseListener(new HoverButtonMouseListener(this.currentGameFrame, row, col));

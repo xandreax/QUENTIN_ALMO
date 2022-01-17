@@ -64,7 +64,7 @@ public class UpdaterBoard {
      */
     private void fillTerritory(LinkedList<BoardCoordinate> territory, Pieces blackOrWhite) {
         for (BoardCoordinate coordinate : territory){
-            board.getMatrix()[coordinate.getRow()][coordinate.getColumn()] = blackOrWhite;
+            board.setPieceByCoordinate(coordinate, blackOrWhite);
         }
     }
 }

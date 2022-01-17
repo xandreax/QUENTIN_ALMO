@@ -142,7 +142,7 @@ public class BoardCoordinate implements Coordinate2D {
      * @param board
      * @return true if the coordinate has at least two adjacent pieces, false otherwise
      */
-    public boolean hasAtLeastTwoAdjacentPieces(Board board) {
+    protected boolean hasAtLeastTwoAdjacentPieces(Board board) {
         boolean down, up, right, left;
         //First checks the limits of the board, then if row and column are not edges checks all 4 directions
         if (row == 0 && column == 0){

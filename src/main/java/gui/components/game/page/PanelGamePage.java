@@ -1,24 +1,26 @@
 package gui.components.game.page;
 
+import entities.Board;
 import gui.components.GameFrame;
 import javax.swing.*;
 import java.awt.*;
 
 public class PanelGamePage extends JPanel {
     //FIELDS
-    protected GameFrame currentGameFrame;
-    protected HeaderGamePage header;
-    protected BoardPanel boardPanel;
+    private Board board;
+    private final GameFrame currentGameFrame;
+    private final HeaderGamePage header;
+    private final BoardPanel boardPanel;
 
     //CONSTRUCTORS
-    public PanelGamePage(GameFrame gameFrame) {
+    public PanelGamePage(GameFrame gameFrame, Board board) {
         super();
         this.currentGameFrame = gameFrame;
-
+        this.board = board;
         this.setBackground(GameFrame.BOARD_COLOR);
         this.setLayout(new GridBagLayout());
 
-        this.header = new HeaderGamePage(this.getCurrentGameFrame(), this.currentGameFrame.getGame().getPlayer1(), this.currentGameFrame.getGame().getPlayer2());
+        this.header = new HeaderGamePage(this.getCurrentGameFrame(), currentGameFrame.getGame().getPlayer1(), currentGameFrame.getGame().getPlayer2());
         GridBagConstraints gbcHeader = new GridBagConstraints();
         gbcHeader.gridx = 0;
         gbcHeader.gridy = 0;
@@ -27,9 +29,9 @@ public class PanelGamePage extends JPanel {
         gbcHeader.anchor = GridBagConstraints.PAGE_START;
         gbcHeader.fill = GridBagConstraints.HORIZONTAL;
         gbcHeader.insets = new Insets(0, 0, 20, 0);
-        this.add(this.header, gbcHeader);
+        add(this.header, gbcHeader);
 
-        this.boardPanel = new BoardPanel(this.getCurrentGameFrame());
+        boardPanel = new BoardPanel(this.getCurrentGameFrame(), board);
         GridBagConstraints gbcBoardPanel = new GridBagConstraints();
         gbcBoardPanel.gridx = 0;
         gbcBoardPanel.gridy = 1;

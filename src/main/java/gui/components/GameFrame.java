@@ -130,7 +130,7 @@ public class GameFrame extends JFrame {
     public void startGame(Player player1, Player player2) {
         this.game = new Game(player1, player2);
         this.getContentPane().removeAll();
-        PanelGamePage panelGamePage = new PanelGamePage(this);
+        PanelGamePage panelGamePage = new PanelGamePage(this, game.getBoard());
         this.getContentPane().add(panelGamePage);
         this.validate();
         this.isGameOn = true;
@@ -206,7 +206,7 @@ public class GameFrame extends JFrame {
 
     private void refreshGamePage() {
         if (this.isGameOn) {
-            PanelGamePage panelGamePage = new PanelGamePage(this);
+            PanelGamePage panelGamePage = new PanelGamePage(this, game.getBoard());
             this.getContentPane().add(panelGamePage);
             this.validate();
             this.isGameOn = true;
