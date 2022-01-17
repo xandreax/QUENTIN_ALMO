@@ -8,8 +8,7 @@ import exceptions.IllegalMoveException;
 import exceptions.InvalidCoordinateException;
 import exceptions.PositionAlreadyOccupiedException;
 import logic.beforemove.illegalmove.CardinalCoordinates;
-
-import static logic.beforemove.illegalmove.IllegalMoveLogic.checkIfExistDiagonalIllegalPiece;
+import logic.beforemove.illegalmove.IllegalMoveLogic;
 
 public class BeforeMoveChecker {
     private final Move move;
@@ -55,7 +54,7 @@ public class BeforeMoveChecker {
     private void checkIfMoveIsLegal() throws IllegalMoveException, InvalidCoordinateException {
         CardinalCoordinates cardinals = new CardinalCoordinates(move.getCoordinate(), board.getDIMENSION());
         Player player = move.getPlayer();
-        if(checkIfExistDiagonalIllegalPiece(cardinals, board, player.getPieces()))
+        if(IllegalMoveLogic.checkIfExistDiagonalIllegalPiece(cardinals, board, player.getPieces()))
             throw new IllegalMoveException("Move not allowed, " +move.getCoordinate().getRow()+move.getCoordinate().getColumn()+" this position doesn't share any other orthogonal piece of your color");
     }
 }

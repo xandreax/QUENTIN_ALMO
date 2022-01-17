@@ -7,8 +7,8 @@ public enum Pieces {
     NONE("No piece", "+");
 
     //FIELDS
-    protected String name;
-    protected String symbol;
+    private final String name;
+    private final String symbol;
 
     //CONSTRUCTORS
     Pieces(String name, String symbol) {

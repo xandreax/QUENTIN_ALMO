@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.function.Executable;
 
 public class PlayerTest {
+    //TODO: refactor these tests
     //METHODS
     @Test
     public void testPlayer() {

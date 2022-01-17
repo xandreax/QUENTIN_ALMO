@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class CounterColourTerritory {
 
-    private List<BoardCoordinate> countedPieces = new ArrayList<>();
+    private final List<BoardCoordinate> countedPieces = new ArrayList<>();
     private final Board board;
 
     public CounterColourTerritory(Board board) {

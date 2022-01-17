@@ -2,16 +2,15 @@ package entities;
 
 import exceptions.InvalidCoordinateException;
 import gui.BoardShellPrinter;
-import logic.aftermove.territories.UpdaterBoard;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class Board {
     //FIELDS
-    protected Pieces[][] matrix;        //each cell represents an intersection(!)
-    protected final int DIMENSION = 13;      //number of intersection, not boxes. 13 intersection ==> 12 boxes
-    protected List<Move> movesHistory;
+    private final Pieces[][] matrix;        //each cell represents an intersection(!)
+    private final int DIMENSION = 13;      //number of intersection, not boxes. 13 intersection ==> 12 boxes
+    private final List<Move> movesHistory;
 
     //CONSTRUCTORS
     public Board() {
@@ -27,10 +26,6 @@ public class Board {
     //METHODS
     public Pieces[][] getMatrix() {
         return matrix;
-    }
-
-    public void setMatrix(Pieces[][] matrix) {
-        this.matrix = matrix;
     }
 
     public int getDIMENSION() {
@@ -54,13 +49,14 @@ public class Board {
         return new BoardShellPrinter(this);
     }
 
+    //TODO: Override anche di hashcode
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Board) {
             Board board = (Board) obj;
             for (int row = 0; row < this.getDIMENSION(); row++){
                 for (int col = 0; col < this.getDIMENSION(); col ++){
-                    if (!board.getMatrix()[row][col].name.equals(this.matrix[row][col].name))
+                    if (!board.getMatrix()[row][col].equals(this.matrix[row][col]))
                         return false;
                 }
             }

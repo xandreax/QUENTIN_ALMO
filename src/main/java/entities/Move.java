@@ -1,16 +1,12 @@
 package entities;
 
-import exceptions.InvalidCoordinateException;
-import logic.aftermove.territories.UpdaterBoard;
-
 import java.util.Date;
-import java.util.LinkedList;
 
 public class Move {
     //FIELDS
-    protected final Date time;
-    protected final Player player;
-    protected BoardCoordinate boardCoordinate;
+    private final Date time;
+    private final Player player;
+    private BoardCoordinate boardCoordinate;
 
     //CONSTRUCTORS
     public Move(Player player, BoardCoordinate xy) {
@@ -36,6 +32,7 @@ public class Move {
         this.boardCoordinate = boardCoordinate;
     }
 
+    //TODO: Override anche di hashcode
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Move) {

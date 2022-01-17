@@ -5,6 +5,7 @@ import entities.Player;
 import exceptions.InvalidCoordinateException;
 import exceptions.UnsupportedPiecesForPlayerException;
 import exceptions.UsernameTooShortException;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -19,8 +20,8 @@ public class MoveTest {
     public static Move move2;
 
     //METHODS
-    @BeforeClass
-    public static void initMoves() throws UnsupportedPiecesForPlayerException, InvalidCoordinateException, UsernameTooShortException {
+    @Before
+    public void initMoves() throws UnsupportedPiecesForPlayerException, InvalidCoordinateException, UsernameTooShortException {
         player1 = new Player("jnv8498bg", Pieces.WHITE);
         boardCoordinate1 = new BoardCoordinate("k11");
         move1 = new Move(player1, boardCoordinate1);

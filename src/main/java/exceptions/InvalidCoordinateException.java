@@ -1,8 +1,8 @@
 package exceptions;
 
-public class InvalidCoordinateException extends Throwable {
+public class InvalidCoordinateException extends Exception {
     //FIELDS
-    protected final String message;
+    private final String message;
 
     //CONSTRUCTORS
     public InvalidCoordinateException() {
@@ -11,11 +11,5 @@ public class InvalidCoordinateException extends Throwable {
 
     public InvalidCoordinateException(String message) {
         this.message = message;
-    }
-
-    //METHODS
-    @Override
-    public String getMessage() {
-        return message;
     }
 }

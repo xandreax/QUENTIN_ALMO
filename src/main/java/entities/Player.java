@@ -5,8 +5,8 @@ import exceptions.UsernameTooShortException;
 
 public class Player {
     //FIELDS
-    protected String username;
-    protected Pieces pieces;
+    private String username;
+    private Pieces pieces;
 
     //CONSTRUCTORS
     public Player(String username, Pieces pieces) throws UnsupportedPiecesForPlayerException, UsernameTooShortException {
@@ -39,6 +39,7 @@ public class Player {
         this.pieces = pieces;
     }
 
+    //TODO: Override anche di hashcode
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Player) {

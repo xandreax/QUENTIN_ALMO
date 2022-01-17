@@ -27,7 +27,7 @@ public class BoardCoordinate implements Coordinate2D {
             throw new InvalidCoordinateException();
         }
     }
-
+    //TODO: USED ONLY IN TESTS
     public BoardCoordinate(char x, char y) throws InvalidCoordinateException {
         if (CharUtils.isValidCharForCoordinate(x) && CharUtils.isValidCharForCoordinate(y)) {
             this.row = CharUtils.mapInputCharToInputInt(x);
@@ -37,7 +37,7 @@ public class BoardCoordinate implements Coordinate2D {
             throw new InvalidCoordinateException();
         }
     }
-
+    //TODO: USED ONLY IN TESTS
     public BoardCoordinate(char x, int y) throws InvalidCoordinateException {
         if (CharUtils.isValidCharForCoordinate(x) && IntUtils.isValidIntForBoardCoordinate(y)) {
             this.row = CharUtils.mapInputCharToInputInt(x);
@@ -47,7 +47,7 @@ public class BoardCoordinate implements Coordinate2D {
             throw new InvalidCoordinateException();
         }
     }
-
+    //TODO: USED ONLY IN TESTS
     public BoardCoordinate(int x, char y) throws InvalidCoordinateException {
         if (IntUtils.isValidIntForBoardCoordinate(x) && CharUtils.isValidCharForCoordinate(y)) {
             this.row = x;
@@ -123,6 +123,7 @@ public class BoardCoordinate implements Coordinate2D {
         this.column = column;
     }
 
+    //TODO: Override anche di hashcode
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof BoardCoordinate) {

@@ -9,6 +9,16 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BoardPanel extends JLayeredPane {
+    public static final int TWO = 2;
+    public static final int DIMENSION = 13;
+    public static final int PAD_1 = 14;
+    public static final int PAD_2 = 12;
+    public static final int RATIO_NUM = 9;
+    public static final int RATIO_DEN = 10;
+    public static final double PIECE_UNIT_DENOM = 1.5;
+    public static final int THREE = 3;
+    public static final int SIX = 6;
+    public static final int NINE = 9;
     //FIELDS
     protected GameFrame currentGameFrame;
     protected int side;
@@ -24,7 +34,7 @@ public class BoardPanel extends JLayeredPane {
     public BoardPanel(GameFrame gameFrame) {
         super();
         this.currentGameFrame = gameFrame;
-        this.side = 9 * gameFrame.getSide() / 10;
+        this.side = RATIO_NUM * gameFrame.getSide() / RATIO_DEN;
         this.setMinimumSize(new Dimension(side, side));
         this.setSize(new Dimension(side, side));
         this.setPreferredSize(new Dimension(side, side));
@@ -32,13 +42,13 @@ public class BoardPanel extends JLayeredPane {
         this.setVisible(true);
         this.setLayout(null);
 
-        this.boardSide = 9*this.side/10;
-        this.cellSide = this.boardSide / 14;      //int of division (ROUNDING). 14 not 12 to have some padding then...
-        this.innerBoardSide = this.cellSide *12;
-        this.padding = (this.side - this.boardSide) / 2;
-        this.innerPadding = (this.boardSide - this.innerBoardSide) / 2;
-        this.pieceUnit = (int) (this.cellSide / 1.5);
-        this.guiCoordinates = new GUICoordinate[13][13];
+        this.boardSide = RATIO_NUM*this.side/RATIO_DEN;
+        this.cellSide = this.boardSide / PAD_1;      //int of division (ROUNDING). 14 not 12 to have some padding then...
+        this.innerBoardSide = this.cellSide * PAD_2;
+        this.padding = (this.side - this.boardSide) / TWO;
+        this.innerPadding = (this.boardSide - this.innerBoardSide) / TWO;
+        this.pieceUnit = (int) (this.cellSide / PIECE_UNIT_DENOM);
+        this.guiCoordinates = new GUICoordinate[DIMENSION][DIMENSION];
 
         this.setAndCreateHoverButtons();
     }
@@ -59,22 +69,22 @@ public class BoardPanel extends JLayeredPane {
 
         g.setColor(Color.WHITE);
         //east
-        g.fillPolygon(new int[]{this.getWidth(), this.getWidth(), this.getWidth()/2},
-                new int[]{0, this.getHeight(), this.getHeight()/2},
-                3);
+        g.fillPolygon(new int[]{this.getWidth(), this.getWidth(), this.getWidth()/TWO},
+                new int[]{0, this.getHeight(), this.getHeight()/ TWO},
+                THREE);
         //west
-        g.fillPolygon(new int[]{0, 0, this.getWidth()/2},
-                new int[]{0, this.getHeight(), this.getHeight()/2},
-                3);
+        g.fillPolygon(new int[]{0, 0, this.getWidth()/TWO},
+                new int[]{0, this.getHeight(), this.getHeight()/TWO},
+                THREE);
         g.setColor(Color.BLACK);
         //north
-        g.fillPolygon(new int[]{0, this.getWidth()/2, this.getWidth()},
-                new int[]{0, this.getHeight()/2, 0},
-                3);
+        g.fillPolygon(new int[]{0, this.getWidth()/TWO, this.getWidth()},
+                new int[]{0, this.getHeight()/TWO, 0},
+                THREE);
         //south
-        g.fillPolygon(new int[]{0, this.getWidth()/2, this.getWidth()},
-                new int[]{this.getHeight(), this.getHeight()/2, this.getHeight()},
-                3);
+        g.fillPolygon(new int[]{0, this.getWidth()/TWO, this.getWidth()},
+                new int[]{this.getHeight(), this.getHeight()/TWO, this.getHeight()},
+                THREE);
 
         // draw board green background
         g.setColor(GameFrame.BOARD_COLOR);
@@ -125,7 +135,7 @@ public class BoardPanel extends JLayeredPane {
             for (int col = 0; col < this.getCurrentGameFrame().getGame().getBoard().getDIMENSION(); col++) {
                 if (this.getCurrentGameFrame().getGame().getBoard().getMatrix()[row][col] == Pieces.NONE) {
                     HoverPieceButton button = new HoverPieceButton();
-                    button.setBounds(this.getGuiCoordinates()[row][col].getRow() - (this.cellSide/2), this.getGuiCoordinates()[row][col].getColumn() - (this.cellSide/2), this.cellSide, this.cellSide);
+                    button.setBounds(this.getGuiCoordinates()[row][col].getRow() - (this.cellSide/TWO), this.getGuiCoordinates()[row][col].getColumn() - (this.cellSide/TWO), this.cellSide, this.cellSide);
                     button.addMouseListener(new HoverButtonMouseListener(this.currentGameFrame, row, col));
                     this.add(button);
                 }
@@ -135,22 +145,22 @@ public class BoardPanel extends JLayeredPane {
 
     //AUXILIARY METHODS
     private static void drawLittleRectsForHelp(Graphics graphics, GUICoordinate[][] guiCoordinates) {
-        int lenRects = 6;
-        graphics.fillRect(guiCoordinates[3][3].getRow()-(lenRects/2), guiCoordinates[3][3].getColumn()-(lenRects/2), lenRects, lenRects);
-        graphics.fillRect(guiCoordinates[6][3].getRow()-(lenRects/2), guiCoordinates[6][3].getColumn()-(lenRects/2), lenRects, lenRects);
-        graphics.fillRect(guiCoordinates[9][3].getRow()-(lenRects/2), guiCoordinates[9][3].getColumn()-(lenRects/2), lenRects, lenRects);
-        graphics.fillRect(guiCoordinates[3][6].getRow()-(lenRects/2), guiCoordinates[3][6].getColumn()-(lenRects/2), lenRects, lenRects);
-        graphics.fillRect(guiCoordinates[6][6].getRow()-(lenRects/2), guiCoordinates[6][6].getColumn()-(lenRects/2), lenRects, lenRects);
-        graphics.fillRect(guiCoordinates[9][6].getRow()-(lenRects/2), guiCoordinates[9][6].getColumn()-(lenRects/2), lenRects, lenRects);
-        graphics.fillRect(guiCoordinates[3][9].getRow()-(lenRects/2), guiCoordinates[3][9].getColumn()-(lenRects/2), lenRects, lenRects);
-        graphics.fillRect(guiCoordinates[6][9].getRow()-(lenRects/2), guiCoordinates[6][9].getColumn()-(lenRects/2), lenRects, lenRects);
-        graphics.fillRect(guiCoordinates[9][9].getRow()-(lenRects/2), guiCoordinates[9][9].getColumn()-(lenRects/2), lenRects, lenRects);
+        int lenRects = SIX;
+        graphics.fillRect(guiCoordinates[THREE][THREE].getRow()-(lenRects/TWO), guiCoordinates[THREE][THREE].getColumn()-(lenRects/TWO), lenRects, lenRects);
+        graphics.fillRect(guiCoordinates[SIX][THREE].getRow()-(lenRects/TWO), guiCoordinates[SIX][THREE].getColumn()-(lenRects/TWO), lenRects, lenRects);
+        graphics.fillRect(guiCoordinates[NINE][THREE].getRow()-(lenRects/TWO), guiCoordinates[NINE][THREE].getColumn()-(lenRects/TWO), lenRects, lenRects);
+        graphics.fillRect(guiCoordinates[THREE][SIX].getRow()-(lenRects/TWO), guiCoordinates[THREE][SIX].getColumn()-(lenRects/TWO), lenRects, lenRects);
+        graphics.fillRect(guiCoordinates[SIX][SIX].getRow()-(lenRects/TWO), guiCoordinates[SIX][SIX].getColumn()-(lenRects/TWO), lenRects, lenRects);
+        graphics.fillRect(guiCoordinates[NINE][SIX].getRow()-(lenRects/TWO), guiCoordinates[NINE][SIX].getColumn()-(lenRects/TWO), lenRects, lenRects);
+        graphics.fillRect(guiCoordinates[THREE][NINE].getRow()-(lenRects/TWO), guiCoordinates[THREE][NINE].getColumn()-(lenRects/TWO), lenRects, lenRects);
+        graphics.fillRect(guiCoordinates[SIX][NINE].getRow()-(lenRects/TWO), guiCoordinates[SIX][NINE].getColumn()-(lenRects/TWO), lenRects, lenRects);
+        graphics.fillRect(guiCoordinates[NINE][NINE].getRow()-(lenRects/TWO), guiCoordinates[NINE][NINE].getColumn()-(lenRects/TWO), lenRects, lenRects);
     }
 
     private static void drawPiece(Graphics g, Coordinate2D coordinate, Pieces piece, int pieceUnit) {
         if (piece == Pieces.BLACK) g.setColor(Color.BLACK);
         else if (piece == Pieces.WHITE) g.setColor(Color.WHITE);
         else return;
-        g.fillOval(coordinate.getRow()-pieceUnit/2, coordinate.getColumn()-pieceUnit/2, pieceUnit, pieceUnit);
+        g.fillOval(coordinate.getRow()-pieceUnit/TWO, coordinate.getColumn()-pieceUnit/TWO, pieceUnit, pieceUnit);
     }
 }

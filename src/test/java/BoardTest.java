@@ -1,20 +1,14 @@
 import entities.Board;
 import entities.Pieces;
 import gui.BoardShellPrinter;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
     //FIELDS
-    protected static Board board;
-
-    //METHODS
-    @BeforeClass
-    public static void initBoard() {
-        board = new Board();
-    }
+    private static final Board board = new Board();
 
     @Test
     public void is13x13() {

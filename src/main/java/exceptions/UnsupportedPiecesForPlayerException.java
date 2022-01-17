@@ -1,8 +1,8 @@
 package exceptions;
 
-public class UnsupportedPiecesForPlayerException extends Throwable{
+public class UnsupportedPiecesForPlayerException extends Exception{
     //FIELDS
-    protected String message;
+    private String message;
 
     //CONSTRUCTORS
     public UnsupportedPiecesForPlayerException() {
@@ -10,16 +10,6 @@ public class UnsupportedPiecesForPlayerException extends Throwable{
     }
 
     public UnsupportedPiecesForPlayerException(String message) {
-        this.message = message;
-    }
-
-    //METHODS
-    @Override
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
         this.message = message;
     }
 }

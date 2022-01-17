@@ -1,8 +1,8 @@
 package exceptions;
 
-public class UsernameTooShortException extends Throwable{
+public class UsernameTooShortException extends Exception{
     //FIELDS
-    protected String message;
+    private String message;
 
     //CONSTRUCTORS
     public UsernameTooShortException() {
@@ -10,16 +10,6 @@ public class UsernameTooShortException extends Throwable{
     }
 
     public UsernameTooShortException(String message) {
-        this.message = message;
-    }
-
-    //METHODS
-    @Override
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
         this.message = message;
     }
 }

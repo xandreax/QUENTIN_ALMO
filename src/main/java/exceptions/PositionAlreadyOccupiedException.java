@@ -1,8 +1,8 @@
 package exceptions;
 
-public class PositionAlreadyOccupiedException extends Throwable{
+public class PositionAlreadyOccupiedException extends Exception{
     //FIELDS
-    protected final String message;
+    private final String message;
 
     //CONSTRUCTORS
     public PositionAlreadyOccupiedException() {
@@ -11,11 +11,5 @@ public class PositionAlreadyOccupiedException extends Throwable{
 
     public PositionAlreadyOccupiedException(String message) {
         this.message = message;
-    }
-
-    //METHODS
-    @Override
-    public String getMessage() {
-        return message;
     }
 }

@@ -1,8 +1,8 @@
 package exceptions;
 
-public class IllegalMoveException extends Throwable{
+public class IllegalMoveException extends Exception{
     //FIELDS
-    protected final String message;
+    private final String message;
 
     //CONSTRUCTORS
     public IllegalMoveException() {
@@ -13,9 +13,4 @@ public class IllegalMoveException extends Throwable{
         this.message = message;
     }
 
-    //METHODS
-    @Override
-    public String getMessage() {
-        return message;
-    }
 }

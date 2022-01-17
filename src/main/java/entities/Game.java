@@ -55,6 +55,7 @@ public class Game {
         board = amc.checkAndUpdateBoardAfterMove();
     }
 
+    //TODO: Override anche di hashcode
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Game) {
@@ -71,9 +72,9 @@ public class Game {
      * @return boolean
      */
     public boolean checkIfThereAreAvailableMoves(Board board, Player player) {
-        for(int i = 0; i<board.DIMENSION; i++)
+        for(int i = 0; i<board.getDIMENSION(); i++)
         {
-            for(int j = 0; j<board.DIMENSION; j++) {
+            for(int j = 0; j<board.getDIMENSION(); j++) {
                 if(board.getMatrix()[i][j].equals(Pieces.NONE))
                 {
                     try {

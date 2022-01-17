@@ -3,6 +3,7 @@ import entities.Pieces;
 import entities.Player;
 import exceptions.UnsupportedPiecesForPlayerException;
 import gui.BoardShellPrinter;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -20,9 +21,10 @@ public class GameTest {
     public static BoardShellPrinter printer2;
     public static BoardShellPrinter printer3;
 
+    //TODO: refactor these tests
     //METHODS
-    @BeforeClass
-    public static void initGame() {
+    @Before
+    public void initGame() {
         Assertions.assertDoesNotThrow(new Executable() {
             @Override
             public void execute() throws Throwable {
