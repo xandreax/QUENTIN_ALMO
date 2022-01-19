@@ -51,6 +51,8 @@ public class UIGame implements Game{
         if(controller.checkIfIsTimeToPieRule()){
             if(frame.togglePieRuleDialog(controller.getCurrentPlayer())) {
                 controller.applyPieRule();
+                p.getHeader().swapPieces();
+                p.getBoardPanel().repaint();
                 p.getHeader().highlightTurn(controller.getCurrentPlayer());
             }
         }
