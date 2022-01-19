@@ -128,13 +128,15 @@ public class Controller {
         //This loop exits when all nodes in the board have been visited
         while (!allNodesVisited) {
             BoardCoordinate bc = board.getCheckedCoordinate(row, col);
+            row = bc.getRow();
+            col = bc.getColumn();
             //This loop is used to skip nodes that has been already visited
             while (visitedMatrix[row][col] == 1) {
                 col++; //next element of row
                 bc = board.getCheckedCoordinate(row, col);
+                row = bc.getRow();
+                col = bc.getColumn();
             }
-            row = bc.getRow();
-            col = bc.getColumn();
             BoardCoordinate coordinate = new BoardCoordinate(row, col);
             //Checks if the current coordinate is empty and has at least 2 adjacent pieces
             if (board.getMatrix()[row][col].equals(Pieces.NONE) && coordinate.hasAtLeastTwoAdjacentPieces(board)) {
