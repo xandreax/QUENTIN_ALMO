@@ -95,7 +95,7 @@ public class GameFrame extends JFrame {
 
     public List<Player> getPlayers() {
         List<Player> players = new ArrayList<>();
-        DialogForPlayers dialog1 = new DialogForPlayers(Pieces.WHITE, this);
+        DialogForPlayers dialog1 = new DialogForPlayers(Pieces.BLACK, this);
         Set<DialogForPlayers> temp = new HashSet<>();
         temp.add(dialog1);
         dialog1.getButtonDiscard().addActionListener(new DiscardButtonActionListener(temp, this));
@@ -103,7 +103,7 @@ public class GameFrame extends JFrame {
             try {
                 Player player1 = new Player(dialog1.getTextField().getText(), Pieces.BLACK);
                 players.add(player1);
-                DialogForPlayers dialog2 = new DialogForPlayers(Pieces.BLACK, GameFrame.this);
+                DialogForPlayers dialog2 = new DialogForPlayers(Pieces.WHITE, GameFrame.this);
                 temp.add(dialog2);
                 dialog2.getButtonDiscard().addActionListener(new DiscardButtonActionListener(temp, GameFrame.this));
                 dialog2.getButtonOk().addActionListener(e1 -> {
@@ -112,7 +112,6 @@ public class GameFrame extends JFrame {
                         players.add(player2);
                         GameFrame.this.countMovesPlayer1 = 0;
                         GameFrame.this.countMovesPlayer2 = 0;
-                        //GameFrame.this.startGame(player1, player2);
                         dialog2.dispose();
                     }
                     catch (UnsupportedPiecesForPlayerException | UsernameTooShortException exc) {
