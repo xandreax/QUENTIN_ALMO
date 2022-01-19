@@ -118,23 +118,17 @@ public class Game {
         BoardCoordinate savedCoordinate = new BoardCoordinate();
         int row = 0, col = 0;
         boolean hasPositionBeenSaved = false;
-        //This loop exits when all nodes in the board have been visited
         while (!allNodesVisited) {
             BoardCoordinate bc = board.checkEdgesOfBoard(row, col);
-            row = bc.getRow();
-            col = bc.getColumn();
-            //This loop is used to skip nodes that has been already visited
-            while (visitedMatrix[row][col] == 1) {
+            while (visitedMatrix[row][col] == 1) { //This loop is used to skip nodes that has been already visited
                 col++; //next element of row
                 bc = board.checkEdgesOfBoard(row, col);
-                row = bc.getRow();
-                col = bc.getColumn();
             }
             //Checks if the current coordinate is empty and has at least 2 adjacent pieces
-            if (board.getMatrix()[row][col].equals(Pieces.NONE) && bc.hasAtLeastTwoAdjacentPieces(board)) {
+            if (board.getPieceByCoordinate(bc).equals(Pieces.NONE) && bc.hasAtLeastTwoAdjacentPieces(board)) {
                 possibleTerritory.add(bc);
-                visitedMatrix[row][col] = 1;
-                savedCoordinate = getSavedCoordinate(row, col, hasPositionBeenSaved, savedCoordinate);
+                visitedMatrix[bc.getRow()][bc.getColumn()] = 1;
+                savedCoordinate = getSavedCoordinate(bc.getRow(), bc.getColumn(), hasPositionBeenSaved, savedCoordinate);
                 BoardCoordinate emptyNode = findNextEmptyNode(possibleTerritory.getLast(), possibleTerritory, board);
                 emptyNode = findNextEmptyNodeDoLoop(possibleTerritory, savedCoordinate, emptyNode);
 
@@ -155,7 +149,6 @@ public class Game {
                 visitedMatrix[row][col] = 1;
                 col++; //next element of row
             }
-            //checks if all nodes has been visited
             allNodesVisited = hasAllNodesBeenVisited(visitedMatrix);
         }
         return board;
