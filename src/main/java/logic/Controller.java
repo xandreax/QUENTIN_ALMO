@@ -127,11 +127,11 @@ public class Controller {
         boolean hasPositionBeenSaved = false;
         //This loop exits when all nodes in the board have been visited
         while (!allNodesVisited) {
-            BoardCoordinate bc = board.checkEdgesOfBoard(row, col);
+            BoardCoordinate bc = board.getCheckedCoordinate(row, col);
             //This loop is used to skip nodes that has been already visited
             while (visitedMatrix[row][col] == 1) {
                 col++; //next element of row
-                bc = board.checkEdgesOfBoard(row, col);
+                bc = board.getCheckedCoordinate(row, col);
             }
             row = bc.getRow();
             col = bc.getColumn();

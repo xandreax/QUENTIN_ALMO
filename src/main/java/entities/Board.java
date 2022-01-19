@@ -2,6 +2,7 @@ package entities;
 
 import exceptions.InvalidCoordinateException;
 import ui.shell.BoardShellPrinter;
+import java.util.Objects;
 
 public class Board {
     //FIELDS
@@ -29,11 +30,6 @@ public class Board {
         return DIMENSION;
     }
 
-    public void doMove(Move move) {
-        this.setPieceByCoordinate(move.getCoordinate(), move.getPlayer().getPieces());
-        this.movesHistory.add(move);
-    }
-
     public Pieces getPieceByCoordinate(BoardCoordinate xy) {
         return this.getMatrix()[xy.getRow()][xy.getColumn()];
     }
@@ -46,7 +42,6 @@ public class Board {
         return new BoardShellPrinter(this);
     }
 
-    //TODO: Override anche di hashcode
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Board) {
@@ -98,8 +93,7 @@ public class Board {
      * @throws InvalidCoordinateException
      */
 
-    //TODO: Rename this class or modify in boolean: così sembra che debba solo testare qualcosa invece ritorna una coordinata
-    public BoardCoordinate checkEdgesOfBoard(int row, int col) throws InvalidCoordinateException {
+    public BoardCoordinate getCheckedCoordinate(int row, int col) throws InvalidCoordinateException {
         if (col >= DIMENSION) {
             row++;
             col = 0;
