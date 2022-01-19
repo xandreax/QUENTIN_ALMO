@@ -5,6 +5,8 @@ import utils.coordinate.CharUtils;
 import utils.coordinate.IntUtils;
 import utils.coordinate.StringUtils;
 
+import java.util.Objects;
+
 /**
  * This class represents a single coordinate defined as a line intersection in the context of the table board.
  *
@@ -22,36 +24,6 @@ public class BoardCoordinate implements Coordinate2D {
         if (IntUtils.isValidIntForBoardCoordinate(row) && IntUtils.isValidIntForBoardCoordinate(column)) {
             this.row = row;
             this.column = column;
-        }
-        else {
-            throw new InvalidCoordinateException();
-        }
-    }
-    //TODO: USED ONLY IN TESTS
-    public BoardCoordinate(char x, char y) throws InvalidCoordinateException {
-        if (CharUtils.isValidCharForCoordinate(x) && CharUtils.isValidCharForCoordinate(y)) {
-            this.row = CharUtils.mapInputCharToInputInt(x);
-            this.column = CharUtils.mapInputCharToInputInt(y);
-        }
-        else {
-            throw new InvalidCoordinateException();
-        }
-    }
-    //TODO: USED ONLY IN TESTS
-    public BoardCoordinate(char x, int y) throws InvalidCoordinateException {
-        if (CharUtils.isValidCharForCoordinate(x) && IntUtils.isValidIntForBoardCoordinate(y)) {
-            this.row = CharUtils.mapInputCharToInputInt(x);
-            this.column = y;
-        }
-        else {
-            throw new InvalidCoordinateException();
-        }
-    }
-    //TODO: USED ONLY IN TESTS
-    public BoardCoordinate(int x, char y) throws InvalidCoordinateException {
-        if (IntUtils.isValidIntForBoardCoordinate(x) && CharUtils.isValidCharForCoordinate(y)) {
-            this.row = x;
-            this.column = CharUtils.mapInputCharToInputInt(y);
         }
         else {
             throw new InvalidCoordinateException();
@@ -123,7 +95,6 @@ public class BoardCoordinate implements Coordinate2D {
         this.column = column;
     }
 
-    //TODO: Override anche di hashcode
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof BoardCoordinate) {
@@ -135,6 +106,10 @@ public class BoardCoordinate implements Coordinate2D {
         }
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(row, column);
+    }
 
     /**
      * This method checks if a coordinate has at least two adjacent pieces

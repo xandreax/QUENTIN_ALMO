@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Move {
     //FIELDS
@@ -32,7 +33,6 @@ public class Move {
         this.boardCoordinate = boardCoordinate;
     }
 
-    //TODO: Override anche di hashcode
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Move) {
@@ -42,5 +42,10 @@ public class Move {
         else {
             return false;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(time, player, boardCoordinate);
     }
 }

@@ -7,6 +7,7 @@ import logic.beforemove.BeforeMoveChecker;
 
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Game {
@@ -55,7 +56,6 @@ public class Game {
         board = amc.checkAndUpdateBoardAfterMove();
     }
 
-    //TODO: Override anche di hashcode
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Game) {
@@ -64,6 +64,11 @@ public class Game {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid);
     }
 
     /**

@@ -5,40 +5,60 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.function.Executable;
 
 public class BoardCoordinateTest {
-    //TODO: refactor these tests
+
     //METHODS
     @Test
-    public void testFirstConstructor() {
+    public void testFirstConstructor1() {
         Assertions.assertDoesNotThrow(new Executable() {
             @Override
             public void execute() throws Throwable {
                 BoardCoordinate boardCoordinate = new BoardCoordinate(1, 2);
             }
         });
+    }
+
+    @Test
+    public void testFirstConstructor2() {
         Assertions.assertDoesNotThrow(new Executable() {
             @Override
             public void execute() throws Throwable {
                 BoardCoordinate boardCoordinate = new BoardCoordinate(0, 0);
             }
         });
+    }
+
+    @Test
+    public void testFirstConstructor3() {
         Assertions.assertDoesNotThrow(new Executable() {
             @Override
             public void execute() throws Throwable {
                 BoardCoordinate boardCoordinate = new BoardCoordinate(9, 8);
             }
         });
+    }
+
+    @Test
+    public void testFirstConstructor4() {
         Assertions.assertDoesNotThrow(new Executable() {
             @Override
             public void execute() throws Throwable {
                 BoardCoordinate boardCoordinate = new BoardCoordinate(11, 12);
             }
         });
+    }
+
+    @Test
+    public void testFirstConstructor5() {
         Assertions.assertDoesNotThrow(new Executable() {
             @Override
             public void execute() throws Throwable {
                 BoardCoordinate boardCoordinate = new BoardCoordinate(12, 12);
             }
         });
+    }
+
+    @Test
+    public void testFirstConstructor6() {
         //Intentionally wrong
         Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
             @Override
@@ -46,12 +66,20 @@ public class BoardCoordinateTest {
                 BoardCoordinate boardCoordinate = new BoardCoordinate(-1, 12);
             }
         });
+    }
+
+    @Test
+    public void testFirstConstructor7() {
         Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
                 BoardCoordinate boardCoordinate = new BoardCoordinate(-1, 13);
             }
         });
+    }
+
+    @Test
+    public void testFirstConstructor8() {
         Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
@@ -65,204 +93,68 @@ public class BoardCoordinateTest {
         Assertions.assertDoesNotThrow(new Executable() {
             @Override
             public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate('a', 'C');
-            }
-        });
-        Assertions.assertDoesNotThrow(new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate('E', 'F');
-            }
-        });
-        Assertions.assertDoesNotThrow(new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate('l', 'k');
-            }
-        });
-        Assertions.assertDoesNotThrow(new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate('I', 'i');
-            }
-        });
-        Assertions.assertDoesNotThrow(new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate('g', 'E');
-            }
-        });
-        //Intentionally wrong
-        Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate('A', 'x');
-            }
-        });
-        Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate('&', '!');
-            }
-        });
-        Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate('w', 'f');
-            }
-        });
-    }
-
-    @Test
-    public void testThirdConstructor() {
-        Assertions.assertDoesNotThrow(new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate('a', 3);
-            }
-        });
-        Assertions.assertDoesNotThrow(new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate('E', 10);
-            }
-        });
-        Assertions.assertDoesNotThrow(new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate('l', 7);
-            }
-        });
-        Assertions.assertDoesNotThrow(new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate('I', 8);
-            }
-        });
-        Assertions.assertDoesNotThrow(new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate('l', 12);
-            }
-        });
-        //Intentionally wrong
-        Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate('A', -5);
-            }
-        });
-        Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate('&', 1001);
-            }
-        });
-        Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate('w', 4);
-            }
-        });
-    }
-
-    @Test
-    public void testFourthConstructor() {
-        Assertions.assertDoesNotThrow(new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate(3, 'b');
-            }
-        });
-        Assertions.assertDoesNotThrow(new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate(0, 'L');
-            }
-        });
-        Assertions.assertDoesNotThrow(new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate(7, 'K');
-            }
-        });
-        Assertions.assertDoesNotThrow(new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate(12, 'M');
-            }
-        });
-        Assertions.assertDoesNotThrow(new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate(11, 'h');
-            }
-        });
-        //Intentionally wrong
-        Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate(9087, 'D');
-            }
-        });
-        Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate(9, 'q');
-            }
-        });
-        Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                BoardCoordinate boardCoordinate = new BoardCoordinate(14, 'J');
-            }
-        });
-    }
-
-    @Test
-    public void testFifthConstructor() {
-        Assertions.assertDoesNotThrow(new Executable() {
-            @Override
-            public void execute() throws Throwable {
                 BoardCoordinate boardCoordinate = new BoardCoordinate("a9");
             }
         });
+    }
+
+    @Test
+    public void testSecondConstructor2() {
         Assertions.assertDoesNotThrow(new Executable() {
             @Override
             public void execute() throws Throwable {
                 BoardCoordinate boardCoordinate = new BoardCoordinate("c9");
             }
         });
+    }
+
+    @Test
+    public void testSecondConstructor3() {
         Assertions.assertDoesNotThrow(new Executable() {
             @Override
             public void execute() throws Throwable {
                 BoardCoordinate boardCoordinate = new BoardCoordinate("h7");
             }
         });
+    }
+    @Test
+    public void testSecondConstructor4() {
         Assertions.assertDoesNotThrow(new Executable() {
             @Override
             public void execute() throws Throwable {
                 BoardCoordinate boardCoordinate = new BoardCoordinate("B10");
             }
         });
+    }
+    @Test
+    public void testSecondConstructor5() {
         Assertions.assertDoesNotThrow(new Executable() {
             @Override
             public void execute() throws Throwable {
                 BoardCoordinate boardCoordinate = new BoardCoordinate("m8");
             }
         });
+    }
+    @Test
+    public void testSecondConstructor6() {
         Assertions.assertDoesNotThrow(new Executable() {
             @Override
             public void execute() throws Throwable {
                 BoardCoordinate boardCoordinate = new BoardCoordinate("M12");
             }
         });
+    }
+    @Test
+    public void testSecondConstructor7() {
         Assertions.assertDoesNotThrow(new Executable() {
             @Override
             public void execute() throws Throwable {
                 BoardCoordinate boardCoordinate = new BoardCoordinate("l11");
             }
         });
+    }
+    @Test
+    public void testSecondConstructor8() {
         //Intentionally wrong
         Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
             @Override
@@ -270,30 +162,48 @@ public class BoardCoordinateTest {
                 BoardCoordinate boardCoordinate = new BoardCoordinate("11n");
             }
         });
+    }
+    @Test
+    public void testSecondConstructor9() {
         Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
                 BoardCoordinate boardCoordinate = new BoardCoordinate("Pr");
             }
         });
+    }
+    @Test
+    public void testSecondConstructor10() {
         Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
                 BoardCoordinate boardCoordinate = new BoardCoordinate("errore");
             }
         });
+    }
+
+    @Test
+    public void testSecondConstructor11() {
         Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
                 BoardCoordinate boardCoordinate = new BoardCoordinate("99JHp");
             }
         });
+    }
+
+    @Test
+    public void testSecondConstructor12() {
         Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
                 BoardCoordinate boardCoordinate = new BoardCoordinate("5h");
             }
         });
+    }
+
+    @Test
+    public void testSecondConstructor13() {
         Assertions.assertThrows(InvalidCoordinateException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
@@ -301,4 +211,5 @@ public class BoardCoordinateTest {
             }
         });
     }
+
 }

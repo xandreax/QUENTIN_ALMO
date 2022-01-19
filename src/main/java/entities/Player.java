@@ -3,6 +3,8 @@ package entities;
 import exceptions.UnsupportedPiecesForPlayerException;
 import exceptions.UsernameTooShortException;
 
+import java.util.Objects;
+
 public class Player {
     //FIELDS
     private String username;
@@ -27,10 +29,6 @@ public class Player {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public Pieces getPieces() {
         return pieces;
     }
@@ -39,7 +37,6 @@ public class Player {
         this.pieces = pieces;
     }
 
-    //TODO: Override anche di hashcode
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Player) {
@@ -49,5 +46,10 @@ public class Player {
         else {
             return false;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username);
     }
 }

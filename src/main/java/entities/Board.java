@@ -5,6 +5,7 @@ import gui.BoardShellPrinter;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class Board {
     //FIELDS
@@ -49,7 +50,6 @@ public class Board {
         return new BoardShellPrinter(this);
     }
 
-    //TODO: Override anche di hashcode
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Board) {
@@ -64,6 +64,17 @@ public class Board {
         } else {
             return false;
         }
+    }
+    //TODO: check if this is correct
+    @Override
+    public int hashCode() {
+        int res = 0;
+        for (int row = 0; row < this.getDIMENSION(); row++){
+            for (int col = 0; col < this.getDIMENSION(); col ++){
+                res += Objects.hash(matrix[row][col]);
+            }
+        }
+        return res;
     }
 
     /**
