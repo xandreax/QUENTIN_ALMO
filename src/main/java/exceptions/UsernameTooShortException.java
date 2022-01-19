@@ -2,7 +2,7 @@ package exceptions;
 
 public class UsernameTooShortException extends Exception{
     //FIELDS
-    private String message;
+    private final String message;
 
     //CONSTRUCTORS
     public UsernameTooShortException() {

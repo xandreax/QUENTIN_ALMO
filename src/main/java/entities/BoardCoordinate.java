@@ -109,6 +109,24 @@ public class BoardCoordinate implements Coordinate2D {
     public BoardCoordinate getDown() throws InvalidCoordinateException {
         return new BoardCoordinate(row +1, column);
     }
+    //TODO: eliminare in caso di inutilizzati
+    /*
+    public BoardCoordinate getUpRight() throws InvalidCoordinateException {
+        return new BoardCoordinate(row-1, column+1);
+    }
+
+    public BoardCoordinate getUpLeft() throws InvalidCoordinateException {
+        return new BoardCoordinate(row-1, column-1);
+    }
+
+    public BoardCoordinate getDownLeft() throws InvalidCoordinateException {
+        return new BoardCoordinate(row+1, column-1);
+    }
+
+    public BoardCoordinate getDownRight() throws InvalidCoordinateException {
+        return new BoardCoordinate(row+1, column+1);
+    }
+     */
 
     @Override
     public boolean equals(Object obj) {
@@ -129,7 +147,7 @@ public class BoardCoordinate implements Coordinate2D {
     /**
      * This method checks if a coordinate has at least two adjacent pieces
      *
-     * @param board
+     * @param board: the board
      * @return true if the coordinate has at least two adjacent pieces, false otherwise
      */
     public boolean hasAtLeastTwoAdjacentPieces(Board board) throws InvalidCoordinateException {

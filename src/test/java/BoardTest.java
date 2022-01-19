@@ -1,6 +1,5 @@
 import entities.Board;
 import entities.Pieces;
-import ui.shell.BoardShellPrinter;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,9 +25,4 @@ public class BoardTest {
         }
     }
 
-    @Test
-    public void printBoard() {
-        BoardShellPrinter bp = board.getPrinter();
-        bp.printOnStdOut(true);
-    }
 }

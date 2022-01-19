@@ -21,7 +21,7 @@ public class CardinalCoordinates {
      * @param boardDimension
      * @throws InvalidCoordinateException
      */
-
+    //TODO: Refactoring o no di questa classe?
     public CardinalCoordinates(BoardCoordinate coordinate, int boardDimension) throws InvalidCoordinateException {
         if(coordinate.getRow() != 0){
             northCell = new BoardCoordinate(coordinate.getRow()-1, coordinate.getColumn());

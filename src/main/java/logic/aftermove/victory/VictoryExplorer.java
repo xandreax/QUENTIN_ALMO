@@ -17,7 +17,7 @@ public class VictoryExplorer {
      * If the board is full and no chain exists, then the player with the
      * major number of pieces will win the game.
      *
-     * @param board
+     * @param board: the board
      */
     public Pieces getPieceWinner(Board board) {
         if (board.isFull()) {
@@ -41,8 +41,8 @@ public class VictoryExplorer {
     /**
      * This method checks for each player if the victory condition has been reached.
      *
-     * @param matrix
-     * @param matrixTemp
+     * @param matrix: matrix
+     * @param matrixTemp: temporary matrix
      * @return true if the matrix has a path from side to side, false otherwise
      */
     private Pieces getPieceWinnerIfExistPath(Pieces[][] matrix, int[][] matrixTemp) {
@@ -66,11 +66,11 @@ public class VictoryExplorer {
      * Recursive algorithm Deep First Search to find possible path in a matrix
      * //https://stackoverflow.com/questions/20708659/find-if-path-exists-in-matrix
      *
-     * @param matrix
-     * @param matrixTemp
-     * @param i
-     * @param j
-     * @param playerColor
+     * @param matrix: matrix
+     * @param matrixTemp: temporary matrix
+     * @param i: index x axis
+     * @param j: index y axis
+     * @param playerColor: colour of the player
      * @return true if the matrix has a path of pieces from side to side, false otherwise
      */
     private boolean existPathHelper(Pieces[][] matrix, int[][] matrixTemp, int i, int j, Pieces playerColor) {

@@ -12,22 +12,22 @@ public class HeaderGamePage extends JPanel {
     protected GameFrame currentGameFrame;
     protected Player player1;
     protected Player player2;
-    protected JTextArea player1Text;
-    protected JTextArea turnText;
-    protected JTextArea player2Text;
+    protected JLabel player1Text;
+    protected JLabel player2Text;
+    protected JLabel turnText;
 
     //CONSTRUCTORS
     public HeaderGamePage(GameFrame gf, List<Player> players) {
         super();
         this.setLayout(new GridLayout());
-        this.setBackground(GameFrame.BOARD_COLOR);
+        this.setBackground(Color.WHITE);
 
         this.currentGameFrame = gf;
         this.player1 = players.get(0);
         this.player2 = players.get(1);
-        this.player1Text = new JTextArea("["+player1.getPieces().getName().toUpperCase()+"] "+player1.getUsername());
-        this.turnText = new JTextArea("..");
-        this.player2Text = new JTextArea("["+player2.getPieces().getName().toUpperCase()+"] "+player2.getUsername());
+        this.player1Text = new JLabel("["+player1.getPieces().getName().toUpperCase()+"] "+player1.getUsername());
+        this.turnText = new JLabel("..");
+        this.player2Text = new JLabel("["+player2.getPieces().getName().toUpperCase()+"] "+player2.getUsername());
 
         this.player1Text.setFont(gf.getApplicationFont(false));
         this.player1Text.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);

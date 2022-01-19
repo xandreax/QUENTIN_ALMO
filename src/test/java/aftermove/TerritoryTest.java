@@ -6,6 +6,7 @@ import logic.Controller;
 import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.Test;
+import utils.TestUtils;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -19,7 +20,7 @@ public class TerritoryTest {
     public static Board moveBoard = new Board();
 
     @Before
-    public void playGame() throws UnsupportedPiecesForPlayerException, UsernameTooShortException, InvalidCoordinateException{
+    public void initGame() throws UnsupportedPiecesForPlayerException, UsernameTooShortException, InvalidCoordinateException{
         player1 = new Player("pluto", Pieces.BLACK);
         player2 = new Player("pippo", Pieces.WHITE);
         List<String> coordinateBlackList = new LinkedList<>(Arrays.asList("a3", "b3", "c3","c4"));
@@ -29,8 +30,8 @@ public class TerritoryTest {
 
         coordinateBlackList = Arrays.asList("a3", "b3", "c3", "c4", "a4", "b4");
         coordinateWhiteList = Arrays.asList("a5", "b5", "a6");
-        setPiecesOnBoard(coordinateWhiteList, Pieces.WHITE);
-        setPiecesOnBoard(coordinateBlackList, Pieces.BLACK);
+        TestUtils.setPiecesOnBoard(coordinateWhiteList, Pieces.WHITE, myBoard);
+        TestUtils.setPiecesOnBoard(coordinateBlackList, Pieces.BLACK, myBoard);
     }
 
     private void doMoves(Controller controller, List<String> coordinateBlackList, List<String> coordinateWhiteList) throws InvalidCoordinateException{
@@ -41,12 +42,6 @@ public class TerritoryTest {
                 BoardCoordinate whiteMove = new BoardCoordinate(coordinateWhiteList.remove(0));
                 controller.makeMove(whiteMove);
             }
-        }
-    }
-
-    private void setPiecesOnBoard(List<String> coordinateList, Pieces piece) throws InvalidCoordinateException {
-        for (String coordinateString: coordinateList) {
-            myBoard.setPieceByCoordinate(new BoardCoordinate(coordinateString), piece);
         }
     }
 

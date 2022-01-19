@@ -25,7 +25,7 @@ public class UpdaterBoard {
      * pieces are the same, the territory is filled with the opposite color
      * of the last player move.
      *
-     * @param territory
+     * @param territory: list of coordinates
      * @return the board updated with the pieces of the right colour
      */
     public Board updateBoardWithTerritory(LinkedList<BoardCoordinate> territory) throws InvalidCoordinateException {

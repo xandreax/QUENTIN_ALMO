@@ -9,6 +9,7 @@ import logic.Controller;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import utils.TestUtils;
 
 import java.util.List;
 
@@ -24,20 +25,15 @@ public class PositionOccupiedTest {
         player1 = new Player("hjgutcgju", Pieces.BLACK);
         player2 = new Player("saiubvfswvb", Pieces.WHITE);
         List<String> coordinateList = List.of("d5");
-        setPiecesOnBoard(coordinateList, player1.getPieces());
+        TestUtils.setPiecesOnBoard(coordinateList, player1.getPieces(), myBoard);
     }
 
     //METHODS
     @Test
-    public void checkIfPositionIsOccupied (){
+    public void checkIfPositionIsOccupied() {
         Assertions.assertThrows(PositionAlreadyOccupiedException.class, () -> {
             Controller controller = new Controller(myBoard, new Player[]{player1, player2});
             controller.checkIfMoveIsPossible(new BoardCoordinate("d5"));
         });
     }
-
-    private void setPiecesOnBoard(List<String> coordinateList, Pieces piece) throws InvalidCoordinateException {
-        for (String coordinateString: coordinateList) {
-            myBoard.setPieceByCoordinate(new BoardCoordinate(coordinateString), piece);
-        }
-    }}
+}

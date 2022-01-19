@@ -5,6 +5,8 @@ import exceptions.*;
 import logic.Controller;
 import org.junit.Before;
 import org.junit.Test;
+import utils.TestUtils;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class NotVictoryTest {
         player1 = new Player("hjgutcgju", Pieces.BLACK);
         player2 = new Player("saiubvfswvb", Pieces.WHITE);
         List<String> coordinateList = Arrays.asList("a0", "a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9", "a10", "a11", "a12");
-        setPiecesOnBoard(coordinateList, player1.getPieces());
+        TestUtils.setPiecesOnBoard(coordinateList, player1.getPieces(), myBoard);
     }
 
     @Test
@@ -31,9 +33,4 @@ public class NotVictoryTest {
         assertFalse(controller.endOfGame());
     }
 
-    private void setPiecesOnBoard(List<String> coordinateList, Pieces piece) throws InvalidCoordinateException {
-        for (String coordinateString: coordinateList) {
-            myBoard.setPieceByCoordinate(new BoardCoordinate(coordinateString), piece);
-        }
-    }
 }

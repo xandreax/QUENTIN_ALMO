@@ -2,7 +2,7 @@ package exceptions;
 
 public class UnsupportedPiecesForPlayerException extends Exception{
     //FIELDS
-    private String message;
+    private final String message;
 
     //CONSTRUCTORS
     public UnsupportedPiecesForPlayerException() {

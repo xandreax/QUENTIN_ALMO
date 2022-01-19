@@ -114,7 +114,7 @@ public class Controller {
      * method to fill the territory with the right type of pieces.
      *
      * @return the updated board if a new territory has been found, the current board otherwise
-     * @throws InvalidCoordinateException
+     * @throws InvalidCoordinateException: coordinate not valid
      */
 
     public Board checkTerritories() throws InvalidCoordinateException {
@@ -172,7 +172,6 @@ public class Controller {
         //Save the position for the first node found
         if (!hasPositionBeenSaved) {
             savedCoordinate = new BoardCoordinate(row, col);
-            hasPositionBeenSaved = true;
         }
         return savedCoordinate;
     }
@@ -203,7 +202,7 @@ public class Controller {
      * This is used in the method "checkTerritories" because when a node is visited
      * in the matrix for checking the territories, the visited node is set to 1.
      *
-     * @param matrix
+     * @param matrix: 2d matrix
      * @return true if all nodes has been visited, false otherwise.
      */
     private boolean hasAllNodesBeenVisited(int[][] matrix) {
@@ -223,16 +222,16 @@ public class Controller {
      * @param lastEmptyNode : the last empty node found
      * @param territory : the current possible territory
      * @return the first empty board coordinate found adjacent to the last empty node, null if none are found
-     * @throws InvalidCoordinateException
+     * @throws InvalidCoordinateException: coordinate not valid
      */
     private BoardCoordinate findNextEmptyNode(BoardCoordinate lastEmptyNode, LinkedList<BoardCoordinate> territory, Board board) throws InvalidCoordinateException {
         BoardCoordinate nextEmpty = new BoardCoordinate();
         int row = lastEmptyNode.getRow();
         int col = lastEmptyNode.getColumn();
+        BoardCoordinate bc = new BoardCoordinate(row,col);
         //Checks to the right
         if (board.isNotEdge(col + 1)) {
-            BoardCoordinate bc = new BoardCoordinate(row,col +1);
-            if (board.getPieceByCoordinate(bc).equals(Pieces.NONE) && !territory.contains(bc)) {
+            if (board.getPieceByCoordinate(bc.getRight()).equals(Pieces.NONE) && !territory.contains(bc.getRight())) {
                 nextEmpty.setRow(row);
                 nextEmpty.setColumn(col + 1);
                 return nextEmpty;
@@ -240,18 +239,15 @@ public class Controller {
         }
         //Checks to the left
         if (board.isNotEdge(col - 1)) {
-            BoardCoordinate bc = new BoardCoordinate(row,col -1);
-            if (board.getPieceByCoordinate(bc).equals(Pieces.NONE) && !territory.contains(bc)) {
+            if (board.getPieceByCoordinate(bc.getLeft()).equals(Pieces.NONE) && !territory.contains(bc.getLeft())) {
                 nextEmpty.setRow(row);
                 nextEmpty.setColumn(col - 1);
                 return nextEmpty;
             }
         }
-
         //Checks down
         if (board.isNotEdge(row + 1)) {
-            BoardCoordinate bc = new BoardCoordinate(row+1,col);
-            if (board.getPieceByCoordinate(bc).equals(Pieces.NONE) && !territory.contains(bc)) {
+            if (board.getPieceByCoordinate(bc.getDown()).equals(Pieces.NONE) && !territory.contains(bc.getDown())) {
                 nextEmpty.setRow(row + 1);
                 nextEmpty.setColumn(col);
                 return nextEmpty;
@@ -259,8 +255,7 @@ public class Controller {
         }
         //Checks up
         if (board.isNotEdge(row - 1)) {
-            BoardCoordinate bc = new BoardCoordinate(row-1,col);
-            if (board.getPieceByCoordinate(bc).equals(Pieces.NONE) && !territory.contains(bc)) {
+            if (board.getPieceByCoordinate(bc.getUp()).equals(Pieces.NONE) && !territory.contains(bc.getUp())) {
                 nextEmpty.setRow(row - 1);
                 nextEmpty.setColumn(col);
                 return nextEmpty;

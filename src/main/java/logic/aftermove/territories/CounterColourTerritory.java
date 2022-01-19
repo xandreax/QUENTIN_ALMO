@@ -23,19 +23,16 @@ public class CounterColourTerritory {
      * This method counts how many pieces and of which type are adjacent to
      * the coordinate passed as input
      *
-     * @param coordinate
+     * @param coordinate: the current coordinate
      * @return a map with the type of the piece and its respective number
      */
     public Map<Pieces, Integer> countAdjacentPieces(BoardCoordinate coordinate) throws InvalidCoordinateException {
         Map<Pieces, Integer> piecesIntegerMap = new HashMap<>();
         int countWhite, countBlack;
-        int row = coordinate.getRow();
-        int col = coordinate.getColumn();
-
-        BlackAndWhite bn1 = countBnW(row -1, col);
-        BlackAndWhite bn2 = countBnW(row +1, col);
-        BlackAndWhite bn3 = countBnW(row, col-1);
-        BlackAndWhite bn4 = countBnW(row, col+1);
+        BlackAndWhite bn1 = countBnW(coordinate.getUp());
+        BlackAndWhite bn2 = countBnW(coordinate.getDown());
+        BlackAndWhite bn3 = countBnW(coordinate.getLeft());
+        BlackAndWhite bn4 = countBnW(coordinate.getRight());
         countBlack = bn1.getnBlack() + bn2.getnBlack() + bn3.getnBlack() + bn4.getnBlack();
         countWhite = bn1.getnWhite() + bn2.getnWhite() + bn3.getnWhite() + bn4.getnWhite();
         piecesIntegerMap.put(Pieces.BLACK, countBlack);
@@ -47,14 +44,14 @@ public class CounterColourTerritory {
      * This method is called by "countAdjacentPieces" and it returns a structure
      * that keeps count of the number of black and white pieces in the given coordinate
      *
-     * @param row
-     * @param col
+     * @param coordinate: the coordinate from which starts counting
      * @return a structure with the number of white and black pieces for the given coordinate
      */
-    private BlackAndWhite countBnW(int row, int col) throws InvalidCoordinateException {
+    private BlackAndWhite countBnW(BoardCoordinate coordinate) {
         int countWhite = 0, countBlack = 0;
+        int row = coordinate.getRow();
+        int col = coordinate.getColumn();
         if (board.isNotEdge(row) && board.isNotEdge(col)){
-            BoardCoordinate coordinate = new BoardCoordinate(row,col);
             if (board.getPieceByCoordinate(coordinate).equals(Pieces.WHITE) && !countedPieces.contains(coordinate)){
                 countWhite++;
                 countedPieces.add(coordinate);
@@ -67,7 +64,7 @@ public class CounterColourTerritory {
         return new BlackAndWhite(countBlack, countWhite);
     }
 
-    private class BlackAndWhite {
+    private static class BlackAndWhite {
         private final int nBlack;
         private final int nWhite;
 

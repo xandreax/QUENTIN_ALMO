@@ -77,7 +77,7 @@ public class Board {
     /**
      * Checks if the index is in the board range
      *
-     * @param index
+     * @param index: index of the board
      * @return true if the index is in range of the board dimension, false otherwise
      */
     public boolean isNotEdge(int index) {
@@ -87,12 +87,11 @@ public class Board {
     /**
      * This method checks if the coordinates are in range of the board dimension
      *
-     * @param row
-     * @param col
+     * @param row: row of the board
+     * @param col: col of the board
      * @return the coordinate in the right range if the indexes are out of bounds, the old coordinates otherwise
-     * @throws InvalidCoordinateException
+     * @throws InvalidCoordinateException: if coordinate is invalid throws an exception
      */
-
     public BoardCoordinate getCheckedCoordinate(int row, int col) throws InvalidCoordinateException {
         if (col >= DIMENSION) {
             row++;
