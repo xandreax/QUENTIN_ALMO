@@ -63,7 +63,7 @@ public class GameFrame extends JFrame {
                 GameFrame.this.side = 7*Math.min(GameFrame.this.getWidth(), GameFrame.this.getHeight())/8;
                 GameFrame.this.getContentPane().removeAll();
                 if (GameFrame.this.isGameOn) {
-                    //GameFrame.this.refreshGamePage();
+                    GameFrame.this.refreshGamePage();
                 }
                 else {
                     GameFrame.this.initWelcomePage();
@@ -157,10 +157,10 @@ public class GameFrame extends JFrame {
         uiGame.handleMove(move, p);
     }
 
-    /*
+
     private void refreshGamePage() {
         if (this.isGameOn) {
-            PanelGamePage panelGamePage = new PanelGamePage(this, consoleGame.getBoard());
+            PanelGamePage panelGamePage = new PanelGamePage(this, uiGame.getController().getBoard());
             this.getContentPane().add(panelGamePage);
             this.validate();
             this.isGameOn = true;
@@ -169,7 +169,7 @@ public class GameFrame extends JFrame {
             throw new IllegalStateException("There is not a game going on.");
         }
     }
-*/
+
 
     //AUXILIARY METHODS
 
