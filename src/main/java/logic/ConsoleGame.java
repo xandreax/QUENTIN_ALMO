@@ -1,13 +1,11 @@
-package quentinGame;
+package logic;
 
 import entities.Board;
 import entities.BoardCoordinate;
-import logic.Controller;
 import entities.Player;
 import exceptions.*;
 import ui.shell.BoardShellPrinter;
 
-import java.io.BufferedReader;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;

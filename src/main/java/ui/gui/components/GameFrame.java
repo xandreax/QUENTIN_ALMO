@@ -2,7 +2,8 @@ package ui.gui.components;
 
 import entities.*;
 import exceptions.*;
-import quentinGame.UIGame;
+import logic.UIGame;
+import ui.gui.GUICoordinate;
 import ui.gui.components.game.page.NoAvailableMovesDialog;
 import ui.gui.components.game.page.PanelGamePage;
 import ui.gui.components.game.page.PieRuleDialog;
@@ -131,7 +132,7 @@ public class GameFrame extends JFrame {
 
     public void initPanelGamePage(Board board) {
         this.getContentPane().removeAll();
-        PanelGamePage panelGamePage = new PanelGamePage(this, board);
+        PanelGamePage panelGamePage = new PanelGamePage(this);
         this.getContentPane().add(panelGamePage);
         this.validate();
         this.isGameOn = true;
@@ -140,7 +141,7 @@ public class GameFrame extends JFrame {
         p.getHeader().highlightTurn(getPlayerWithBlackPieces(uiGame.getPlayer1(), uiGame.getPlayer2()));
     }
 
-    public void renderMove() {
+    public void renderMove() throws InvalidCoordinateException {
         if (!this.isGameOn) {
             throw new IllegalStateException("There is not a game going on.");
         }
@@ -159,7 +160,7 @@ public class GameFrame extends JFrame {
 
     private void refreshGamePage() {
         if (this.isGameOn) {
-            PanelGamePage panelGamePage = new PanelGamePage(this, uiGame.getController().getBoard());
+            PanelGamePage panelGamePage = new PanelGamePage(this);
             this.getContentPane().add(panelGamePage);
             this.validate();
             this.isGameOn = true;
@@ -169,8 +170,11 @@ public class GameFrame extends JFrame {
         }
     }
 
-
     //AUXILIARY METHODS
+
+    public Board getBoard(){
+        return uiGame.getBoard();
+    }
 
     public void toggleAlertDialog(String message) {
         AlertDialog alertDialog = new AlertDialog(message, this);

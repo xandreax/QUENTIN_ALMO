@@ -1,4 +1,4 @@
-package quentinGame;
+package logic;
 
 import entities.Board;
 import entities.BoardCoordinate;
@@ -6,7 +6,6 @@ import entities.Player;
 import exceptions.IllegalMoveException;
 import exceptions.InvalidCoordinateException;
 import exceptions.PositionAlreadyOccupiedException;
-import logic.Controller;
 import ui.gui.components.GameFrame;
 import ui.gui.components.game.page.PanelGamePage;
 
@@ -81,5 +80,9 @@ public class UIGame implements Game{
 
     public Player getPlayer2() {
         return player2;
+    }
+
+    public Board getBoard(){
+        return controller.getBoard();
     }
 }

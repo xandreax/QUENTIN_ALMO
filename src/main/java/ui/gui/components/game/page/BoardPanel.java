@@ -1,6 +1,7 @@
 package ui.gui.components.game.page;
 
 import entities.Board;
+import entities.BoardCoordinate;
 import entities.Coordinate2D;
 import entities.Pieces;
 import exceptions.InvalidCoordinateException;
@@ -33,7 +34,7 @@ public class BoardPanel extends JLayeredPane {
     private final GUICoordinate[][] guiCoordinates;
 
     //CONSTRUCTORS
-    public BoardPanel(GameFrame gameFrame, Board board) {
+    public BoardPanel(GameFrame gameFrame) {
         super();
         this.currentGameFrame = gameFrame;
         int side = RATIO_NUM * gameFrame.getSide() / RATIO_DEN;
@@ -51,7 +52,7 @@ public class BoardPanel extends JLayeredPane {
         this.innerPadding = (this.boardSide - this.innerBoardSide) / TWO;
         this.pieceUnit = (int) (this.cellSide / PIECE_UNIT_DENOM);
         this.guiCoordinates = new GUICoordinate[DIMENSION][DIMENSION];
-        this.board = board;
+        this.board = gameFrame.getBoard();
 
         this.setAndCreateHoverButtons();
     }
@@ -111,26 +112,28 @@ public class BoardPanel extends JLayeredPane {
         for (int row = 0; row < board.getDIMENSION(); row++) {
             for (int col = 0; col < board.getDIMENSION(); col++) {
                 try {
+                    BoardCoordinate bc = new BoardCoordinate(row, col);
                     guiCoordinates[row][col] = new GUICoordinate(paddingSum +col * this.cellSide, paddingSum +row * this.cellSide);
+                    if (board.getPieceByCoordinate(bc) == Pieces.NONE) {
+                        HoverPieceButton button = new HoverPieceButton();
+                        button.setBounds(this.getGuiCoordinates()[row][col].getRow() - (this.cellSide /2), this.getGuiCoordinates()[row][col].getColumn() - (this.cellSide /2), this.cellSide, this.cellSide);
+                        button.addMouseListener(new HoverButtonMouseListener(this.currentGameFrame, row, col));
+                        this.add(button);
+                    }
                 }
                 catch (InvalidCoordinateException e) {
                     e.printStackTrace();
-                }
-                if (board.getMatrix()[row][col] == Pieces.NONE) {
-                    HoverPieceButton button = new HoverPieceButton();
-                    button.setBounds(this.getGuiCoordinates()[row][col].getRow() - (this.cellSide /2), this.getGuiCoordinates()[row][col].getColumn() - (this.cellSide /2), this.cellSide, this.cellSide);
-                    button.addMouseListener(new HoverButtonMouseListener(this.currentGameFrame, row, col));
-                    this.add(button);
                 }
             }
         }
     }
 
-    public void updateHoverButtons() {
+    public void updateHoverButtons() throws InvalidCoordinateException {
         this.removeAll();
         for (int row = 0; row < board.getDIMENSION(); row++) {
             for (int col = 0; col < board.getDIMENSION(); col++) {
-                if (board.getMatrix()[row][col] == Pieces.NONE) {
+                BoardCoordinate bc = new BoardCoordinate(row,col);
+                if (board.getPieceByCoordinate(bc) == Pieces.NONE) {
                     HoverPieceButton button = new HoverPieceButton();
                     button.setBounds(this.getGuiCoordinates()[row][col].getRow() - (this.cellSide/TWO), this.getGuiCoordinates()[row][col].getColumn() - (this.cellSide/TWO), this.cellSide, this.cellSide);
                     button.addMouseListener(new HoverButtonMouseListener(this.currentGameFrame, row, col));

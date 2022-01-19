@@ -46,15 +46,15 @@ public class Controller {
         for(int i = 0; i<board.getDIMENSION(); i++)
         {
             for(int j = 0; j<board.getDIMENSION(); j++) {
-                if(board.getMatrix()[i][j].equals(Pieces.NONE))
-                {
-                    try {
-                        BoardCoordinate move = new BoardCoordinate(i, j);
-                        checkIfMoveIsPossible(move);
+                try {
+                    BoardCoordinate bc = new BoardCoordinate(i, j);
+                    if(board.getPieceByCoordinate(bc).equals(Pieces.NONE)) {
+                        checkIfMoveIsPossible(bc);
                         return true;
-                    } catch (InvalidCoordinateException | PositionAlreadyOccupiedException | IllegalMoveException e) {
-                        //move not allowed
                     }
+                }
+                catch (InvalidCoordinateException | PositionAlreadyOccupiedException | IllegalMoveException e) {
+                    //move not allowed
                 }
             }
         }
@@ -128,15 +128,13 @@ public class Controller {
         //This loop exits when all nodes in the board have been visited
         while (!allNodesVisited) {
             BoardCoordinate bc = board.checkEdgesOfBoard(row, col);
-            row = bc.getRow();
-            col = bc.getColumn();
             //This loop is used to skip nodes that has been already visited
             while (visitedMatrix[row][col] == 1) {
                 col++; //next element of row
                 bc = board.checkEdgesOfBoard(row, col);
-                row = bc.getRow();
-                col = bc.getColumn();
             }
+            row = bc.getRow();
+            col = bc.getColumn();
             BoardCoordinate coordinate = new BoardCoordinate(row, col);
             //Checks if the current coordinate is empty and has at least 2 adjacent pieces
             if (board.getMatrix()[row][col].equals(Pieces.NONE) && coordinate.hasAtLeastTwoAdjacentPieces(board)) {
@@ -150,18 +148,12 @@ public class Controller {
                     //Territory found
                     UpdaterBoard updaterBoard = new UpdaterBoard(board, currentPlayer);
                     board = updaterBoard.updateBoardWithTerritory(possibleTerritory);
-                    row = savedCoordinate.getRow();
-                    col = savedCoordinate.getColumn() + 1;
-                    hasPositionBeenSaved = false;
                     possibleTerritory.clear();
                 }
-                else{
-                    //Set the node as visited, go to next position and reset the saved position
-                    visitedMatrix[emptyNode.getRow()][emptyNode.getColumn()] = 1;
-                    row = savedCoordinate.getRow();
-                    col = savedCoordinate.getColumn() + 1;
-                    hasPositionBeenSaved = false;
-                }
+                else visitedMatrix[emptyNode.getRow()][emptyNode.getColumn()] = 1;
+                row = savedCoordinate.getRow();
+                col = savedCoordinate.getColumn() + 1;
+                hasPositionBeenSaved = false;
             }
             //Go to next node
             else {
@@ -237,7 +229,8 @@ public class Controller {
         int col = lastEmptyNode.getColumn();
         //Checks to the right
         if (board.isNotEdge(col + 1)) {
-            if (board.getMatrix()[row][col + 1].equals(Pieces.NONE) && !territory.contains(new BoardCoordinate(row, col+1))) {
+            BoardCoordinate bc = new BoardCoordinate(row,col +1);
+            if (board.getPieceByCoordinate(bc).equals(Pieces.NONE) && !territory.contains(bc)) {
                 nextEmpty.setRow(row);
                 nextEmpty.setColumn(col + 1);
                 return nextEmpty;
@@ -245,7 +238,8 @@ public class Controller {
         }
         //Checks to the left
         if (board.isNotEdge(col - 1)) {
-            if (board.getMatrix()[row][col - 1].equals(Pieces.NONE) && !territory.contains(new BoardCoordinate(row, col-1))) {
+            BoardCoordinate bc = new BoardCoordinate(row,col -1);
+            if (board.getPieceByCoordinate(bc).equals(Pieces.NONE) && !territory.contains(bc)) {
                 nextEmpty.setRow(row);
                 nextEmpty.setColumn(col - 1);
                 return nextEmpty;
@@ -254,7 +248,8 @@ public class Controller {
 
         //Checks down
         if (board.isNotEdge(row + 1)) {
-            if (board.getMatrix()[row + 1][col].equals(Pieces.NONE) && !territory.contains(new BoardCoordinate(row + 1, col))) {
+            BoardCoordinate bc = new BoardCoordinate(row+1,col);
+            if (board.getPieceByCoordinate(bc).equals(Pieces.NONE) && !territory.contains(bc)) {
                 nextEmpty.setRow(row + 1);
                 nextEmpty.setColumn(col);
                 return nextEmpty;
@@ -262,7 +257,8 @@ public class Controller {
         }
         //Checks up
         if (board.isNotEdge(row - 1)) {
-            if (board.getMatrix()[row - 1][col].equals(Pieces.NONE) && !territory.contains(new BoardCoordinate(row -1, col))) {
+            BoardCoordinate bc = new BoardCoordinate(row-1,col);
+            if (board.getPieceByCoordinate(bc).equals(Pieces.NONE) && !territory.contains(bc)) {
                 nextEmpty.setRow(row - 1);
                 nextEmpty.setColumn(col);
                 return nextEmpty;

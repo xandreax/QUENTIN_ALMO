@@ -1,6 +1,6 @@
 import entities.*;
 import exceptions.*;
-import quentinGame.ConsoleGame;
+import logic.ConsoleGame;
 
 import java.io.BufferedReader;
 import java.io.IOException;

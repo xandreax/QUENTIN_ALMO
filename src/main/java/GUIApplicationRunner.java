@@ -1,4 +1,4 @@
-import quentinGame.UIGame;
+import logic.UIGame;
 
 public class GUIApplicationRunner {
     //METHODS

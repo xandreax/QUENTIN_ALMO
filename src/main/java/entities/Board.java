@@ -48,8 +48,13 @@ public class Board {
             Board board = (Board) obj;
             for (int row = 0; row < this.getDIMENSION(); row++){
                 for (int col = 0; col < this.getDIMENSION(); col ++){
-                    if (!board.getMatrix()[row][col].equals(this.matrix[row][col]))
-                        return false;
+                    try {
+                        BoardCoordinate bc = new BoardCoordinate(row, col);
+                        if (!board.getPieceByCoordinate(bc).equals(this.matrix[row][col]))
+                            return false;
+                    } catch (InvalidCoordinateException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             return true;
@@ -92,8 +97,6 @@ public class Board {
     /*public List<Move> getMovesHistory() {
         return movesHistory;
     }*/
-
-
     public boolean hasNoWhitePieces() {
         for (int row = 0; row < this.getDIMENSION(); row++){
             for (int col = 0; col < this.getDIMENSION(); col ++){

@@ -1,13 +1,11 @@
 package ui.gui.components.welcome.page;
 
-import quentinGame.UIGame;
+import logic.UIGame;
 import ui.gui.components.GameFrame;
 import ui.gui.components.GenericButton;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class PanelWelcomePage extends JPanel {
     //FIELDS

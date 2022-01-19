@@ -1,4 +1,4 @@
-package quentinGame;
+package logic;
 
 public interface Game {
 

@@ -1,6 +1,7 @@
 package ui.gui.components.game.page;
 
 import entities.Board;
+import exceptions.InvalidCoordinateException;
 import ui.gui.components.GameFrame;
 
 import javax.swing.*;
@@ -13,7 +14,7 @@ public class PanelGamePage extends JPanel {
     private final BoardPanel boardPanel;
 
     //CONSTRUCTORS
-    public PanelGamePage(GameFrame gameFrame, Board board) {
+    public PanelGamePage(GameFrame gameFrame) {
         super();
         this.currentGameFrame = gameFrame;
         this.setBackground(GameFrame.BOARD_COLOR);
@@ -30,7 +31,7 @@ public class PanelGamePage extends JPanel {
         gbcHeader.insets = new Insets(0, 0, 20, 0);
         add(this.header, gbcHeader);
 
-        boardPanel = new BoardPanel(this.getCurrentGameFrame(), board);
+        boardPanel = new BoardPanel(this.getCurrentGameFrame());
         GridBagConstraints gbcBoardPanel = new GridBagConstraints();
         gbcBoardPanel.gridx = 0;
         gbcBoardPanel.gridy = 1;

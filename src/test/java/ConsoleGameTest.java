@@ -1,13 +1,3 @@
-import quentinGame.ConsoleGame;
-import entities.Pieces;
-import entities.Player;
-import exceptions.UnsupportedPiecesForPlayerException;
-import ui.shell.BoardShellPrinter;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.function.Executable;
-
 public class ConsoleGameTest {/*
     //FIELDS
     public static Player player1;
