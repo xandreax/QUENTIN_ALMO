@@ -27,8 +27,8 @@ public class AfterMoveChecker {
     public Board checkAndUpdateBoardAfterMove() throws VictoryException, InvalidCoordinateException {
         Board board = game.getBoard();
         VictoryCondition victoryCondition = new VictoryCondition();
-        //If there have been at least 3 moves it makes sense to check the territories
-        if (board.getMovesHistory().size() > 2) {
+        //If there have been at least 2 moves it makes sense to check the territories
+        if (board.getMovesHistory().size() > 1) {
             board = game.checkTerritories(player);
         }
         victoryCondition.checkVictoryCondition(board, player);

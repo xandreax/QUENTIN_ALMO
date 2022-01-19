@@ -130,10 +130,9 @@ public class Game {
                 row = bc.getRow();
                 col = bc.getColumn();
             }
-            BoardCoordinate coordinate = new BoardCoordinate(row, col);
             //Checks if the current coordinate is empty and has at least 2 adjacent pieces
-            if (board.getMatrix()[row][col].equals(Pieces.NONE) && coordinate.hasAtLeastTwoAdjacentPieces(board)) {
-                possibleTerritory.add(coordinate);
+            if (board.getMatrix()[row][col].equals(Pieces.NONE) && bc.hasAtLeastTwoAdjacentPieces(board)) {
+                possibleTerritory.add(bc);
                 visitedMatrix[row][col] = 1;
                 savedCoordinate = getSavedCoordinate(row, col, hasPositionBeenSaved, savedCoordinate);
                 BoardCoordinate emptyNode = findNextEmptyNode(possibleTerritory.getLast(), possibleTerritory, board);
@@ -143,18 +142,13 @@ public class Game {
                     //Territory found
                     UpdaterBoard updaterBoard = new UpdaterBoard(board, player);
                     board = updaterBoard.updateBoardWithTerritory(possibleTerritory);
-                    row = savedCoordinate.getRow();
-                    col = savedCoordinate.getColumn() + 1;
-                    hasPositionBeenSaved = false;
                     possibleTerritory.clear();
                 }
-                else{
-                    //Set the node as visited, go to next position and reset the saved position
-                    visitedMatrix[emptyNode.getRow()][emptyNode.getColumn()] = 1;
-                    row = savedCoordinate.getRow();
-                    col = savedCoordinate.getColumn() + 1;
-                    hasPositionBeenSaved = false;
-                }
+                else visitedMatrix[emptyNode.getRow()][emptyNode.getColumn()] = 1;
+
+                hasPositionBeenSaved = false;
+                row = savedCoordinate.getRow();
+                col = savedCoordinate.getColumn() + 1;
             }
             //Go to next node
             else {
