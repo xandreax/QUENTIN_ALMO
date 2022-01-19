@@ -139,7 +139,7 @@ public class Controller {
             }
             BoardCoordinate coordinate = new BoardCoordinate(row, col);
             //Checks if the current coordinate is empty and has at least 2 adjacent pieces
-            if (board.getMatrix()[row][col].equals(Pieces.NONE) && coordinate.hasAtLeastTwoAdjacentPieces(board)) {
+            if (board.getPieceByCoordinate(coordinate).equals(Pieces.NONE) && coordinate.hasAtLeastTwoAdjacentPieces(board)) {
                 possibleTerritory.add(coordinate);
                 visitedMatrix[row][col] = 1;
                 savedCoordinate = getSavedCoordinate(row, col, hasPositionBeenSaved, savedCoordinate);
