@@ -1,21 +1,18 @@
 package entities;
 
 import exceptions.InvalidCoordinateException;
-import gui.BoardShellPrinter;
-
-import java.util.LinkedList;
-import java.util.List;
+import ui.shell.BoardShellPrinter;
 
 public class Board {
     //FIELDS
     private final Pieces[][] matrix;        //each cell represents an intersection(!)
     private final int DIMENSION = 13;      //number of intersection, not boxes. 13 intersection ==> 12 boxes
-    private final List<Move> movesHistory;
+    //private final List<Move> movesHistory;
 
     //CONSTRUCTORS
     public Board() {
         this.matrix = new Pieces[DIMENSION][DIMENSION];
-        this.movesHistory = new LinkedList<>();
+        //this.movesHistory = new LinkedList<>();
         for (int i = 0; i < this.DIMENSION; i++) {
             for (int j = 0; j < this.DIMENSION; j++) {
                 this.matrix[i][j] = Pieces.NONE;
@@ -30,11 +27,6 @@ public class Board {
 
     public int getDIMENSION() {
         return DIMENSION;
-    }
-
-    public void doMove(Move move) {
-        this.setPieceByCoordinate(move.getCoordinate(), move.getPlayer().getPieces());
-        this.movesHistory.add(move);
     }
 
     public Pieces getPieceByCoordinate(BoardCoordinate xy) {
@@ -84,6 +76,8 @@ public class Board {
      * @return the coordinate in the right range if the indexes are out of bounds, the old coordinates otherwise
      * @throws InvalidCoordinateException
      */
+
+    //TODO: Rename this class or modify in boolean: così sembra che debba solo testare qualcosa invece ritorna una coordinata
     public BoardCoordinate checkEdgesOfBoard(int row, int col) throws InvalidCoordinateException {
         if (col >= DIMENSION) {
             row++;
@@ -95,9 +89,28 @@ public class Board {
         return new BoardCoordinate(row, col);
     }
 
-    public List<Move> getMovesHistory() {
+    /*public List<Move> getMovesHistory() {
         return movesHistory;
+    }*/
+
+
+    public boolean hasNoWhitePieces() {
+        for (int row = 0; row < this.getDIMENSION(); row++){
+            for (int col = 0; col < this.getDIMENSION(); col ++){
+                if (matrix[row][col].equals(Pieces.WHITE))
+                    return false;
+            }
+        }
+        return true;
     }
 
-
+    public boolean isFull() {
+        for (int row = 0; row < this.getDIMENSION(); row++){
+            for (int col = 0; col < this.getDIMENSION(); col ++){
+                if (matrix[row][col].equals(Pieces.NONE))
+                    return false;
+            }
+        }
+        return true;
+    }
 }

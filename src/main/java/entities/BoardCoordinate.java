@@ -1,9 +1,9 @@
 package entities;
 
 import exceptions.InvalidCoordinateException;
-import utils.coordinate.CharUtils;
-import utils.coordinate.IntUtils;
-import utils.coordinate.StringUtils;
+import utils.CharUtils;
+import utils.IntUtils;
+import utils.StringUtils;
 
 /**
  * This class represents a single coordinate defined as a line intersection in the context of the table board.
@@ -135,14 +135,13 @@ public class BoardCoordinate implements Coordinate2D {
         }
     }
 
-
     /**
      * This method checks if a coordinate has at least two adjacent pieces
      *
      * @param board
      * @return true if the coordinate has at least two adjacent pieces, false otherwise
      */
-    protected boolean hasAtLeastTwoAdjacentPieces(Board board) {
+    public boolean hasAtLeastTwoAdjacentPieces(Board board) {
         boolean down, up, right, left;
         //First checks the limits of the board, then if row and column are not edges checks all 4 directions
         if (row == 0 && column == 0){

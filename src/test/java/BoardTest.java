@@ -1,7 +1,6 @@
 import entities.Board;
 import entities.Pieces;
-import gui.BoardShellPrinter;
-import org.junit.Before;
+import ui.shell.BoardShellPrinter;
 import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
