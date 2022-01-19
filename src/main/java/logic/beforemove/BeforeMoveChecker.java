@@ -1,9 +1,6 @@
 package logic.beforemove;
 
-import entities.Board;
-import entities.Move;
-import entities.Pieces;
-import entities.Player;
+import entities.*;
 import exceptions.IllegalMoveException;
 import exceptions.InvalidCoordinateException;
 import exceptions.PositionAlreadyOccupiedException;
@@ -11,12 +8,14 @@ import logic.beforemove.illegalmove.CardinalCoordinates;
 import logic.beforemove.illegalmove.IllegalMoveLogic;
 
 public class BeforeMoveChecker {
-    private final Move move;
+    private final BoardCoordinate move;
     private final Board board;
+    private final Player player;
 
-    public BeforeMoveChecker(Move move, Board board) {
+    public BeforeMoveChecker(BoardCoordinate move, Board board, Player player) {
         this.move = move;
         this.board = board;
+        this.player = player;
     }
 
     /**
@@ -39,7 +38,7 @@ public class BeforeMoveChecker {
      * @throws PositionAlreadyOccupiedException
      */
     private void checkIfPositionIsOccupied() throws PositionAlreadyOccupiedException {
-        if (!board.getPieceByCoordinate(move.getCoordinate()).equals(Pieces.NONE)) {
+        if (!board.getPieceByCoordinate(move).equals(Pieces.NONE)) {
             throw new PositionAlreadyOccupiedException("Move not allowed, this position is already occupied by another piece");
         }
     }
@@ -52,9 +51,8 @@ public class BeforeMoveChecker {
      * @throws InvalidCoordinateException
      */
     private void checkIfMoveIsLegal() throws IllegalMoveException, InvalidCoordinateException {
-        CardinalCoordinates cardinals = new CardinalCoordinates(move.getCoordinate(), board.getDIMENSION());
-        Player player = move.getPlayer();
+        CardinalCoordinates cardinals = new CardinalCoordinates(move, board.getDIMENSION());
         if(IllegalMoveLogic.checkIfExistDiagonalIllegalPiece(cardinals, board, player.getPieces()))
-            throw new IllegalMoveException("Move not allowed, " +move.getCoordinate().getRow()+move.getCoordinate().getColumn()+" this position doesn't share any other orthogonal piece of your color");
+            throw new IllegalMoveException("Move not allowed, " +move.getRow()+move.getColumn()+" this position doesn't share any other orthogonal piece of your color");
     }
 }

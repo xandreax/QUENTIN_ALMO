@@ -1,10 +1,9 @@
 package entities;
 
 import exceptions.InvalidCoordinateException;
-import utils.coordinate.CharUtils;
-import utils.coordinate.IntUtils;
-import utils.coordinate.StringUtils;
-
+import utils.CharUtils;
+import utils.IntUtils;
+import utils.StringUtils;
 import java.util.Objects;
 
 /**
@@ -95,6 +94,7 @@ public class BoardCoordinate implements Coordinate2D {
         this.column = column;
     }
 
+    //TODO: Override anche di hashcode
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof BoardCoordinate) {

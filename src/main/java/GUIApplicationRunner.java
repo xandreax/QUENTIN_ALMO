@@ -1,9 +1,8 @@
-import gui.components.GameFrame;
+import logic.UIGame;
 
 public class GUIApplicationRunner {
     //METHODS
     public static void main(String[] args) {
-        GameFrame frame = new GameFrame();
-        frame.setVisible(true);
+        new UIGame();
     }
 }
