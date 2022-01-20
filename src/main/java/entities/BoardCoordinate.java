@@ -109,8 +109,7 @@ public class BoardCoordinate implements Coordinate2D {
     public BoardCoordinate getDown() throws InvalidCoordinateException {
         return new BoardCoordinate(row +1, column);
     }
-    //TODO: eliminare in caso di inutilizzati
-    /*
+
     public BoardCoordinate getUpRight() throws InvalidCoordinateException {
         return new BoardCoordinate(row-1, column+1);
     }
@@ -126,7 +125,6 @@ public class BoardCoordinate implements Coordinate2D {
     public BoardCoordinate getDownRight() throws InvalidCoordinateException {
         return new BoardCoordinate(row+1, column+1);
     }
-     */
 
     @Override
     public boolean equals(Object obj) {
@@ -150,58 +148,26 @@ public class BoardCoordinate implements Coordinate2D {
      * @param board: the board
      * @return true if the coordinate has at least two adjacent pieces, false otherwise
      */
-    public boolean hasAtLeastTwoAdjacentPieces(Board board) throws InvalidCoordinateException {
-        boolean down, up, right, left;
-        //First checks the limits of the board, then if row and column are not edges checks all 4 directions
-        if (row == 0 && column == 0){
-            down = !board.getPieceByCoordinate(getDown()).equals(Pieces.NONE);
-            right = !board.getPieceByCoordinate(getRight()).equals(Pieces.NONE);
-            return down && right;
-        }
-        if (row == board.getDIMENSION()-1 && column == 0){
-            up = !board.getPieceByCoordinate(getUp()).equals(Pieces.NONE);
-            right = !board.getPieceByCoordinate(getRight()).equals(Pieces.NONE);
-            return up && right;
-        }
-        if (column == board.getDIMENSION()-1 && row == 0){
-            down = !board.getPieceByCoordinate(getDown()).equals(Pieces.NONE);
-            left = !board.getPieceByCoordinate(getLeft()).equals(Pieces.NONE);
-            return left && down;
-        }
-        if (row == board.getDIMENSION()-1 && column == board.getDIMENSION() -1){
-            up = !board.getPieceByCoordinate(getUp()).equals(Pieces.NONE);
-            left = !board.getPieceByCoordinate(getLeft()).equals(Pieces.NONE);
-            return up && left;
-        }
-        if (row == board.getDIMENSION() - 1) {
-            up = !board.getPieceByCoordinate(getUp()).equals(Pieces.NONE);
-            right = !board.getPieceByCoordinate(getRight()).equals(Pieces.NONE);
-            left = !board.getPieceByCoordinate(getLeft()).equals(Pieces.NONE);
-            return (up && right) || (up && left) || (right && left);
-        }
-        if (row == 0) {
-            down = !board.getPieceByCoordinate(getDown()).equals(Pieces.NONE);
-            right = !board.getPieceByCoordinate(getRight()).equals(Pieces.NONE);
-            left = !board.getPieceByCoordinate(getLeft()).equals(Pieces.NONE);
-            return (down && right) || (down && left) || (right && left);
-        }
-        if (column == 0) {
-            down = !board.getPieceByCoordinate(getDown()).equals(Pieces.NONE);
-            up = !board.getPieceByCoordinate(getUp()).equals(Pieces.NONE);
-            right = !board.getPieceByCoordinate(getRight()).equals(Pieces.NONE);
-            return (down && up) || (down && right) || (right && up);
-        }
-        if (column == board.getDIMENSION() - 1) {
-            down = !board.getPieceByCoordinate(getDown()).equals(Pieces.NONE);
-            up = !board.getPieceByCoordinate(getUp()).equals(Pieces.NONE);
-            left = !board.getPieceByCoordinate(getLeft()).equals(Pieces.NONE);
-            return (down && up) || (down && left) || (left && up);
-        }
 
-        down = !board.getPieceByCoordinate(getDown()).equals(Pieces.NONE);
-        up = !board.getPieceByCoordinate(getUp()).equals(Pieces.NONE);
-        right = !board.getPieceByCoordinate(getRight()).equals(Pieces.NONE);
-        left = !board.getPieceByCoordinate(getLeft()).equals(Pieces.NONE);
+    //TODO: ho provato a refactorizzare così, può andar bene?
+    public boolean hasAtLeastTwoAdjacentPieces(Board board) {
+        boolean down = false, up = false, right = false, left = false;
+        //First checks the limits of the board, then if row and column are not edges checks all 4 directions
+        try {
+            down = !board.getPieceByCoordinate(getDown()).equals(Pieces.NONE);
+        }
+        catch (InvalidCoordinateException ignored){}
+        try {
+            up = !board.getPieceByCoordinate(getUp()).equals(Pieces.NONE);
+        }
+        catch (InvalidCoordinateException ignored){}
+        try {
+            right = !board.getPieceByCoordinate(getRight()).equals(Pieces.NONE);
+        }
+        catch (InvalidCoordinateException ignored){}
+        try{
+            left = !board.getPieceByCoordinate(getLeft()).equals(Pieces.NONE);
+        }catch (InvalidCoordinateException ignored){}
         return (down && up) || (down && right) || (down && left) || (up && right) || (left && up) || (left && right);
     }
 }

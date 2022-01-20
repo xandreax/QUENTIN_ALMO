@@ -4,8 +4,6 @@ import entities.*;
 import exceptions.IllegalMoveException;
 import exceptions.InvalidCoordinateException;
 import exceptions.PositionAlreadyOccupiedException;
-import logic.beforemove.illegalmove.CardinalCoordinates;
-import logic.beforemove.illegalmove.IllegalMoveLogic;
 
 public class BeforeMoveChecker {
     private final BoardCoordinate move;
@@ -24,9 +22,8 @@ public class BeforeMoveChecker {
      *
      * @throws PositionAlreadyOccupiedException
      * @throws IllegalMoveException
-     * @throws InvalidCoordinateException
      */
-    public void checkIfMoveIsPossible() throws PositionAlreadyOccupiedException, IllegalMoveException, InvalidCoordinateException {
+    public void checkIfMoveIsPossible() throws PositionAlreadyOccupiedException, IllegalMoveException {
         checkIfPositionIsOccupied();
         checkIfMoveIsLegal();
     }
@@ -48,11 +45,54 @@ public class BeforeMoveChecker {
      * illegal piece on a diagonal corner.
      *
      * @throws IllegalMoveException
-     * @throws InvalidCoordinateException
      */
-    private void checkIfMoveIsLegal() throws IllegalMoveException, InvalidCoordinateException {
-        CardinalCoordinates cardinals = new CardinalCoordinates(move, board.getDIMENSION());
-        if(IllegalMoveLogic.checkIfExistDiagonalIllegalPiece(cardinals, board, player.getPieces()))
+    private void checkIfMoveIsLegal() throws IllegalMoveException {
+        if(checkIfExistDiagonalIllegalPiece())
             throw new IllegalMoveException("Move not allowed, " +move.getRow()+move.getColumn()+" this position doesn't share any other orthogonal piece of your color");
+    }
+
+    /**
+     * This method checks for each diagonal corner if exists (points near the border doesn't have all the corner) and
+     * if is occupied by a piece of the same colour of the player that doesn't share any adjacent and orthogonal
+     * piece with the position of the move.
+     *
+     * @return true only if there is a piece of the same colour in a corner that doesn't share any adjacent and orthogonal
+     *         piece with the position of the move.
+     */
+    //TODO: ho refactorizzato anche qui eliminando le classi cardinalCoordinate e IllegalMoveLogic che conteneva un metodo statico che non serviva che lo sia
+    private boolean checkIfExistDiagonalIllegalPiece(){
+        try{
+            if(board.getPieceByCoordinate(move.getUpRight()).equals(player.getPieces())){
+                if(board.checkIfTwoPointsIsNotOccupiedBySamePiece(move.getUpRight(), move.getRight()) &&
+                        board.checkIfTwoPointsIsNotOccupiedBySamePiece(move.getUpRight(), move.getUp()))
+                    return true;
+            }
+        }
+        catch(InvalidCoordinateException ignored){}
+        try {
+            if (board.getPieceByCoordinate(move.getUpLeft()).equals(player.getPieces())) {
+                if (board.checkIfTwoPointsIsNotOccupiedBySamePiece(move.getUpLeft(), move.getLeft()) &&
+                        board.checkIfTwoPointsIsNotOccupiedBySamePiece(move.getUpLeft(), move.getUp()))
+                    return true;
+            }
+        }
+        catch(InvalidCoordinateException ignored){}
+        try {
+            if (board.getPieceByCoordinate(move.getDownLeft()).equals(player.getPieces())) {
+                if (board.checkIfTwoPointsIsNotOccupiedBySamePiece(move.getDownLeft(), move.getLeft()) &&
+                        board.checkIfTwoPointsIsNotOccupiedBySamePiece(move.getDownLeft(), move.getDown()))
+                    return true;
+            }
+        }
+        catch(InvalidCoordinateException ignored){}
+        try{
+            if(board.getPieceByCoordinate(move.getDownRight()).equals(player.getPieces())){
+                if(board.checkIfTwoPointsIsNotOccupiedBySamePiece(move.getDownRight(), move.getRight()) &&
+                        board.checkIfTwoPointsIsNotOccupiedBySamePiece(move.getDownRight(), move.getDown()))
+                    return true;
+            }
+        }
+        catch(InvalidCoordinateException ignored){}
+        return false;
     }
 }

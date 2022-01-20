@@ -8,12 +8,10 @@ public class Board {
     //FIELDS
     private final Pieces[][] matrix;        //each cell represents an intersection(!)
     private final int DIMENSION = 13;      //number of intersection, not boxes. 13 intersection ==> 12 boxes
-    //private final List<Move> movesHistory;
 
     //CONSTRUCTORS
     public Board() {
         this.matrix = new Pieces[DIMENSION][DIMENSION];
-        //this.movesHistory = new LinkedList<>();
         for (int i = 0; i < this.DIMENSION; i++) {
             for (int j = 0; j < this.DIMENSION; j++) {
                 this.matrix[i][j] = Pieces.NONE;
@@ -103,9 +101,6 @@ public class Board {
         return new BoardCoordinate(row, col);
     }
 
-    /*public List<Move> getMovesHistory() {
-        return movesHistory;
-    }*/
     public boolean hasNoWhitePieces() {
         for (int row = 0; row < this.getDIMENSION(); row++){
             for (int col = 0; col < this.getDIMENSION(); col ++){
@@ -124,5 +119,9 @@ public class Board {
             }
         }
         return true;
+    }
+
+    public boolean checkIfTwoPointsIsNotOccupiedBySamePiece(BoardCoordinate bc1, BoardCoordinate bc2){
+        return !getPieceByCoordinate(bc1).equals(getPieceByCoordinate(bc2));
     }
 }
