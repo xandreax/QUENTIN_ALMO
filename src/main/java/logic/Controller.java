@@ -68,7 +68,7 @@ public class Controller {
     }
 
     public void changeTurn(){
-        currentPlayer = currentPlayer.opponent(players);
+        currentPlayer = currentPlayer.invertPlayer(players);
     }
 
     public boolean endOfGame(){

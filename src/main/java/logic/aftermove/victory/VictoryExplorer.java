@@ -12,10 +12,11 @@ public class VictoryExplorer {
 
     /**
      * This method is used to check if the game has come to a conclusion.
-     * If the victory condition is satisfied, an exception will be thrown
-     * and the game will end.
+     * If the victory condition is satisfied, then the method return the colour
+     * of the winner.
      * If the board is full and no chain exists, then the player with the
      * major number of pieces will win the game.
+     * If the victory conditions are not satisfied, method return Pieces.NONE
      *
      * @param board: the board
      */

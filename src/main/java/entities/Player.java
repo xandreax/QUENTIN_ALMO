@@ -37,7 +37,7 @@ public class Player {
         this.pieces = pieces;
     }
 
-    public Player opponent(Player[] players){
+    public Player invertPlayer(Player[] players){
         if(this.equals(players[0]))
             return players[1];
         else
