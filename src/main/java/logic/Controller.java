@@ -53,7 +53,7 @@ public class Controller {
                         return true;
                     }
                 }
-                catch (InvalidCoordinateException | PositionAlreadyOccupiedException | IllegalMoveException e) {
+                catch (InvalidCoordinateException | PositionAlreadyOccupiedException | IllegalMoveException ignored) {
                     //move not allowed
                 }
             }
@@ -117,7 +117,7 @@ public class Controller {
      * @throws InvalidCoordinateException: coordinate not valid
      */
 
-    public Board checkTerritories() throws InvalidCoordinateException {
+    private Board checkTerritories() throws InvalidCoordinateException {
         boolean allNodesVisited = false;
         //List that resets every time that finds a new territory
         LinkedList<BoardCoordinate> possibleTerritory = new LinkedList<>();
@@ -225,40 +225,31 @@ public class Controller {
      * @throws InvalidCoordinateException: coordinate not valid
      */
     private BoardCoordinate findNextEmptyNode(BoardCoordinate lastEmptyNode, LinkedList<BoardCoordinate> territory, Board board) throws InvalidCoordinateException {
-        BoardCoordinate nextEmpty = new BoardCoordinate();
         int row = lastEmptyNode.getRow();
         int col = lastEmptyNode.getColumn();
         BoardCoordinate bc = new BoardCoordinate(row,col);
         //Checks to the right
         if (board.isNotEdge(col + 1)) {
             if (board.getPieceByCoordinate(bc.getRight()).equals(Pieces.NONE) && !territory.contains(bc.getRight())) {
-                nextEmpty.setRow(row);
-                nextEmpty.setColumn(col + 1);
-                return nextEmpty;
+                return bc.getRight();
             }
         }
         //Checks to the left
         if (board.isNotEdge(col - 1)) {
             if (board.getPieceByCoordinate(bc.getLeft()).equals(Pieces.NONE) && !territory.contains(bc.getLeft())) {
-                nextEmpty.setRow(row);
-                nextEmpty.setColumn(col - 1);
-                return nextEmpty;
+                return bc.getLeft();
             }
         }
         //Checks down
         if (board.isNotEdge(row + 1)) {
             if (board.getPieceByCoordinate(bc.getDown()).equals(Pieces.NONE) && !territory.contains(bc.getDown())) {
-                nextEmpty.setRow(row + 1);
-                nextEmpty.setColumn(col);
-                return nextEmpty;
+                return bc.getDown();
             }
         }
         //Checks up
         if (board.isNotEdge(row - 1)) {
             if (board.getPieceByCoordinate(bc.getUp()).equals(Pieces.NONE) && !territory.contains(bc.getUp())) {
-                nextEmpty.setRow(row - 1);
-                nextEmpty.setColumn(col);
-                return nextEmpty;
+                return bc.getUp();
             }
         }
         return null;
