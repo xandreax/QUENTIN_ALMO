@@ -81,17 +81,9 @@ public class BoardCoordinate implements Coordinate2D {
         return row;
     }
 
-    public void setRow(int row) {
-        this.row = row;
-    }
-
     @Override
     public int getColumn() {
         return column;
-    }
-
-    public void setColumn(int column) {
-        this.column = column;
     }
 
     public BoardCoordinate getLeft() throws InvalidCoordinateException {
