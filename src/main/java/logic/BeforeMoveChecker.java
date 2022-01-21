@@ -1,4 +1,4 @@
-package logic.beforemove;
+package logic;
 
 import entities.*;
 import exceptions.IllegalMoveException;

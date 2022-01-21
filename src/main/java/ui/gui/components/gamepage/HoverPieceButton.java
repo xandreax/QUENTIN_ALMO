@@ -1,4 +1,4 @@
-package ui.gui.components.game.page;
+package ui.gui.components.gamepage;
 
 import javax.swing.*;
 import javax.swing.border.Border;

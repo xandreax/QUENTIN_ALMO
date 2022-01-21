@@ -1,4 +1,4 @@
-package ui.gui.components.game.page;
+package ui.gui.components.gamepage;
 
 import entities.BoardCoordinate;
 import exceptions.InvalidCoordinateException;

@@ -7,7 +7,7 @@ import exceptions.IllegalMoveException;
 import exceptions.InvalidCoordinateException;
 import exceptions.PositionAlreadyOccupiedException;
 import ui.gui.components.GameFrame;
-import ui.gui.components.game.page.PanelGamePage;
+import ui.gui.components.gamepage.PanelGamePage;
 
 import java.util.*;
 
@@ -15,8 +15,8 @@ public class UIGame implements Game{
 
     private Player player1;
     private Player player2;
-    private GameFrame frame;
-    private Board board;
+    private final GameFrame frame;
+    private final Board board;
     private Controller controller;
 
     public UIGame() {
@@ -31,7 +31,7 @@ public class UIGame implements Game{
         player1 = players.get(0);
         player2 = players.get(1);
         controller = new Controller(board, new Player[]{player1, player2});
-        frame.initPanelGamePage(controller.getBoard());
+        frame.initPanelGamePage();
     }
 
     public void handleMove(BoardCoordinate move, PanelGamePage p){

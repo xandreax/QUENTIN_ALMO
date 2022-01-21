@@ -1,4 +1,4 @@
-package ui.gui.components.welcome.page;
+package ui.gui.components.welcomepage;
 
 import ui.gui.components.GameFrame;
 
