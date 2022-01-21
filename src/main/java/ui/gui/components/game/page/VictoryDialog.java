@@ -6,12 +6,10 @@ import ui.gui.components.GenericButton;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class VictoryDialog extends JDialog {
     //FIELDS
-    protected JTextArea textArea;
+    protected JLabel labelArea;
     protected GenericButton buttonOk;
     protected Color BACKGROUND_COLOR = new Color(0, 212, 203);
     protected Player player;
@@ -32,10 +30,10 @@ public class VictoryDialog extends JDialog {
         this.getContentPane().setBackground(BACKGROUND_COLOR);
         this.setLayout(new GridBagLayout());
 
-        this.textArea = new JTextArea(player.getUsername() + " HAS WON!!!");
-        this.textArea.setFont(gf.getApplicationFont(false));
-        this.textArea.setForeground(Color.RED);
-        this.textArea.setBackground(Color.WHITE);
+        this.labelArea = new JLabel(player.getUsername() + " HAS WON!!!");
+        this.labelArea.setFont(gf.getApplicationFont(false));
+        this.labelArea.setForeground(Color.RED);
+        this.labelArea.setBackground(Color.WHITE);
 
         this.buttonOk = new GenericButton("Ok", gf);
         this.buttonOk.addActionListener(e -> {
@@ -43,16 +41,16 @@ public class VictoryDialog extends JDialog {
             VictoryDialog.this.gameFrame.dispose();
         });
 
-        GridBagConstraints gbcTextArea = new GridBagConstraints();
-        gbcTextArea.gridx = 0;
-        gbcTextArea.gridy = 0;
-        gbcTextArea.gridheight = 1;
-        gbcTextArea.gridwidth = 1;
-        gbcTextArea.weighty = 0.5;
-        gbcTextArea.weightx = 0.5;
-        gbcTextArea.anchor = GridBagConstraints.CENTER;
-        gbcTextArea.fill = GridBagConstraints.NONE;
-        this.getContentPane().add(this.textArea, gbcTextArea);
+        GridBagConstraints gbcLabelArea = new GridBagConstraints();
+        gbcLabelArea.gridx = 0;
+        gbcLabelArea.gridy = 0;
+        gbcLabelArea.gridheight = 1;
+        gbcLabelArea.gridwidth = 1;
+        gbcLabelArea.weighty = 0.5;
+        gbcLabelArea.weightx = 0.5;
+        gbcLabelArea.anchor = GridBagConstraints.CENTER;
+        gbcLabelArea.fill = GridBagConstraints.NONE;
+        this.getContentPane().add(this.labelArea, gbcLabelArea);
 
         GridBagConstraints gbcButtonOk = new GridBagConstraints();
         gbcButtonOk.gridx = 0;

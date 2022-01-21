@@ -6,12 +6,10 @@ import ui.gui.components.GenericButton;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class PieRuleDialog extends JDialog {
     //FIELDS
-    protected JTextArea textArea;
+    protected JLabel labelArea;
     protected GenericButton buttonYes;
     protected GenericButton buttonNo;
     protected GameFrame gameFrame;
@@ -33,24 +31,24 @@ public class PieRuleDialog extends JDialog {
         this.getContentPane().setBackground(BACKGROUND_COLOR);
         this.setLayout(new GridBagLayout());
 
-        this.textArea = new JTextArea(player.getUsername() + " wanna use Pie Rule?");
-        this.textArea.setFont(gf.getApplicationFont(false));
-        this.textArea.setForeground(Color.BLACK);
+        this.labelArea = new JLabel(player.getUsername() + " wanna use Pie Rule?");
+        this.labelArea.setFont(gf.getApplicationFont(false));
+        this.labelArea.setForeground(Color.BLACK);
 
         this.buttonYes = new GenericButton("Yes", gf);
 
         this.buttonNo = new GenericButton("No", gf);
 
-        GridBagConstraints gbcTextArea = new GridBagConstraints();
-        gbcTextArea.gridx = 0;
-        gbcTextArea.gridy = 0;
-        gbcTextArea.gridheight = 1;
-        gbcTextArea.gridwidth = 2;
-        gbcTextArea.weighty = 0.25;
-        gbcTextArea.weightx = 0.25;
-        gbcTextArea.anchor = GridBagConstraints.CENTER;
-        gbcTextArea.fill = GridBagConstraints.NONE;
-        this.getContentPane().add(this.textArea, gbcTextArea);
+        GridBagConstraints gbcLabelArea = new GridBagConstraints();
+        gbcLabelArea.gridx = 0;
+        gbcLabelArea.gridy = 0;
+        gbcLabelArea.gridheight = 1;
+        gbcLabelArea.gridwidth = 2;
+        gbcLabelArea.weighty = 0.25;
+        gbcLabelArea.weightx = 0.25;
+        gbcLabelArea.anchor = GridBagConstraints.CENTER;
+        gbcLabelArea.fill = GridBagConstraints.NONE;
+        this.getContentPane().add(this.labelArea, gbcLabelArea);
 
         GridBagConstraints gbcButtonYes = new GridBagConstraints();
         gbcButtonYes.gridx = 0;

@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class AlertDialog extends JDialog {
     //FIELDS
-    protected JTextArea textArea;
+    protected JLabel labelArea;
     protected GenericButton buttonOk;
     protected Color BACKGROUND_COLOR = new Color(114, 0, 0);
 
@@ -24,9 +24,9 @@ public class AlertDialog extends JDialog {
         this.getContentPane().setBackground(BACKGROUND_COLOR);
         this.setLayout(new GridBagLayout());
 
-        this.textArea = new JTextArea(text);
-        this.textArea.setFont(gf.getApplicationFont(false));
-        this.textArea.setForeground(Color.RED);
+        this.labelArea = new JLabel(text);
+        this.labelArea.setFont(gf.getApplicationFont(false));
+        this.labelArea.setForeground(Color.RED);
 
         this.buttonOk = new GenericButton("Ok", gf);
         this.buttonOk.addActionListener(new ActionListener() {
@@ -45,7 +45,7 @@ public class AlertDialog extends JDialog {
         gbcTextArea.weightx = 0;
         gbcTextArea.anchor = GridBagConstraints.PAGE_START;
         gbcTextArea.fill = GridBagConstraints.NONE;
-        this.getContentPane().add(this.textArea, gbcTextArea);
+        this.getContentPane().add(this.labelArea, gbcTextArea);
 
         GridBagConstraints gbcButtonOk = new GridBagConstraints();
         gbcButtonOk.gridx = 0;

@@ -6,13 +6,11 @@ import ui.gui.components.GenericButton;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class NoAvailableMovesDialog extends JDialog {
     //FIELDS
     protected Player player;
-    protected JTextArea textArea;
+    protected JLabel labelArea;
     protected GenericButton buttonOk;
     protected Color BACKGROUND_COLOR = new Color(157, 157, 157);
 
@@ -30,23 +28,23 @@ public class NoAvailableMovesDialog extends JDialog {
         this.getContentPane().setBackground(BACKGROUND_COLOR);
         this.setLayout(new GridBagLayout());
 
-        this.textArea = new JTextArea(player.getUsername() + " has no available moves.");
-        this.textArea.setFont(gf.getApplicationFont(false));
-        this.textArea.setForeground(Color.RED);
+        this.labelArea = new JLabel(player.getUsername() + " has no available moves.");
+        this.labelArea.setFont(gf.getApplicationFont(false));
+        this.labelArea.setForeground(Color.RED);
 
         this.buttonOk = new GenericButton("Ok", gf);
         this.buttonOk.addActionListener(e -> NoAvailableMovesDialog.this.dispose());
 
-        GridBagConstraints gbcTextArea = new GridBagConstraints();
-        gbcTextArea.gridx = 0;
-        gbcTextArea.gridy = 0;
-        gbcTextArea.gridheight = 1;
-        gbcTextArea.gridwidth = 1;
-        gbcTextArea.weighty = 0.5;
-        gbcTextArea.weightx = 0;
-        gbcTextArea.anchor = GridBagConstraints.PAGE_START;
-        gbcTextArea.fill = GridBagConstraints.NONE;
-        this.getContentPane().add(this.textArea, gbcTextArea);
+        GridBagConstraints gbcLabelArea = new GridBagConstraints();
+        gbcLabelArea.gridx = 0;
+        gbcLabelArea.gridy = 0;
+        gbcLabelArea.gridheight = 1;
+        gbcLabelArea.gridwidth = 1;
+        gbcLabelArea.weighty = 0.5;
+        gbcLabelArea.weightx = 0;
+        gbcLabelArea.anchor = GridBagConstraints.PAGE_START;
+        gbcLabelArea.fill = GridBagConstraints.NONE;
+        this.getContentPane().add(this.labelArea, gbcLabelArea);
 
         GridBagConstraints gbcButtonOk = new GridBagConstraints();
         gbcButtonOk.gridx = 0;
