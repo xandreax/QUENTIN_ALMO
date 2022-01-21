@@ -3,14 +3,13 @@ package ui.gui.components;
 import entities.*;
 import exceptions.*;
 import logic.UIGame;
-import ui.gui.GUICoordinate;
-import ui.gui.components.game.page.NoAvailableMovesDialog;
-import ui.gui.components.game.page.PanelGamePage;
-import ui.gui.components.game.page.PieRuleDialog;
-import ui.gui.components.game.page.VictoryDialog;
-import ui.gui.components.welcome.page.DialogForPlayers;
-import ui.gui.components.welcome.page.DiscardButtonActionListener;
-import ui.gui.components.welcome.page.PanelWelcomePage;
+import ui.gui.components.gamepage.NoAvailableMovesDialog;
+import ui.gui.components.gamepage.PanelGamePage;
+import ui.gui.components.gamepage.PieRuleDialog;
+import ui.gui.components.gamepage.VictoryDialog;
+import ui.gui.components.welcomepage.DialogForPlayers;
+import ui.gui.components.welcomepage.DiscardButtonActionListener;
+import ui.gui.components.welcomepage.PanelWelcomePage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -130,7 +129,7 @@ public class GameFrame extends JFrame {
         return players;
     }
 
-    public void initPanelGamePage(Board board) {
+    public void initPanelGamePage() {
         this.getContentPane().removeAll();
         PanelGamePage panelGamePage = new PanelGamePage(this);
         this.getContentPane().add(panelGamePage);

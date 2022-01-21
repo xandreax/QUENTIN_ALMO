@@ -1,4 +1,4 @@
-package logic.aftermove.territories;
+package logic;
 
 import entities.Board;
 import entities.BoardCoordinate;

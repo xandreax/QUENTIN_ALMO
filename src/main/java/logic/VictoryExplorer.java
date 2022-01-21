@@ -1,4 +1,4 @@
-package logic.aftermove.victory;
+package logic;
 
 import entities.Board;
 import entities.Pieces;

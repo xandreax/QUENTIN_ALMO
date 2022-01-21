@@ -7,9 +7,6 @@ import entities.Player;
 import exceptions.IllegalMoveException;
 import exceptions.InvalidCoordinateException;
 import exceptions.PositionAlreadyOccupiedException;
-import logic.aftermove.territories.UpdaterBoard;
-import logic.aftermove.victory.VictoryExplorer;
-import logic.beforemove.BeforeMoveChecker;
 
 import java.util.Arrays;
 import java.util.LinkedList;
