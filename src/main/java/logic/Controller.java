@@ -11,6 +11,7 @@ import logic.aftermove.territories.UpdaterBoard;
 import logic.aftermove.victory.VictoryExplorer;
 import logic.beforemove.BeforeMoveChecker;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class Controller {
@@ -206,12 +207,7 @@ public class Controller {
      * @return true if all nodes has been visited, false otherwise.
      */
     private boolean hasAllNodesBeenVisited(int[][] matrix) {
-        int counter = 0;
-        for (int[] ints : matrix) {
-            for (int anInt : ints) {
-                counter = counter + anInt;
-            }
-        }
+        int counter = Arrays.stream(matrix).flatMapToInt(Arrays::stream).reduce(0, (x, y) -> x+y);
         return counter == (matrix.length * matrix.length);
     }
 

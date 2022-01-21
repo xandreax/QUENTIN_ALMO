@@ -2,6 +2,8 @@ package entities;
 
 import exceptions.InvalidCoordinateException;
 import ui.shell.BoardShellPrinter;
+
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Board {
@@ -102,23 +104,11 @@ public class Board {
     }
 
     public boolean hasNoWhitePieces() {
-        for (int row = 0; row < this.getDIMENSION(); row++){
-            for (int col = 0; col < this.getDIMENSION(); col ++){
-                if (matrix[row][col].equals(Pieces.WHITE))
-                    return false;
-            }
-        }
-        return true;
+        return Arrays.stream(getMatrix()).flatMap(Arrays::stream).noneMatch(x -> x.equals(Pieces.WHITE));
     }
 
     public boolean isFull() {
-        for (int row = 0; row < this.getDIMENSION(); row++){
-            for (int col = 0; col < this.getDIMENSION(); col ++){
-                if (matrix[row][col].equals(Pieces.NONE))
-                    return false;
-            }
-        }
-        return true;
+        return Arrays.stream(getMatrix()).flatMap(Arrays::stream).noneMatch(x -> x.equals(Pieces.NONE));
     }
 
     public boolean checkIfTwoPointsIsNotOccupiedBySamePiece(BoardCoordinate bc1, BoardCoordinate bc2){
