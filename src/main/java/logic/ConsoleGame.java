@@ -59,7 +59,7 @@ public class ConsoleGame implements Game{
         System.out.println("Begin time: "+ beginTime);
         controller = new Controller(board, new Player[]{player1, player2});
         BoardShellPrinter bp = board.getPrinter();
-        bp.printOnStdOut(true);
+        bp.printOnStdOut();
         while(!controller.endOfGame()){
             if(controller.checkIfIsTimeToPieRule()){
                 if(askForPieRule(controller.getCurrentPlayer()/*, br*/)) {
@@ -87,7 +87,7 @@ public class ConsoleGame implements Game{
                 System.out.println("Player " + controller.getCurrentPlayer().getUsername() + " has no available moves");
                 controller.changeTurn();
             }
-            bp.printOnStdOut(true);
+            bp.printOnStdOut();
         }
         Player winner = controller.getWinnerPlayer();
         System.out.println("Victory! " + winner.getUsername() + " has won the game!");
