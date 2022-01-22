@@ -20,16 +20,12 @@ public class VictoryExplorer {
      *
      * @param board: the board
      */
+
     public Pieces getPieceWinner(Board board) {
         if (board.isFull()) {
-            int blacks = 0, whites = 0;
-            for (int i = 0; i < board.getDIMENSION(); i++) {
-                for (int j = 0; j < board.getDIMENSION(); j++) {
-                    if (board.getMatrix()[i][j].equals(Pieces.BLACK)) blacks++;
-                    else if (board.getMatrix()[i][j].equals(Pieces.WHITE)) whites++;
-                }
-            }
-            if (blacks + whites == board.getDIMENSION() * board.getDIMENSION()) {
+            long blacks = Arrays.stream(board.getMatrix()).flatMap(Arrays::stream).filter(x -> x.equals(Pieces.BLACK)).count();
+            long whites = Arrays.stream(board.getMatrix()).flatMap(Arrays::stream).filter(x -> x.equals(Pieces.WHITE)).count();
+            if (blacks + whites == (long) board.getDIMENSION() * board.getDIMENSION()) {
                 if (blacks > whites) return Pieces.BLACK;
                 else return Pieces.WHITE;
             }
@@ -42,19 +38,17 @@ public class VictoryExplorer {
     /**
      * This method checks for each player if the victory condition has been reached.
      *
-     * @param matrix: matrix
+     * @param matrix:     matrix
      * @param matrixTemp: temporary matrix
      * @return true if the matrix has a path from side to side, false otherwise
      */
     private Pieces getPieceWinnerIfExistPath(Pieces[][] matrix, int[][] matrixTemp) {
-        for (int i = 0; i < matrixTemp[0].length; i++)
-            Arrays.fill(matrixTemp[i], -1);
+        Arrays.stream(matrixTemp).forEach(array -> Arrays.fill(array, -1));
         for (int i = 0; i < matrix.length; i++) {
             if (existPathHelper(matrix, matrixTemp, i, 0, Pieces.WHITE))
                 return Pieces.WHITE;
         }
-        for (int i = 0; i < matrixTemp[0].length; i++)
-            Arrays.fill(matrixTemp[i], -1);
+        Arrays.stream(matrixTemp).forEach(array -> Arrays.fill(array, -1));
         for (int j = 0; j < matrix[0].length; j++) {
             if (existPathHelper(matrix, matrixTemp, 0, j, Pieces.BLACK))
                 return Pieces.BLACK;
@@ -67,10 +61,10 @@ public class VictoryExplorer {
      * Recursive algorithm Deep First Search to find possible path in a matrix
      * //https://stackoverflow.com/questions/20708659/find-if-path-exists-in-matrix
      *
-     * @param matrix: matrix
-     * @param matrixTemp: temporary matrix
-     * @param i: index x axis
-     * @param j: index y axis
+     * @param matrix:      matrix
+     * @param matrixTemp:  temporary matrix
+     * @param i:           index x axis
+     * @param j:           index y axis
      * @param playerColor: colour of the player
      * @return true if the matrix has a path of pieces from side to side, false otherwise
      */
