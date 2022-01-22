@@ -16,9 +16,9 @@ import java.util.List;
 public class PositionOccupiedTest {
 
     //FIELDS
-    public static Player player1;
-    public static Player player2;
-    public static Board myBoard = new Board();
+    private static Player player1;
+    private static Player player2;
+    private static final Board myBoard = new Board();
 
     @Before
     public void initGame() throws UnsupportedPiecesForPlayerException, UsernameTooShortException, InvalidCoordinateException {

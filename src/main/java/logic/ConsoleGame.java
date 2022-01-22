@@ -19,9 +19,8 @@ public class ConsoleGame implements Game{
     private final Date beginTime;
     private final Player player1;
     private final Player player2;
-    private Board board;
+    private final Board board;
     private Controller controller;
-    //private BufferedReader br;
 
     //CONSTRUCTORS
     public ConsoleGame(Player player1, Player player2/*, BufferedReader br*/) {

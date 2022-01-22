@@ -6,14 +6,13 @@ import java.awt.event.*;
 
 public class GenericButton extends JButton {
     //FIELDS
-    protected Color BACKGROUND_COLOR;
-    protected Color FONT_COLOR;
-    protected Color BORDER_COLOR;
-    protected Color BACKGROUND_HOVER_COLOR;
-    protected Color BORDER_HOVER_COLOR;
-    protected Color FONT_HOVER_COLOR;
-    protected int THICKNESS;
-    protected boolean ROUNDNESS;
+    private final Color BACKGROUND_COLOR;
+    private final Color BORDER_COLOR;
+    private final Color BACKGROUND_HOVER_COLOR;
+    private final Color BORDER_HOVER_COLOR;
+    private final Color FONT_HOVER_COLOR;
+    private final int THICKNESS;
+    private final boolean ROUNDNESS;
 
     //CONSTRUCTORS
     public GenericButton(String text, GameFrame gf) {
@@ -21,7 +20,7 @@ public class GenericButton extends JButton {
         this.THICKNESS = 2;
         this.ROUNDNESS = true;
         this.BACKGROUND_COLOR = new Color(132, 0, 0);
-        this.FONT_COLOR = Color.WHITE;
+        Color FONT_COLOR = Color.WHITE;
         this.BORDER_COLOR = Color.WHITE;
         this.BACKGROUND_HOVER_COLOR = Color.WHITE;
         this.FONT_HOVER_COLOR = Color.BLACK;

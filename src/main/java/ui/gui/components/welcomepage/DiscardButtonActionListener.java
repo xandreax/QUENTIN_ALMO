@@ -8,8 +8,8 @@ import java.util.Set;
 
 public class DiscardButtonActionListener implements ActionListener {
     //FIELDS
-    protected Set<DialogForPlayers> dialogsToBeDisposed;
-    protected GameFrame currentGameFrame;
+    private final Set<DialogForPlayers> dialogsToBeDisposed;
+    private final GameFrame currentGameFrame;
 
     //CONSTRUCTORS
     public DiscardButtonActionListener(Set<DialogForPlayers> dialogsToBeDisposed, GameFrame currentGameFrame) {

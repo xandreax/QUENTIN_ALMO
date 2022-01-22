@@ -16,7 +16,7 @@ public class Controller {
     private Player currentPlayer;
     private Pieces winnerColour;
     private final Player[] players;
-    VictoryExplorer victoryExplorer = new VictoryExplorer();
+    private final VictoryExplorer victoryExplorer = new VictoryExplorer();
 
     public Controller(Board board, Player[] players) {
         this.board = board;

@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class BoardCoordinateAdjacentPiecesTest {
 
-    public static BoardCoordinate bc;
+    private static BoardCoordinate bc;
 
     @Before
     public void initBoardCoordinate() throws InvalidCoordinateException {

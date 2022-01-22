@@ -8,18 +8,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PieRuleDialog extends JDialog {
-    //FIELDS
-    protected JLabel labelArea;
-    protected GenericButton buttonYes;
-    protected GenericButton buttonNo;
-    protected GameFrame gameFrame;
-    protected Player player;
-    public static Color BACKGROUND_COLOR = new Color(157, 157, 157);
+    private final GenericButton buttonYes;
+    private final GenericButton buttonNo;
+    private static final Color BACKGROUND_COLOR = new Color(157, 157, 157);
 
     //CONSTRUCTORS
     public PieRuleDialog(GameFrame gf, Player player) {
-        this.gameFrame = gf;
-        this.player = player;
         this.setTitle("Pie Rule");
         this.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -31,9 +25,10 @@ public class PieRuleDialog extends JDialog {
         this.getContentPane().setBackground(BACKGROUND_COLOR);
         this.setLayout(new GridBagLayout());
 
-        this.labelArea = new JLabel(player.getUsername() + " wanna use Pie Rule?");
-        this.labelArea.setFont(gf.getApplicationFont(false));
-        this.labelArea.setForeground(Color.BLACK);
+        //FIELDS
+        JLabel labelArea = new JLabel(player.getUsername() + " wanna use Pie Rule?");
+        labelArea.setFont(gf.getApplicationFont(false));
+        labelArea.setForeground(Color.BLACK);
 
         this.buttonYes = new GenericButton("Yes", gf);
 
@@ -48,7 +43,7 @@ public class PieRuleDialog extends JDialog {
         gbcLabelArea.weightx = 0.25;
         gbcLabelArea.anchor = GridBagConstraints.CENTER;
         gbcLabelArea.fill = GridBagConstraints.NONE;
-        this.getContentPane().add(this.labelArea, gbcLabelArea);
+        this.getContentPane().add(labelArea, gbcLabelArea);
 
         GridBagConstraints gbcButtonYes = new GridBagConstraints();
         gbcButtonYes.gridx = 0;
@@ -76,8 +71,6 @@ public class PieRuleDialog extends JDialog {
         gbcButtonNo.fill = GridBagConstraints.NONE;
         this.getContentPane().add(this.buttonNo, gbcButtonNo);
     }
-
-    //METHODS
 
     public GenericButton getButtonYes() {
         return buttonYes;

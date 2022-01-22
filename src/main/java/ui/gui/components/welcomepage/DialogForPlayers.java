@@ -9,9 +9,9 @@ import java.awt.*;
 
 public class DialogForPlayers extends JDialog {
     //FIELDS
-    protected JTextField textField;
-    protected GenericButton buttonOk;
-    protected GenericButton buttonDiscard;
+    private final GenericButton buttonOk;
+    private final JTextField textField;
+    private final GenericButton buttonDiscard;
 
     //CONSTRUCTORS
     public DialogForPlayers(Pieces pieces, GameFrame gf) {

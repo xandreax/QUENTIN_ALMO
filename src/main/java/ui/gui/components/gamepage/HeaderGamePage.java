@@ -9,12 +9,12 @@ import java.util.List;
 
 public class HeaderGamePage extends JPanel {
     //FIELDS
-    protected GameFrame currentGameFrame;
-    protected Player player1;
-    protected Player player2;
-    protected JLabel player1Text;
-    protected JLabel player2Text;
-    protected JLabel turnText;
+    private final GameFrame currentGameFrame;
+    private final Player player1;
+    private final Player player2;
+    private final JLabel player1Text;
+    private final JLabel player2Text;
+    private final JLabel turnText;
 
     //CONSTRUCTORS
     public HeaderGamePage(GameFrame gf, List<Player> players) {

@@ -15,10 +15,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ControllerTest {
 
-    public static Player player1;
-    public static Player player2;
-    public static Board myBoard = new Board();
-    public static Controller controller;
+    private static Player player1;
+    private static Player player2;
+    private static final Board myBoard = new Board();
+    private static Controller controller;
 
     @Before
     public void initGame() throws UnsupportedPiecesForPlayerException, UsernameTooShortException {

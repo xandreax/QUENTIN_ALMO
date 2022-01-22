@@ -5,7 +5,7 @@ import utils.IntUtils;
 
 public class BoardShellPrinter {
     //FIELDS
-    protected Board board;
+    private Board board;
 
     //CONSTRUCTORS
     public BoardShellPrinter(Board board) {

@@ -7,23 +7,20 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class HoverPieceButton extends JButton {
-    //FIELDS
-    protected Border hoverBorder;
-    protected int THICKNESS;
-    protected boolean ROUNDNESS;
 
     //CONSTRUCTORS
     public HoverPieceButton() {
         super();
-        this.THICKNESS = 2;
-        this.ROUNDNESS = true;
-        this.hoverBorder = BorderFactory.createLineBorder(Color.WHITE, THICKNESS, ROUNDNESS);
+        int THICKNESS = 2;
+        boolean ROUNDNESS = true;
+        //FIELDS
+        Border hoverBorder = BorderFactory.createLineBorder(Color.WHITE, THICKNESS, ROUNDNESS);
 
         this.setEnabled(true);
         this.setOpaque(false); // Must add
         this.setContentAreaFilled(false);
         this.setBorderPainted(false); // I'd like to enable it.
-        this.setBorder(this.hoverBorder);
+        this.setBorder(hoverBorder);
         this.setVisible(true);
 
         this.addMouseListener(new MouseAdapter() {
@@ -55,6 +52,4 @@ public class HoverPieceButton extends JButton {
             }
         });
     }
-
-    //METHODS
 }

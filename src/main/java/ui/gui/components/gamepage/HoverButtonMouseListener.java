@@ -9,9 +9,9 @@ import java.awt.event.MouseListener;
 
 public class HoverButtonMouseListener implements MouseListener {
     //FIELDS
-    protected GameFrame currentGameFrame;
-    protected int row;
-    protected int col;
+    private final int row;
+    private final GameFrame currentGameFrame;
+    private final int col;
 
     //CONSTRUCTORS
     public HoverButtonMouseListener(GameFrame gameFrame, int row, int col) {

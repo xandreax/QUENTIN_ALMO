@@ -21,16 +21,14 @@ import java.util.List;
 
 public class GameFrame extends JFrame {
     //FIELDS
-    public static Color BACKGROUND_COLOR = new Color(0, 141, 8);
     public static Color BOARD_COLOR = new Color(0, 105, 9);
-    protected int screenHeight;
-    protected int screenWidth;
-    protected int side;
-    protected boolean isGameOn;
     protected int countMovesPlayer1;
     protected int countMovesPlayer2;
-    protected boolean isPlayer1Turn;
-    protected UIGame uiGame;
+    private static final Color BACKGROUND_COLOR = new Color(0, 141, 8);
+    private final int screenHeight;
+    private int side;
+    private boolean isGameOn;
+    private final UIGame uiGame;
 
     //CONSTRUCTORS
     public GameFrame(UIGame uiGame) {
@@ -40,13 +38,13 @@ public class GameFrame extends JFrame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         double sw = screenSize.getWidth();
         double sh = screenSize.getHeight();
-        this.screenWidth = (int) sw;
+        int screenWidth = (int) sw;
         this.screenHeight = (int) sh;
         this.getContentPane().setBackground(BACKGROUND_COLOR);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(720, 540));
-        this.setSize(new Dimension(this.screenWidth, this.screenHeight));
-        this.setPreferredSize(new Dimension(this.screenWidth, this.screenHeight));
+        this.setSize(new Dimension(screenWidth, this.screenHeight));
+        this.setPreferredSize(new Dimension(screenWidth, this.screenHeight));
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(false);
         this.setResizable(true);
@@ -135,7 +133,6 @@ public class GameFrame extends JFrame {
         this.getContentPane().add(panelGamePage);
         this.validate();
         this.isGameOn = true;
-        this.isPlayer1Turn = true;
         PanelGamePage p = (PanelGamePage) this.getContentPane().getComponent(0);
         p.getHeader().highlightTurn(getPlayerWithBlackPieces(uiGame.getPlayer1(), uiGame.getPlayer2()));
     }

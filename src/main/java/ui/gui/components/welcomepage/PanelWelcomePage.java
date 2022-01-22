@@ -8,18 +8,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PanelWelcomePage extends JPanel {
-    //FIELDS
-    protected GameFrame currentGameFrame;
-    protected JLabel topLabel;
-    protected JPanel bottomPanel;
-    protected GenericButton startGameButton;
 
     //CONSTRUCTORS
     public PanelWelcomePage(GameFrame gameFrame, UIGame uiGame) {
         super();
-        this.currentGameFrame= gameFrame;
-        this.setPreferredSize(new Dimension(this.currentGameFrame.getSide(), this.currentGameFrame.getSide()));
-        this.setSize(new Dimension(this.currentGameFrame.getSide(), this.currentGameFrame.getSide()));
+        //FIELDS
+        this.setPreferredSize(new Dimension(gameFrame.getSide(), gameFrame.getSide()));
+        this.setSize(new Dimension(gameFrame.getSide(), gameFrame.getSide()));
         this.setOpaque(true);
         this.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3, true));
         this.setBackground(GameFrame.BOARD_COLOR);
@@ -41,7 +36,6 @@ public class PanelWelcomePage extends JPanel {
         top.setOpaque(false);
         top.setHorizontalAlignment(SwingConstants.CENTER);
         top.setVerticalAlignment(SwingConstants.CENTER);
-        this.topLabel = top;
         GridBagConstraints gbcTop = new GridBagConstraints();
         gbcTop.gridx = 0;
         gbcTop.gridy = 0;
@@ -55,7 +49,6 @@ public class PanelWelcomePage extends JPanel {
 
         JPanel bottom = new JPanel();
         bottom.setOpaque(false);
-        this.bottomPanel = bottom;
         GridBagConstraints gbcBottom = new GridBagConstraints();
         gbcBottom.gridx = 0;
         gbcBottom.gridy = 1;
@@ -65,10 +58,9 @@ public class PanelWelcomePage extends JPanel {
         gbcBottom.weighty = 0.5f;
         gbcBottom.anchor = GridBagConstraints.CENTER;
         gbcBottom.fill = GridBagConstraints.BOTH;
-        GenericButton buttonStart = new GenericButton("Start game", this.currentGameFrame);
+        GenericButton buttonStart = new GenericButton("Start game", gameFrame);
         buttonStart.setPreferredSize(new Dimension(this.getWidth()/2, 50));
         buttonStart.addActionListener(e -> uiGame.startGame());
-        this.startGameButton = buttonStart;
         GridBagConstraints gbcButton = new GridBagConstraints();
         gbcButton.gridx = 0;
         gbcButton.gridy = 0;

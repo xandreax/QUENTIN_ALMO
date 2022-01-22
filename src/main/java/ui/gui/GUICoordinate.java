@@ -10,8 +10,8 @@ import utils.IntUtils;
  */
 public class GUICoordinate implements Coordinate2D {
     //FIELDS
-    protected int x;
-    protected int y;
+    private final int x;
+    private final int y;
 
     //CONSTRUCTORS
     public GUICoordinate(int x, int y) throws InvalidCoordinateException {

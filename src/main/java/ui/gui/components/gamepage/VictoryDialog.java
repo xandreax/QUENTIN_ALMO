@@ -8,16 +8,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class VictoryDialog extends JDialog {
-    //FIELDS
-    protected JLabel labelArea;
-    protected GenericButton buttonOk;
-    protected Color BACKGROUND_COLOR = new Color(0, 212, 203);
-    protected Player player;
-    protected GameFrame gameFrame;
+    private final GameFrame gameFrame;
 
     //CONSTRUCTORS
     public VictoryDialog(GameFrame gf, Player player) {
-        this.player = player;
         this.gameFrame = gf;
         this.setTitle("VICTORY");
         this.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
@@ -27,16 +21,18 @@ public class VictoryDialog extends JDialog {
         this.setUndecorated(false);
         this.setResizable(true);
         this.setLocationRelativeTo(null);
+        Color BACKGROUND_COLOR = new Color(0, 212, 203);
         this.getContentPane().setBackground(BACKGROUND_COLOR);
         this.setLayout(new GridBagLayout());
 
-        this.labelArea = new JLabel(player.getUsername() + " HAS WON!!!");
-        this.labelArea.setFont(gf.getApplicationFont(false));
-        this.labelArea.setForeground(Color.RED);
-        this.labelArea.setBackground(Color.WHITE);
+        //FIELDS
+        JLabel labelArea = new JLabel(player.getUsername() + " HAS WON!!!");
+        labelArea.setFont(gf.getApplicationFont(false));
+        labelArea.setForeground(Color.RED);
+        labelArea.setBackground(Color.WHITE);
 
-        this.buttonOk = new GenericButton("Ok", gf);
-        this.buttonOk.addActionListener(e -> {
+        GenericButton buttonOk = new GenericButton("Ok", gf);
+        buttonOk.addActionListener(e -> {
             VictoryDialog.this.dispose();
             VictoryDialog.this.gameFrame.dispose();
         });
@@ -50,7 +46,7 @@ public class VictoryDialog extends JDialog {
         gbcLabelArea.weightx = 0.5;
         gbcLabelArea.anchor = GridBagConstraints.CENTER;
         gbcLabelArea.fill = GridBagConstraints.NONE;
-        this.getContentPane().add(this.labelArea, gbcLabelArea);
+        this.getContentPane().add(labelArea, gbcLabelArea);
 
         GridBagConstraints gbcButtonOk = new GridBagConstraints();
         gbcButtonOk.gridx = 0;
@@ -63,7 +59,7 @@ public class VictoryDialog extends JDialog {
         gbcButtonOk.ipady = 10;
         gbcButtonOk.anchor = GridBagConstraints.CENTER;
         gbcButtonOk.fill = GridBagConstraints.NONE;
-        this.getContentPane().add(this.buttonOk, gbcButtonOk);
+        this.getContentPane().add(buttonOk, gbcButtonOk);
     }
 
     //METHODS
