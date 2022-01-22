@@ -34,5 +34,4 @@ public class BlackVictoryTest {
         assertTrue(controller.endOfGame());
         assertEquals(controller.getWinnerPlayer(), player1);
     }
-
 }

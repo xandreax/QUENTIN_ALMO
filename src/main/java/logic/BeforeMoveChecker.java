@@ -6,12 +6,12 @@ import exceptions.InvalidCoordinateException;
 import exceptions.PositionAlreadyOccupiedException;
 
 public class BeforeMoveChecker {
-    private final BoardCoordinate move;
+    private final BoardCoordinate moveCoordinate;
     private final Board board;
     private final Player player;
 
-    public BeforeMoveChecker(BoardCoordinate move, Board board, Player player) {
-        this.move = move;
+    public BeforeMoveChecker(BoardCoordinate moveCoordinate, Board board, Player player) {
+        this.moveCoordinate = moveCoordinate;
         this.board = board;
         this.player = player;
     }
@@ -35,7 +35,7 @@ public class BeforeMoveChecker {
      * @throws PositionAlreadyOccupiedException
      */
     private void checkIfPositionIsOccupied() throws PositionAlreadyOccupiedException {
-        if (!board.getPieceByCoordinate(move).equals(Pieces.NONE)) {
+        if (!board.isCoordinateEmpty(moveCoordinate)) {
             throw new PositionAlreadyOccupiedException("Move not allowed, this position is already occupied by another piece");
         }
     }
@@ -48,7 +48,7 @@ public class BeforeMoveChecker {
      */
     private void checkIfMoveIsLegal() throws IllegalMoveException {
         if(checkIfExistDiagonalIllegalPiece())
-            throw new IllegalMoveException("Move not allowed, " +move.getRow()+move.getColumn()+" this position doesn't share any other orthogonal piece of your color");
+            throw new IllegalMoveException("Move not allowed, " + moveCoordinate.getRow()+ moveCoordinate.getColumn()+" this position doesn't share any other orthogonal piece of your color");
     }
 
     /**
@@ -59,36 +59,35 @@ public class BeforeMoveChecker {
      * @return true only if there is a piece of the same colour in a corner that doesn't share any adjacent and orthogonal
      *         piece with the position of the move.
      */
-    //TODO: ho refactorizzato anche qui eliminando le classi cardinalCoordinate e IllegalMoveLogic che conteneva un metodo statico che non serviva che lo sia
     private boolean checkIfExistDiagonalIllegalPiece(){
         try{
-            if(board.getPieceByCoordinate(move.getUpRight()).equals(player.getPieces())){
-                if(board.checkIfTwoPointsIsNotOccupiedBySamePiece(move.getUpRight(), move.getRight()) &&
-                        board.checkIfTwoPointsIsNotOccupiedBySamePiece(move.getUpRight(), move.getUp()))
+            if(board.getPieceByCoordinate(moveCoordinate.getUpRight()).equals(player.getPieces())){
+                if(board.checkIfTwoPointsIsNotOccupiedBySamePiece(moveCoordinate.getUpRight(), moveCoordinate.getRight()) &&
+                        board.checkIfTwoPointsIsNotOccupiedBySamePiece(moveCoordinate.getUpRight(), moveCoordinate.getUp()))
                     return true;
             }
         }
         catch(InvalidCoordinateException ignored){}
         try {
-            if (board.getPieceByCoordinate(move.getUpLeft()).equals(player.getPieces())) {
-                if (board.checkIfTwoPointsIsNotOccupiedBySamePiece(move.getUpLeft(), move.getLeft()) &&
-                        board.checkIfTwoPointsIsNotOccupiedBySamePiece(move.getUpLeft(), move.getUp()))
+            if (board.getPieceByCoordinate(moveCoordinate.getUpLeft()).equals(player.getPieces())) {
+                if (board.checkIfTwoPointsIsNotOccupiedBySamePiece(moveCoordinate.getUpLeft(), moveCoordinate.getLeft()) &&
+                        board.checkIfTwoPointsIsNotOccupiedBySamePiece(moveCoordinate.getUpLeft(), moveCoordinate.getUp()))
                     return true;
             }
         }
         catch(InvalidCoordinateException ignored){}
         try {
-            if (board.getPieceByCoordinate(move.getDownLeft()).equals(player.getPieces())) {
-                if (board.checkIfTwoPointsIsNotOccupiedBySamePiece(move.getDownLeft(), move.getLeft()) &&
-                        board.checkIfTwoPointsIsNotOccupiedBySamePiece(move.getDownLeft(), move.getDown()))
+            if (board.getPieceByCoordinate(moveCoordinate.getDownLeft()).equals(player.getPieces())) {
+                if (board.checkIfTwoPointsIsNotOccupiedBySamePiece(moveCoordinate.getDownLeft(), moveCoordinate.getLeft()) &&
+                        board.checkIfTwoPointsIsNotOccupiedBySamePiece(moveCoordinate.getDownLeft(), moveCoordinate.getDown()))
                     return true;
             }
         }
         catch(InvalidCoordinateException ignored){}
         try{
-            if(board.getPieceByCoordinate(move.getDownRight()).equals(player.getPieces())){
-                if(board.checkIfTwoPointsIsNotOccupiedBySamePiece(move.getDownRight(), move.getRight()) &&
-                        board.checkIfTwoPointsIsNotOccupiedBySamePiece(move.getDownRight(), move.getDown()))
+            if(board.getPieceByCoordinate(moveCoordinate.getDownRight()).equals(player.getPieces())){
+                if(board.checkIfTwoPointsIsNotOccupiedBySamePiece(moveCoordinate.getDownRight(), moveCoordinate.getRight()) &&
+                        board.checkIfTwoPointsIsNotOccupiedBySamePiece(moveCoordinate.getDownRight(), moveCoordinate.getDown()))
                     return true;
             }
         }

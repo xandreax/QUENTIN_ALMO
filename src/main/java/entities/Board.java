@@ -114,4 +114,16 @@ public class Board {
     public boolean checkIfTwoPointsIsNotOccupiedBySamePiece(BoardCoordinate bc1, BoardCoordinate bc2){
         return !getPieceByCoordinate(bc1).equals(getPieceByCoordinate(bc2));
     }
+
+    public boolean isPieceWhite(BoardCoordinate boardCoordinate){
+        return this.getPieceByCoordinate(boardCoordinate).equals(Pieces.WHITE);
+    }
+
+    public boolean isPieceBlack(BoardCoordinate boardCoordinate){
+        return this.getPieceByCoordinate(boardCoordinate).equals(Pieces.BLACK);
+    }
+
+    public boolean isCoordinateEmpty(BoardCoordinate boardCoordinate){
+        return this.getPieceByCoordinate(boardCoordinate).equals(Pieces.NONE);
+    }
 }

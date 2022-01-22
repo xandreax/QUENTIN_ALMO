@@ -141,24 +141,22 @@ public class BoardCoordinate implements Coordinate2D {
      * @return true if the coordinate has at least two adjacent pieces, false otherwise
      */
 
-    //TODO: ho provato a refactorizzare così, può andar bene?
     public boolean hasAtLeastTwoAdjacentPieces(Board board) {
         boolean down = false, up = false, right = false, left = false;
-        //First checks the limits of the board, then if row and column are not edges checks all 4 directions
         try {
-            down = !board.getPieceByCoordinate(getDown()).equals(Pieces.NONE);
+            down = !board.isCoordinateEmpty(getDown());
         }
         catch (InvalidCoordinateException ignored){}
         try {
-            up = !board.getPieceByCoordinate(getUp()).equals(Pieces.NONE);
+            up = !board.isCoordinateEmpty(getUp());
         }
         catch (InvalidCoordinateException ignored){}
         try {
-            right = !board.getPieceByCoordinate(getRight()).equals(Pieces.NONE);
+            right = !board.isCoordinateEmpty(getRight());
         }
         catch (InvalidCoordinateException ignored){}
         try{
-            left = !board.getPieceByCoordinate(getLeft()).equals(Pieces.NONE);
+            left = !board.isCoordinateEmpty(getLeft());
         }catch (InvalidCoordinateException ignored){}
         return (down && up) || (down && right) || (down && left) || (up && right) || (left && up) || (left && right);
     }

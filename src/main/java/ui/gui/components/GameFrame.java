@@ -169,8 +169,6 @@ public class GameFrame extends JFrame {
         }
     }
 
-    //AUXILIARY METHODS
-
     public Board getBoard(){
         return uiGame.getBoard();
     }
@@ -210,10 +208,10 @@ public class GameFrame extends JFrame {
     }
 
     private static Player getPlayerWithBlackPieces(Player player1, Player player2) {
-        if (player1.getPieces() == Pieces.BLACK) {
+        if (player1.isBlackPlayer()) {
             return player1;
         }
-        else if (player2.getPieces() == Pieces.BLACK) {
+        else if (player2.isBlackPlayer()) {
             return player2;
         }
         else {

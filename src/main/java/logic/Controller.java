@@ -25,7 +25,7 @@ public class Controller {
     }
 
     private void init() {
-        if(players[0].getPieces().equals(Pieces.BLACK))
+        if(players[0].isBlackPlayer())
             currentPlayer = players[0];
         else
             currentPlayer = players[1];
@@ -46,7 +46,7 @@ public class Controller {
             for(int j = 0; j<board.getDIMENSION(); j++) {
                 try {
                     BoardCoordinate bc = new BoardCoordinate(i, j);
-                    if(board.getPieceByCoordinate(bc).equals(Pieces.NONE)) {
+                    if(board.isCoordinateEmpty(bc)) {
                         checkIfMoveIsPossible(bc);
                         return true;
                     }
@@ -94,7 +94,7 @@ public class Controller {
     }
 
     public boolean checkIfIsTimeToPieRule() {
-        return currentPlayer.getPieces().equals(Pieces.WHITE) && board.hasNoWhitePieces();
+        return currentPlayer.isWhitePlayer() && board.hasNoWhitePieces();
     }
 
     public void checkIfMoveIsPossible(BoardCoordinate move) throws PositionAlreadyOccupiedException, InvalidCoordinateException, IllegalMoveException {
@@ -137,7 +137,7 @@ public class Controller {
             }
             BoardCoordinate coordinate = new BoardCoordinate(row, col);
             //Checks if the current coordinate is empty and has at least 2 adjacent pieces
-            if (board.getPieceByCoordinate(coordinate).equals(Pieces.NONE) && coordinate.hasAtLeastTwoAdjacentPieces(board)) {
+            if (board.isCoordinateEmpty(coordinate) && coordinate.hasAtLeastTwoAdjacentPieces(board)) {
                 possibleTerritory.add(coordinate);
                 visitedMatrix[row][col] = 1;
                 savedCoordinate = getSavedCoordinate(row, col, hasPositionBeenSaved, savedCoordinate);
@@ -146,8 +146,8 @@ public class Controller {
 
                 if (emptyNode == null){
                     //Territory found
-                    UpdaterBoard updaterBoard = new UpdaterBoard(board, currentPlayer);
-                    board = updaterBoard.updateBoardWithTerritory(possibleTerritory);
+                    BoardUpdater boardUpdater = new BoardUpdater(board, currentPlayer);
+                    board = boardUpdater.updateBoardWithTerritory(possibleTerritory);
                     possibleTerritory.clear();
                 }
                 else visitedMatrix[emptyNode.getRow()][emptyNode.getColumn()] = 1;
@@ -223,25 +223,25 @@ public class Controller {
         BoardCoordinate bc = new BoardCoordinate(row,col);
         //Checks to the right
         if (board.isNotEdge(col + 1)) {
-            if (board.getPieceByCoordinate(bc.getRight()).equals(Pieces.NONE) && !territory.contains(bc.getRight())) {
+            if (board.isCoordinateEmpty(bc.getRight()) && !territory.contains(bc.getRight())) {
                 return bc.getRight();
             }
         }
         //Checks to the left
         if (board.isNotEdge(col - 1)) {
-            if (board.getPieceByCoordinate(bc.getLeft()).equals(Pieces.NONE) && !territory.contains(bc.getLeft())) {
+            if (board.isCoordinateEmpty(bc.getLeft()) && !territory.contains(bc.getLeft())) {
                 return bc.getLeft();
             }
         }
         //Checks down
         if (board.isNotEdge(row + 1)) {
-            if (board.getPieceByCoordinate(bc.getDown()).equals(Pieces.NONE) && !territory.contains(bc.getDown())) {
+            if (board.isCoordinateEmpty(bc.getDown()) && !territory.contains(bc.getDown())) {
                 return bc.getDown();
             }
         }
         //Checks up
         if (board.isNotEdge(row - 1)) {
-            if (board.getPieceByCoordinate(bc.getUp()).equals(Pieces.NONE) && !territory.contains(bc.getUp())) {
+            if (board.isCoordinateEmpty(bc.getUp()) && !territory.contains(bc.getUp())) {
                 return bc.getUp();
             }
         }

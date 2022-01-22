@@ -114,7 +114,7 @@ public class BoardPanel extends JLayeredPane {
                 try {
                     BoardCoordinate bc = new BoardCoordinate(row, col);
                     guiCoordinates[row][col] = new GUICoordinate(paddingSum +col * this.cellSide, paddingSum +row * this.cellSide);
-                    if (board.getPieceByCoordinate(bc) == Pieces.NONE) {
+                    if (board.isCoordinateEmpty(bc)) {
                         HoverPieceButton button = new HoverPieceButton();
                         button.setBounds(this.getGuiCoordinates()[row][col].getRow() - (this.cellSide /2), this.getGuiCoordinates()[row][col].getColumn() - (this.cellSide /2), this.cellSide, this.cellSide);
                         button.addMouseListener(new HoverButtonMouseListener(this.currentGameFrame, row, col));
@@ -133,7 +133,7 @@ public class BoardPanel extends JLayeredPane {
         for (int row = 0; row < board.getDIMENSION(); row++) {
             for (int col = 0; col < board.getDIMENSION(); col++) {
                 BoardCoordinate bc = new BoardCoordinate(row,col);
-                if (board.getPieceByCoordinate(bc) == Pieces.NONE) {
+                if (board.isCoordinateEmpty(bc)) {
                     HoverPieceButton button = new HoverPieceButton();
                     button.setBounds(this.getGuiCoordinates()[row][col].getRow() - (this.cellSide/TWO), this.getGuiCoordinates()[row][col].getColumn() - (this.cellSide/TWO), this.cellSide, this.cellSide);
                     button.addMouseListener(new HoverButtonMouseListener(this.currentGameFrame, row, col));

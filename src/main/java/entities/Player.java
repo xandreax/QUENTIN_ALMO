@@ -57,9 +57,16 @@ public class Player {
         }
     }
 
-    //TODO: è CORRETTO COSì?
     @Override
     public int hashCode() {
         return Objects.hash(username);
+    }
+
+    public boolean isWhitePlayer(){
+        return this.getPieces().equals(Pieces.WHITE);
+    }
+
+    public boolean isBlackPlayer(){
+        return this.getPieces().equals(Pieces.BLACK);
     }
 }
