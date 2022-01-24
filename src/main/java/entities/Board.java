@@ -31,11 +31,11 @@ public class Board {
     }
 
     public Pieces getPieceByCoordinate(BoardCoordinate xy) {
-        return this.getMatrix()[xy.getRow()][xy.getColumn()];
+        return matrix[xy.getRow()][xy.getColumn()];
     }
 
     public void setPieceByCoordinate(BoardCoordinate xy, Pieces piece) {
-        this.getMatrix()[xy.getRow()][xy.getColumn()] = piece;
+        matrix[xy.getRow()][xy.getColumn()] = piece;
     }
 
     public BoardShellPrinter getPrinter() {
@@ -104,11 +104,11 @@ public class Board {
     }
 
     public boolean hasNoWhitePieces() {
-        return Arrays.stream(getMatrix()).flatMap(Arrays::stream).noneMatch(x -> x.equals(Pieces.WHITE));
+        return Arrays.stream(matrix).flatMap(Arrays::stream).noneMatch(x -> x.equals(Pieces.WHITE));
     }
 
     public boolean isFull() {
-        return Arrays.stream(getMatrix()).flatMap(Arrays::stream).noneMatch(x -> x.equals(Pieces.NONE));
+        return Arrays.stream(matrix).flatMap(Arrays::stream).noneMatch(x -> x.equals(Pieces.NONE));
     }
 
     public boolean checkIfTwoPointsIsNotOccupiedBySamePiece(BoardCoordinate bc1, BoardCoordinate bc2){

@@ -102,7 +102,11 @@ public class BoardPanel extends JLayeredPane {
         // draw pieces of the board
         for (int i = 0; i < board.getDIMENSION(); i++) {
             for (int j = 0; j < board.getDIMENSION(); j++) {
-                drawPiece(g, this.guiCoordinates[i][j], board.getMatrix()[i][j], this.pieceUnit);
+                try {
+                    BoardCoordinate bc = new BoardCoordinate(i,j);
+                    drawPiece(g, this.guiCoordinates[i][j], board.getPieceByCoordinate(bc), this.pieceUnit);
+                } catch (InvalidCoordinateException ignored) {}
+
             }
         }
     }
