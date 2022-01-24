@@ -1,7 +1,12 @@
 package beforemove;
 
-import entities.*;
-import exceptions.*;
+import entities.Board;
+import entities.BoardCoordinate;
+import entities.Pieces;
+import entities.Player;
+import exceptions.InvalidCoordinateException;
+import exceptions.UnsupportedPiecesForPlayerException;
+import exceptions.UsernameTooShortException;
 import logic.Controller;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +33,7 @@ public class PositionNotOccupiedTest {
 
     //METHODS
     @Test
-    public void checkIfPositionIsNotOccupied (){
+    public void checkIfPositionIsNotOccupied() {
         Assertions.assertDoesNotThrow(() -> {
             Controller controller = new Controller(myBoard, new Player[]{player1, player2});
             controller.checkIfMoveIsPossible(new BoardCoordinate("d6"));

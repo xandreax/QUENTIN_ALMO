@@ -6,7 +6,6 @@ import utils.IntUtils;
 
 /**
  * This class represents a single coordinate defined as a screen pixel.
- *
  */
 public class GUICoordinate implements Coordinate2D {
     //FIELDS
@@ -18,8 +17,7 @@ public class GUICoordinate implements Coordinate2D {
         if (IntUtils.isValidIntForGUICoordinate(x) && IntUtils.isValidIntForGUICoordinate(y)) {
             this.x = x;
             this.y = y;
-        }
-        else {
+        } else {
             throw new InvalidCoordinateException();
         }
     }

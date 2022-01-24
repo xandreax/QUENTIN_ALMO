@@ -1,7 +1,11 @@
 package aftermove;
 
-import entities.*;
-import exceptions.*;
+import entities.Board;
+import entities.Pieces;
+import entities.Player;
+import exceptions.InvalidCoordinateException;
+import exceptions.UnsupportedPiecesForPlayerException;
+import exceptions.UsernameTooShortException;
 import logic.Controller;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +33,7 @@ public class BlackVictoryTest {
     }
 
     @Test
-    public void testBlackVictory(){
+    public void testBlackVictory() {
         Controller controller = new Controller(myBoard, new Player[]{player1, player2});
         assertTrue(controller.endOfGame());
         assertEquals(controller.getWinnerPlayer(), player1);

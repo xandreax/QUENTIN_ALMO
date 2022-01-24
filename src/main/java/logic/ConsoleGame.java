@@ -3,7 +3,9 @@ package logic;
 import entities.Board;
 import entities.BoardCoordinate;
 import entities.Player;
-import exceptions.*;
+import exceptions.IllegalMoveException;
+import exceptions.InvalidCoordinateException;
+import exceptions.PositionAlreadyOccupiedException;
 import ui.shell.BoardShellPrinter;
 
 import java.io.BufferedReader;
@@ -14,7 +16,7 @@ import java.util.UUID;
 import static ui.shell.ConsoleInputMethods.askForMove;
 import static ui.shell.ConsoleInputMethods.askForPieRule;
 
-public class ConsoleGame implements Game{
+public class ConsoleGame implements Game {
     //FIELDS
     private final String uuid;
     private final Date beginTime;
@@ -35,23 +37,23 @@ public class ConsoleGame implements Game{
     }
 
     @Override
-    public void startGame(){
-        System.out.println("ID game: "+ uuid);
-        System.out.println("Begin time: "+ beginTime);
-        controller = new Controller(board, new Player[]{player1, player2});
+    public void startGame() {
+        System.out.println("ID game: " + uuid);
+        System.out.println("Begin time: " + beginTime);
+        Controller controller = new Controller(board, new Player[]{player1, player2});
         BoardShellPrinter bp = board.getPrinter();
         bp.printOnStdOut();
-        while(!controller.endOfGame()){
-            if(controller.checkIfIsTimeToPieRule()){
-                if(askForPieRule(controller.getCurrentPlayer(), br)) {
+        while (!controller.endOfGame()) {
+            if (controller.checkIfIsTimeToPieRule()) {
+                if (askForPieRule(controller.getCurrentPlayer(), br)) {
                     controller.applyPieRule();
                 }
             }
             boolean hasMoved = false;
-            if(controller.checkIfThereAreAvailableMoves()) {
+            if (controller.checkIfThereAreAvailableMoves()) {
                 while (!hasMoved) {
                     BoardCoordinate move = askForMove(controller.getCurrentPlayer(), br);
-                    try{
+                    try {
                         controller.checkIfMoveIsPossible(move);
                         controller.makeMove(move);
                         hasMoved = true;
@@ -63,8 +65,7 @@ public class ConsoleGame implements Game{
                         System.out.println("Invalid coordinate. Please choose another position orthogonal to any your other piece.");
                     }
                 }
-            }
-            else{
+            } else {
                 System.out.println("Player " + controller.getCurrentPlayer().getUsername() + " has no available moves");
                 controller.changeTurn();
             }

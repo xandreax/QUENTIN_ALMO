@@ -77,39 +77,46 @@ public class BoardCoordinateTest {
             new BoardCoordinate("h7");
         });
     }
+
     @Test
     public void testSecondConstructor4() {
         Assertions.assertDoesNotThrow(() -> {
             new BoardCoordinate("B10");
         });
     }
+
     @Test
     public void testSecondConstructor5() {
         Assertions.assertDoesNotThrow(() -> {
             new BoardCoordinate("m8");
         });
     }
+
     @Test
     public void testSecondConstructor6() {
         Assertions.assertDoesNotThrow(() -> {
             new BoardCoordinate("M12");
         });
     }
+
     @Test
     public void testSecondConstructor7() {
         Assertions.assertDoesNotThrow(() -> {
             new BoardCoordinate("l11");
         });
     }
+
     @Test
     public void testSecondConstructor8() {
         //Intentionally wrong
         Assertions.assertThrows(InvalidCoordinateException.class, () -> new BoardCoordinate("11n"));
     }
+
     @Test
     public void testSecondConstructor9() {
         Assertions.assertThrows(InvalidCoordinateException.class, () -> new BoardCoordinate("Pr"));
     }
+
     @Test
     public void testSecondConstructor10() {
         Assertions.assertThrows(InvalidCoordinateException.class, () -> new BoardCoordinate("error"));

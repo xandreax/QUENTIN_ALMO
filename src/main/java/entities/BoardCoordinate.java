@@ -4,11 +4,11 @@ import exceptions.InvalidCoordinateException;
 import utils.CharUtils;
 import utils.IntUtils;
 import utils.StringUtils;
+
 import java.util.Objects;
 
 /**
  * This class represents a single coordinate defined as a line intersection in the context of the table board.
- *
  */
 public class BoardCoordinate implements Coordinate2D {
     //FIELDS
@@ -23,8 +23,7 @@ public class BoardCoordinate implements Coordinate2D {
         if (IntUtils.isValidIntForBoardCoordinate(row) && IntUtils.isValidIntForBoardCoordinate(column)) {
             this.row = row;
             this.column = column;
-        }
-        else {
+        } else {
             throw new InvalidCoordinateException();
         }
     }
@@ -36,41 +35,33 @@ public class BoardCoordinate implements Coordinate2D {
             if (StringUtils.is2LiteralsValidCoordinate(s)) {
                 try {
                     this.row = CharUtils.mapInputCharToInputInt(temp.charAt(0));
-                }
-                catch (IndexOutOfBoundsException e) {
+                } catch (IndexOutOfBoundsException e) {
                     throw new InvalidCoordinateException("1st literal is char that exceed the correct interval [a-m].");
                 }
                 try {
                     this.column = Integer.parseInt(temp.substring(1));
-                }
-                catch (NumberFormatException e) {
+                } catch (NumberFormatException e) {
                     throw new InvalidCoordinateException("2nd literal is not a number.");
                 }
-            }
-            else {
+            } else {
                 throw new InvalidCoordinateException("Coordinate is not a 2 literals valid coordinate.");
             }
-        }
-        else if (s.length() == 3) {
+        } else if (s.length() == 3) {
             if (StringUtils.is3LiteralsValidCoordinate(s)) {
                 try {
                     this.row = CharUtils.mapInputCharToInputInt(temp.charAt(0));
-                }
-                catch (IndexOutOfBoundsException e) {
+                } catch (IndexOutOfBoundsException e) {
                     throw new InvalidCoordinateException("1st literal is char that exceed the correct interval [a-m].");
                 }
                 try {
                     this.column = Integer.parseInt(temp.substring(1));
-                }
-                catch (NumberFormatException e) {
+                } catch (NumberFormatException e) {
                     throw new InvalidCoordinateException("2nd literal is not a number.");
                 }
-            }
-            else {
+            } else {
                 throw new InvalidCoordinateException("Coordinate is not a 3 literals valid coordinate.");
             }
-        }
-        else {
+        } else {
             throw new InvalidCoordinateException();
         }
     }
@@ -87,35 +78,35 @@ public class BoardCoordinate implements Coordinate2D {
     }
 
     public BoardCoordinate getLeft() throws InvalidCoordinateException {
-        return new BoardCoordinate(row, column-1);
+        return new BoardCoordinate(row, column - 1);
     }
 
     public BoardCoordinate getRight() throws InvalidCoordinateException {
-        return new BoardCoordinate(row, column+1);
+        return new BoardCoordinate(row, column + 1);
     }
 
     public BoardCoordinate getUp() throws InvalidCoordinateException {
-        return new BoardCoordinate(row -1, column);
+        return new BoardCoordinate(row - 1, column);
     }
 
     public BoardCoordinate getDown() throws InvalidCoordinateException {
-        return new BoardCoordinate(row +1, column);
+        return new BoardCoordinate(row + 1, column);
     }
 
     public BoardCoordinate getUpRight() throws InvalidCoordinateException {
-        return new BoardCoordinate(row-1, column+1);
+        return new BoardCoordinate(row - 1, column + 1);
     }
 
     public BoardCoordinate getUpLeft() throws InvalidCoordinateException {
-        return new BoardCoordinate(row-1, column-1);
+        return new BoardCoordinate(row - 1, column - 1);
     }
 
     public BoardCoordinate getDownLeft() throws InvalidCoordinateException {
-        return new BoardCoordinate(row+1, column-1);
+        return new BoardCoordinate(row + 1, column - 1);
     }
 
     public BoardCoordinate getDownRight() throws InvalidCoordinateException {
-        return new BoardCoordinate(row+1, column+1);
+        return new BoardCoordinate(row + 1, column + 1);
     }
 
     @Override
@@ -123,8 +114,7 @@ public class BoardCoordinate implements Coordinate2D {
         if (obj instanceof BoardCoordinate) {
             BoardCoordinate param = (BoardCoordinate) obj;
             return ((this.getRow() == param.getRow()) && (this.getColumn() == param.getColumn()));
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -145,19 +135,20 @@ public class BoardCoordinate implements Coordinate2D {
         boolean down = false, up = false, right = false, left = false;
         try {
             down = !board.isCoordinateEmpty(getDown());
+        } catch (InvalidCoordinateException ignored) {
         }
-        catch (InvalidCoordinateException ignored){}
         try {
             up = !board.isCoordinateEmpty(getUp());
+        } catch (InvalidCoordinateException ignored) {
         }
-        catch (InvalidCoordinateException ignored){}
         try {
             right = !board.isCoordinateEmpty(getRight());
+        } catch (InvalidCoordinateException ignored) {
         }
-        catch (InvalidCoordinateException ignored){}
-        try{
+        try {
             left = !board.isCoordinateEmpty(getLeft());
-        }catch (InvalidCoordinateException ignored){}
+        } catch (InvalidCoordinateException ignored) {
+        }
         return (down && up) || (down && right) || (down && left) || (up && right) || (left && up) || (left && right);
     }
 }

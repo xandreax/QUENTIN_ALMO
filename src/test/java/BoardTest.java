@@ -40,8 +40,8 @@ public class BoardTest {
 
     @Test
     public void isFull() throws InvalidCoordinateException {
-        for (int row = 0; row < board.getDIMENSION(); row++){
-            for (int col = 0; col < board.getDIMENSION(); col ++) {
+        for (int row = 0; row < board.getDIMENSION(); row++) {
+            for (int col = 0; col < board.getDIMENSION(); col++) {
                 board.setPieceByCoordinate(new BoardCoordinate(row, col), Pieces.BLACK);
             }
         }

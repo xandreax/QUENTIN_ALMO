@@ -59,7 +59,7 @@ public class PanelWelcomePage extends JPanel {
         gbcBottom.anchor = GridBagConstraints.CENTER;
         gbcBottom.fill = GridBagConstraints.BOTH;
         GenericButton buttonStart = new GenericButton("Start game", gameFrame);
-        buttonStart.setPreferredSize(new Dimension(this.getWidth()/2, 50));
+        buttonStart.setPreferredSize(new Dimension(this.getWidth() / 2, 50));
         buttonStart.addActionListener(e -> uiGame.startGame());
         GridBagConstraints gbcButton = new GridBagConstraints();
         gbcButton.gridx = 0;

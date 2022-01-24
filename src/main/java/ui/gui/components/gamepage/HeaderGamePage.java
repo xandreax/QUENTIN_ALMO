@@ -25,9 +25,9 @@ public class HeaderGamePage extends JPanel {
         this.currentGameFrame = gf;
         this.player1 = players.get(0);
         this.player2 = players.get(1);
-        this.player1Text = new JLabel("["+player1.getPieces().getName().toUpperCase()+"] "+player1.getUsername());
+        this.player1Text = new JLabel("[" + player1.getPieces().getName().toUpperCase() + "] " + player1.getUsername());
         this.turnText = new JLabel("..");
-        this.player2Text = new JLabel("["+player2.getPieces().getName().toUpperCase()+"] "+player2.getUsername());
+        this.player2Text = new JLabel("[" + player2.getPieces().getName().toUpperCase() + "] " + player2.getUsername());
 
         this.player1Text.setFont(gf.getApplicationFont(false));
         this.player1Text.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
@@ -46,15 +46,14 @@ public class HeaderGamePage extends JPanel {
         if (this.player1.equals(player)) {
             this.player1Text.setFont(this.currentGameFrame.getApplicationFont(true));
             this.player1Text.setForeground(Color.RED);
-            this.turnText.setText(this.player1.getUsername()+"'s turn");
+            this.turnText.setText(this.player1.getUsername() + "'s turn");
 
             this.player2Text.setFont(this.currentGameFrame.getApplicationFont(false));
             this.player2Text.setForeground(Color.BLACK);
-        }
-        else {
+        } else {
             this.player2Text.setFont(this.currentGameFrame.getApplicationFont(true));
             this.player2Text.setForeground(Color.RED);
-            this.turnText.setText(this.player2.getUsername()+"'s turn");
+            this.turnText.setText(this.player2.getUsername() + "'s turn");
 
             this.player1Text.setFont(this.currentGameFrame.getApplicationFont(false));
             this.player1Text.setForeground(Color.BLACK);
@@ -62,7 +61,7 @@ public class HeaderGamePage extends JPanel {
     }
 
     public void swapPieces() {
-        this.player1Text.setText("["+player1.getPieces().getName().toUpperCase()+"] "+player1.getUsername());
-        this.player2Text.setText("["+player2.getPieces().getName().toUpperCase()+"] "+player2.getUsername());
+        this.player1Text.setText("[" + player1.getPieces().getName().toUpperCase() + "] " + player1.getUsername());
+        this.player2Text.setText("[" + player2.getPieces().getName().toUpperCase() + "] " + player2.getUsername());
     }
 }

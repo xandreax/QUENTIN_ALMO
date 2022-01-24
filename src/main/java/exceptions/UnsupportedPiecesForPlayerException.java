@@ -1,6 +1,6 @@
 package exceptions;
 
-public class UnsupportedPiecesForPlayerException extends Exception{
+public class UnsupportedPiecesForPlayerException extends Exception {
 
     //CONSTRUCTORS
     public UnsupportedPiecesForPlayerException() {

@@ -14,13 +14,11 @@ public class Player {
     public Player(String username, Pieces pieces) throws UnsupportedPiecesForPlayerException, UsernameTooShortException {
         if (pieces == Pieces.NONE) {
             throw new UnsupportedPiecesForPlayerException();
-        }
-        else {
+        } else {
             if (username.length() >= 3) {
                 this.username = username;
                 this.pieces = pieces;
-            }
-            else throw new UsernameTooShortException();
+            } else throw new UsernameTooShortException();
         }
     }
 
@@ -37,8 +35,8 @@ public class Player {
         this.pieces = pieces;
     }
 
-    public Player invertPlayer(Player[] players){
-        if(this.equals(players[0]))
+    public Player invertPlayer(Player[] players) {
+        if (this.equals(players[0]))
             return players[1];
         else
             return players[0];
@@ -48,11 +46,10 @@ public class Player {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null) return false;
-        if(o instanceof Player) {
+        if (o instanceof Player) {
             Player player = (Player) o;
             return username.equals(player.username);
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -62,11 +59,11 @@ public class Player {
         return Objects.hash(username);
     }
 
-    public boolean isWhitePlayer(){
+    public boolean isWhitePlayer() {
         return this.getPieces().equals(Pieces.WHITE);
     }
 
-    public boolean isBlackPlayer(){
+    public boolean isBlackPlayer() {
         return this.getPieces().equals(Pieces.BLACK);
     }
 }

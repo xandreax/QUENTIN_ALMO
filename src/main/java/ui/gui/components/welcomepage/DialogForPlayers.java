@@ -16,7 +16,7 @@ public class DialogForPlayers extends JDialog {
     //CONSTRUCTORS
     public DialogForPlayers(Pieces pieces, GameFrame gf) {
         super();
-        this.setTitle("Add player ("+pieces.getName()+")");
+        this.setTitle("Add player (" + pieces.getName() + ")");
         this.setModalityType(Dialog.DEFAULT_MODALITY_TYPE);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setMinimumSize(gf.getDialogDimension());
@@ -52,8 +52,8 @@ public class DialogForPlayers extends JDialog {
         gbcButtonOk.weighty = 0.3;
         gbcButtonOk.anchor = GridBagConstraints.CENTER;
         gbcButtonOk.fill = GridBagConstraints.NONE;
-        gbcButtonOk.ipadx = this.getWidth()/10;
-        gbcButtonOk.ipady = this.getHeight()/10;
+        gbcButtonOk.ipadx = this.getWidth() / 10;
+        gbcButtonOk.ipady = this.getHeight() / 10;
         gbcButtonOk.insets = new Insets(0, 15, 0, 15);
         this.getContentPane().add(this.buttonOk, gbcButtonOk);
 
@@ -67,8 +67,8 @@ public class DialogForPlayers extends JDialog {
         gbcButtonDiscard.weighty = 0.3;
         gbcButtonDiscard.anchor = GridBagConstraints.CENTER;
         gbcButtonDiscard.fill = GridBagConstraints.NONE;
-        gbcButtonDiscard.ipadx = this.getWidth()/10;
-        gbcButtonDiscard.ipady = this.getHeight()/10;
+        gbcButtonDiscard.ipadx = this.getWidth() / 10;
+        gbcButtonDiscard.ipady = this.getHeight() / 10;
         gbcButtonDiscard.insets = new Insets(0, 15, 0, 15);
         this.getContentPane().add(this.buttonDiscard, gbcButtonDiscard);
     }

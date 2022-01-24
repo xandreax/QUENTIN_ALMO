@@ -115,23 +115,23 @@ public class Board {
         return !getPieceByCoordinate(bc1).equals(getPieceByCoordinate(bc2));
     }
 
-    public boolean isPieceWhite(BoardCoordinate boardCoordinate){
+    public boolean isPieceWhite(BoardCoordinate boardCoordinate) {
         return this.getPieceByCoordinate(boardCoordinate).equals(Pieces.WHITE);
     }
 
-    public boolean isPieceBlack(BoardCoordinate boardCoordinate){
+    public boolean isPieceBlack(BoardCoordinate boardCoordinate) {
         return this.getPieceByCoordinate(boardCoordinate).equals(Pieces.BLACK);
     }
 
-    public boolean isCoordinateEmpty(BoardCoordinate boardCoordinate){
+    public boolean isCoordinateEmpty(BoardCoordinate boardCoordinate) {
         return this.getPieceByCoordinate(boardCoordinate).equals(Pieces.NONE);
     }
 
-    public int countBlackPieces(){
+    public int countBlackPieces() {
         return (int) Arrays.stream(matrix).flatMap(Arrays::stream).filter(x -> x.equals(Pieces.BLACK)).count();
     }
 
-    public int countWhitePieces(){
+    public int countWhitePieces() {
         return (int) Arrays.stream(matrix).flatMap(Arrays::stream).filter(x -> x.equals(Pieces.WHITE)).count();
     }
 }

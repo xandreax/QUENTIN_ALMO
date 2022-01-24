@@ -16,10 +16,11 @@ public class PlayerTest {
             new Player("injf93", Pieces.BLACK);
         });
     }
+
     @Test
     public void testPlayer2() {
         Assertions.assertDoesNotThrow(() -> {
-             new Player("adsgff0", Pieces.WHITE);
+            new Player("adsgff0", Pieces.WHITE);
         });
     }
 

@@ -10,7 +10,7 @@ import java.util.List;
 public class TestUtils {
 
     public static Board setPiecesOnBoard(List<String> coordinateList, Pieces piece, Board myBoard) throws InvalidCoordinateException {
-        for (String coordinateString: coordinateList) {
+        for (String coordinateString : coordinateList) {
             myBoard.setPieceByCoordinate(new BoardCoordinate(coordinateString), piece);
         }
         return myBoard;

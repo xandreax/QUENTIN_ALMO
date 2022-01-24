@@ -9,9 +9,10 @@ import exceptions.PositionAlreadyOccupiedException;
 import ui.gui.components.GameFrame;
 import ui.gui.components.gamepage.PanelGamePage;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
-public class UIGame implements Game{
+public class UIGame implements Game {
 
     private Player player1;
     private Player player2;
@@ -34,8 +35,8 @@ public class UIGame implements Game{
         frame.initPanelGamePage();
     }
 
-    public void handleMove(BoardCoordinate move, PanelGamePage p){
-        try{
+    public void handleMove(BoardCoordinate move, PanelGamePage p) {
+        try {
             controller.checkIfMoveIsPossible(move);
             controller.makeMove(move);
             frame.renderMove();
@@ -47,20 +48,20 @@ public class UIGame implements Game{
         } catch (IllegalMoveException e) {
             frame.toggleAlertDialog("Invalid coordinate. Please choose another position orthogonal to any your other piece.");
         }
-        if(controller.checkIfIsTimeToPieRule()){
-            if(frame.togglePieRuleDialog(controller.getCurrentPlayer())) {
+        if (controller.checkIfIsTimeToPieRule()) {
+            if (frame.togglePieRuleDialog(controller.getCurrentPlayer())) {
                 controller.applyPieRule();
                 p.getHeader().swapPieces();
                 p.getBoardPanel().repaint();
                 p.getHeader().highlightTurn(controller.getCurrentPlayer());
             }
         }
-        if(!controller.checkIfThereAreAvailableMoves()){
+        if (!controller.checkIfThereAreAvailableMoves()) {
             frame.toggleNoAvailableMovesDialog(controller.getCurrentPlayer());
             controller.changeTurn();
             p.getHeader().highlightTurn(controller.getCurrentPlayer());
         }
-        if(controller.endOfGame()){
+        if (controller.endOfGame()) {
             Player winner = controller.getWinnerPlayer();
             frame.toggleVictoryDialog(winner);
         }
@@ -78,7 +79,7 @@ public class UIGame implements Game{
         return player2;
     }
 
-    public Board getBoard(){
+    public Board getBoard() {
         return controller.getBoard();
     }
 }

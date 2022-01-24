@@ -1,7 +1,12 @@
 package aftermove;
 
-import entities.*;
-import exceptions.*;
+import entities.Board;
+import entities.BoardCoordinate;
+import entities.Pieces;
+import entities.Player;
+import exceptions.InvalidCoordinateException;
+import exceptions.UnsupportedPiecesForPlayerException;
+import exceptions.UsernameTooShortException;
 import logic.Controller;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,11 +40,11 @@ public class EdgeTerritoryTest {
         TestUtils.setPiecesOnBoard(coordinateBlackList, Pieces.BLACK, myBoard);
     }
 
-    private void doMoves(Controller controller, List<String> coordinateBlackList, List<String> coordinateWhiteList) throws InvalidCoordinateException{
-        while (!coordinateBlackList.isEmpty() || !coordinateWhiteList.isEmpty()){
+    private void doMoves(Controller controller, List<String> coordinateBlackList, List<String> coordinateWhiteList) throws InvalidCoordinateException {
+        while (!coordinateBlackList.isEmpty() || !coordinateWhiteList.isEmpty()) {
             BoardCoordinate blackMove = new BoardCoordinate(coordinateBlackList.remove(0));
             controller.makeMove(blackMove);
-            if(!coordinateWhiteList.isEmpty()){
+            if (!coordinateWhiteList.isEmpty()) {
                 BoardCoordinate whiteMove = new BoardCoordinate(coordinateWhiteList.remove(0));
                 controller.makeMove(whiteMove);
             }

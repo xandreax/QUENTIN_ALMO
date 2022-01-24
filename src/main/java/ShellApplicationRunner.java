@@ -1,5 +1,7 @@
-import entities.*;
-import exceptions.*;
+import entities.Pieces;
+import entities.Player;
+import exceptions.UnsupportedPiecesForPlayerException;
+import exceptions.UsernameTooShortException;
 import logic.ConsoleGame;
 
 import java.io.BufferedReader;
@@ -18,12 +20,10 @@ public class ShellApplicationRunner {
         try {
             player1 = new Player(usernames[0], pieces[0]);
             player2 = new Player(usernames[1], pieces[1]);
-        }
-        catch (UnsupportedPiecesForPlayerException e) {
+        } catch (UnsupportedPiecesForPlayerException e) {
             System.err.println("Somehow a player choose NONE as Pieces. Aborted.");
             e.printStackTrace();
-        }
-        catch (UsernameTooShortException e) {
+        } catch (UsernameTooShortException e) {
             System.err.println("Somehow player's too short username exception went through all controls. Aborted.");
             e.printStackTrace();
         }
@@ -97,5 +97,4 @@ public class ShellApplicationRunner {
         else result[1] = Pieces.BLACK;
         return result;
     }
-
 }

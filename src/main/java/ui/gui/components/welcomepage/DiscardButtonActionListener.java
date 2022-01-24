@@ -20,7 +20,7 @@ public class DiscardButtonActionListener implements ActionListener {
     //METHODS
     @Override
     public void actionPerformed(ActionEvent e) {
-        for (DialogForPlayers d: this.dialogsToBeDisposed) {
+        for (DialogForPlayers d : this.dialogsToBeDisposed) {
             d.dispose();
         }
         this.currentGameFrame.setEnabled(true);

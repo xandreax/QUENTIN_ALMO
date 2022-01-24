@@ -1,7 +1,12 @@
 package ui.gui.components;
 
-import entities.*;
-import exceptions.*;
+import entities.Board;
+import entities.BoardCoordinate;
+import entities.Pieces;
+import entities.Player;
+import exceptions.InvalidCoordinateException;
+import exceptions.UnsupportedPiecesForPlayerException;
+import exceptions.UsernameTooShortException;
 import logic.UIGame;
 import ui.gui.components.gamepage.NoAvailableMovesDialog;
 import ui.gui.components.gamepage.PanelGamePage;
@@ -13,11 +18,12 @@ import ui.gui.components.welcomepage.PanelWelcomePage;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.List;
+import java.util.Set;
 
 public class GameFrame extends JFrame {
     //FIELDS
@@ -50,7 +56,7 @@ public class GameFrame extends JFrame {
         this.setResizable(true);
         ImageIcon logo = new ImageIcon("src/main/java/ui/gui/logo.png");
         this.setIconImage(logo.getImage());
-        this.side = 9*Math.min(this.getWidth(), this.getHeight())/10;
+        this.side = 9 * Math.min(this.getWidth(), this.getHeight()) / 10;
         this.setLayout(new GridBagLayout());
         this.isGameOn = false;
         this.initWelcomePage();
@@ -58,12 +64,11 @@ public class GameFrame extends JFrame {
             @Override
             public void componentResized(ComponentEvent e) {
                 super.componentResized(e);
-                GameFrame.this.side = 7*Math.min(GameFrame.this.getWidth(), GameFrame.this.getHeight())/8;
+                GameFrame.this.side = 7 * Math.min(GameFrame.this.getWidth(), GameFrame.this.getHeight()) / 8;
                 GameFrame.this.getContentPane().removeAll();
                 if (GameFrame.this.isGameOn) {
                     GameFrame.this.refreshGamePage();
-                }
-                else {
+                } else {
                     GameFrame.this.initWelcomePage();
                 }
                 GameFrame.this.validate();
@@ -111,15 +116,13 @@ public class GameFrame extends JFrame {
                         GameFrame.this.countMovesPlayer1 = 0;
                         GameFrame.this.countMovesPlayer2 = 0;
                         dialog2.dispose();
-                    }
-                    catch (UnsupportedPiecesForPlayerException | UsernameTooShortException exc) {
+                    } catch (UnsupportedPiecesForPlayerException | UsernameTooShortException exc) {
                         GameFrame.this.toggleAlertDialog(exc.getMessage());
                     }
                 });
                 dialog1.dispose();
                 dialog2.setVisible(true);
-            }
-            catch (UnsupportedPiecesForPlayerException | UsernameTooShortException ex) {
+            } catch (UnsupportedPiecesForPlayerException | UsernameTooShortException ex) {
                 GameFrame.this.toggleAlertDialog(ex.getMessage());
             }
         });
@@ -140,8 +143,7 @@ public class GameFrame extends JFrame {
     public void renderMove() throws InvalidCoordinateException {
         if (!this.isGameOn) {
             throw new IllegalStateException("There is not a game going on.");
-        }
-        else {
+        } else {
             PanelGamePage p = (PanelGamePage) this.getContentPane().getComponent(0);
             p.getBoardPanel().updateHoverButtons();
             p.getBoardPanel().repaint();
@@ -160,25 +162,24 @@ public class GameFrame extends JFrame {
             this.getContentPane().add(panelGamePage);
             this.validate();
             this.isGameOn = true;
-        }
-        else {
+        } else {
             throw new IllegalStateException("There is not a game going on.");
         }
     }
 
-    public Board getBoard(){
+    public Board getBoard() {
         return uiGame.getBoard();
     }
 
     public void toggleAlertDialog(String message) {
         AlertDialog alertDialog = new AlertDialog(message, this);
-        alertDialog.setPreferredSize(new Dimension(this.side /2, this.side /8));
+        alertDialog.setPreferredSize(new Dimension(this.side / 2, this.side / 8));
         alertDialog.setVisible(true);
     }
 
     public void toggleVictoryDialog(Player player) {
         VictoryDialog victoryDialog = new VictoryDialog(this, player);
-        victoryDialog.setPreferredSize(new Dimension(this.side /2, this.side /8));
+        victoryDialog.setPreferredSize(new Dimension(this.side / 2, this.side / 8));
         victoryDialog.setVisible(true);
     }
 
@@ -189,29 +190,27 @@ public class GameFrame extends JFrame {
             pieRuleDialog.dispose();
             pieRuleBoolean[0] = false;
         });
-        pieRuleDialog.getButtonYes().addActionListener(e ->{
+        pieRuleDialog.getButtonYes().addActionListener(e -> {
             pieRuleDialog.dispose();
             pieRuleBoolean[0] = true;
         });
-        pieRuleDialog.setPreferredSize(new Dimension(this.side /2, this.side /8));
+        pieRuleDialog.setPreferredSize(new Dimension(this.side / 2, this.side / 8));
         pieRuleDialog.setVisible(true);
         return pieRuleBoolean[0];
     }
 
     public void toggleNoAvailableMovesDialog(Player player) {
         NoAvailableMovesDialog noAvailableMovesDialog = new NoAvailableMovesDialog(this, player);
-        noAvailableMovesDialog.setPreferredSize(new Dimension(this.side /2, this.side /8));
+        noAvailableMovesDialog.setPreferredSize(new Dimension(this.side / 2, this.side / 8));
         noAvailableMovesDialog.setVisible(true);
     }
 
     private static Player getPlayerWithBlackPieces(Player player1, Player player2) {
         if (player1.isBlackPlayer()) {
             return player1;
-        }
-        else if (player2.isBlackPlayer()) {
+        } else if (player2.isBlackPlayer()) {
             return player2;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("No player with black pieces.");
         }
     }
@@ -220,26 +219,20 @@ public class GameFrame extends JFrame {
         int fontStyle;
         if (isBold) {
             fontStyle = Font.BOLD;
-        }
-        else {
+        } else {
             fontStyle = Font.PLAIN;
         }
         if (this.getHeight() <= 480) {
             return new Font("Monaco", fontStyle, 8);
-        }
-        else if (this.getHeight() <= 540) {
+        } else if (this.getHeight() <= 540) {
             return new Font("Monaco", fontStyle, 10);
-        }
-        else if (this.getHeight() <= 720) {
+        } else if (this.getHeight() <= 720) {
             return new Font("Monaco", fontStyle, 13);
-        }
-        else if (this.getHeight() <= 980) {
+        } else if (this.getHeight() <= 980) {
             return new Font("Monaco", fontStyle, 17);
-        }
-        else if (this.getHeight() <= 1200) {
+        } else if (this.getHeight() <= 1200) {
             return new Font("Monaco", fontStyle, 21);
-        }
-        else {
+        } else {
             return new Font("Monaco", fontStyle, 26);
         }
     }
@@ -247,20 +240,15 @@ public class GameFrame extends JFrame {
     public Dimension getDialogDimension() {
         if (this.screenHeight <= 480) {
             return new Dimension(200, 80);
-        }
-        else if (this.screenHeight <= 540) {
+        } else if (this.screenHeight <= 540) {
             return new Dimension(250, 100);
-        }
-        else if (this.screenHeight <= 720) {
+        } else if (this.screenHeight <= 720) {
             return new Dimension(280, 120);
-        }
-        else if (this.screenHeight <= 980) {
+        } else if (this.screenHeight <= 980) {
             return new Dimension(320, 140);
-        }
-        else if (this.screenHeight <= 1200) {
+        } else if (this.screenHeight <= 1200) {
             return new Dimension(400, 160);
-        }
-        else {
+        } else {
             return new Dimension(500, 180);
         }
     }
@@ -268,20 +256,15 @@ public class GameFrame extends JFrame {
     public Dimension getAlertDialogDimension() {
         if (this.screenHeight <= 480) {
             return new Dimension(500, 80);
-        }
-        else if (this.screenHeight <= 540) {
+        } else if (this.screenHeight <= 540) {
             return new Dimension(650, 100);
-        }
-        else if (this.screenHeight <= 720) {
+        } else if (this.screenHeight <= 720) {
             return new Dimension(750, 120);
-        }
-        else if (this.screenHeight <= 980) {
+        } else if (this.screenHeight <= 980) {
             return new Dimension(850, 140);
-        }
-        else if (this.screenHeight <= 1200) {
+        } else if (this.screenHeight <= 1200) {
             return new Dimension(1000, 160);
-        }
-        else {
+        } else {
             return new Dimension(1200, 180);
         }
     }

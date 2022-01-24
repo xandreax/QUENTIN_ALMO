@@ -25,13 +25,13 @@ public class Controller {
     }
 
     private void init() {
-        if(players[0].isBlackPlayer())
+        if (players[0].isBlackPlayer())
             currentPlayer = players[0];
         else
             currentPlayer = players[1];
     }
 
-    public Player getCurrentPlayer(){
+    public Player getCurrentPlayer() {
         return currentPlayer;
     }
 
@@ -40,18 +40,16 @@ public class Controller {
      *
      * @return boolean
      */
-    public boolean checkIfThereAreAvailableMoves(){
-        for(int i = 0; i<board.getDIMENSION(); i++)
-        {
-            for(int j = 0; j<board.getDIMENSION(); j++) {
+    public boolean checkIfThereAreAvailableMoves() {
+        for (int i = 0; i < board.getDIMENSION(); i++) {
+            for (int j = 0; j < board.getDIMENSION(); j++) {
                 try {
                     BoardCoordinate bc = new BoardCoordinate(i, j);
-                    if(board.isCoordinateEmpty(bc)) {
+                    if (board.isCoordinateEmpty(bc)) {
                         checkIfMoveIsPossible(bc);
                         return true;
                     }
-                }
-                catch (InvalidCoordinateException | PositionAlreadyOccupiedException | IllegalMoveException ignored) {
+                } catch (InvalidCoordinateException | PositionAlreadyOccupiedException | IllegalMoveException ignored) {
                     //move not allowed
                 }
             }
@@ -65,23 +63,23 @@ public class Controller {
         changeTurn();
     }
 
-    public void changeTurn(){
+    public void changeTurn() {
         currentPlayer = currentPlayer.invertPlayer(players);
     }
 
-    public boolean endOfGame(){
+    public boolean endOfGame() {
         winnerColour = victoryExplorer.getPieceWinner(board);
         return !winnerColour.equals(Pieces.NONE);
     }
 
-    public Player getWinnerPlayer(){
-        if(players[0].getPieces().equals(winnerColour))
+    public Player getWinnerPlayer() {
+        if (players[0].getPieces().equals(winnerColour))
             return players[0];
         else
             return players[1];
     }
 
-    public void applyPieRule(){
+    public void applyPieRule() {
         Pieces swapPiece1 = players[0].getPieces();
         Pieces swapPiece2 = players[1].getPieces();
         players[0].setPieces(swapPiece2);
@@ -89,7 +87,7 @@ public class Controller {
         changeTurn();
     }
 
-    public Board getBoard(){
+    public Board getBoard() {
         return board;
     }
 
@@ -97,7 +95,7 @@ public class Controller {
         return currentPlayer.isWhitePlayer() && board.hasNoWhitePieces();
     }
 
-    public void checkIfMoveIsPossible(BoardCoordinate move) throws PositionAlreadyOccupiedException, InvalidCoordinateException, IllegalMoveException {
+    public void checkIfMoveIsPossible(BoardCoordinate move) throws PositionAlreadyOccupiedException, IllegalMoveException {
         BeforeMoveChecker bmc = new BeforeMoveChecker(move, board, currentPlayer);
         bmc.checkIfMoveIsPossible();
     }
@@ -144,13 +142,12 @@ public class Controller {
                 BoardCoordinate emptyNode = findNextEmptyNode(possibleTerritory.getLast(), possibleTerritory, board);
                 emptyNode = findNextEmptyNodeDoLoop(possibleTerritory, savedCoordinate, emptyNode);
 
-                if (emptyNode == null){
+                if (emptyNode == null) {
                     //Territory found
                     BoardUpdater boardUpdater = new BoardUpdater(board, currentPlayer);
                     board = boardUpdater.updateBoardWithTerritory(possibleTerritory);
                     possibleTerritory.clear();
-                }
-                else visitedMatrix[emptyNode.getRow()][emptyNode.getColumn()] = 1;
+                } else visitedMatrix[emptyNode.getRow()][emptyNode.getColumn()] = 1;
                 row = savedCoordinate.getRow();
                 col = savedCoordinate.getColumn() + 1;
                 hasPositionBeenSaved = false;
@@ -176,16 +173,15 @@ public class Controller {
 
     private BoardCoordinate findNextEmptyNodeDoLoop(LinkedList<BoardCoordinate> possibleTerritory, BoardCoordinate savedCoordinate, BoardCoordinate emptyNode) throws InvalidCoordinateException {
         //This loop is used to find the next empty node
-        while (emptyNode != null){
-            if(emptyNode.hasAtLeastTwoAdjacentPieces(board)){
+        while (emptyNode != null) {
+            if (emptyNode.hasAtLeastTwoAdjacentPieces(board)) {
                 possibleTerritory.add(emptyNode); //Add the node to the list
                 emptyNode = findNextEmptyNode(emptyNode, possibleTerritory, board);
-                if (emptyNode == null){
+                if (emptyNode == null) {
                     //If the region is closed start again from the saved position
                     emptyNode = findNextEmptyNode(savedCoordinate, possibleTerritory, board);
                 }
-            }
-            else{
+            } else {
                 //clear the list since it was not a territory
                 possibleTerritory.clear();
                 break;
@@ -204,7 +200,7 @@ public class Controller {
      * @return true if all nodes has been visited, false otherwise.
      */
     private boolean hasAllNodesBeenVisited(int[][] matrix) {
-        int counter = Arrays.stream(matrix).flatMapToInt(Arrays::stream).reduce(0, (x, y) -> x+y);
+        int counter = Arrays.stream(matrix).flatMapToInt(Arrays::stream).reduce(0, Integer::sum);
         return counter == (matrix.length * matrix.length);
     }
 
@@ -213,14 +209,14 @@ public class Controller {
      * This method finds the next node which is not occupied by any piece
      *
      * @param lastEmptyNode : the last empty node found
-     * @param territory : the current possible territory
+     * @param territory     : the current possible territory
      * @return the first empty board coordinate found adjacent to the last empty node, null if none are found
      * @throws InvalidCoordinateException: coordinate not valid
      */
     private BoardCoordinate findNextEmptyNode(BoardCoordinate lastEmptyNode, LinkedList<BoardCoordinate> territory, Board board) throws InvalidCoordinateException {
         int row = lastEmptyNode.getRow();
         int col = lastEmptyNode.getColumn();
-        BoardCoordinate bc = new BoardCoordinate(row,col);
+        BoardCoordinate bc = new BoardCoordinate(row, col);
         //Checks to the right
         if (board.isNotEdge(col + 1)) {
             if (board.isCoordinateEmpty(bc.getRight()) && !territory.contains(bc.getRight())) {

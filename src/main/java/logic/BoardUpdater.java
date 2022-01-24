@@ -5,6 +5,7 @@ import entities.BoardCoordinate;
 import entities.Pieces;
 import entities.Player;
 import exceptions.InvalidCoordinateException;
+
 import java.util.*;
 
 public class BoardUpdater {
@@ -30,24 +31,21 @@ public class BoardUpdater {
     public Board updateBoardWithTerritory(LinkedList<BoardCoordinate> territory) throws InvalidCoordinateException {
         int counterBlack = 0, counterWhite = 0;
         //Counts the total number of white and black pieces adjacent to the territory
-        for (BoardCoordinate coordinate : territory){
+        for (BoardCoordinate coordinate : territory) {
             Map<Pieces, Integer> adjacentPiecesNumber = countAdjacentPieces(coordinate);
             Integer nBlack = adjacentPiecesNumber.get(Pieces.BLACK);
             Integer nWhite = adjacentPiecesNumber.get(Pieces.WHITE);
             counterBlack = counterBlack + nBlack;
             counterWhite = counterWhite + nWhite;
         }
-        if (counterBlack > counterWhite){
+        if (counterBlack > counterWhite) {
             fillTerritory(territory, Pieces.BLACK);
-        }
-        else if (counterBlack < counterWhite){
+        } else if (counterBlack < counterWhite) {
             fillTerritory(territory, Pieces.WHITE);
-        }
-        else{
-            if (player.isBlackPlayer()){
+        } else {
+            if (player.isBlackPlayer()) {
                 fillTerritory(territory, Pieces.WHITE);
-            }
-            else if (player.isWhitePlayer()) {
+            } else if (player.isWhitePlayer()) {
                 fillTerritory(territory, Pieces.BLACK);
             }
         }
@@ -57,11 +55,11 @@ public class BoardUpdater {
     /**
      * This method fills the territory with the specified type of piece as argument
      *
-     * @param territory :list of BoardCoordinate
+     * @param territory    :list of BoardCoordinate
      * @param blackOrWhite is the type of piece
      */
     private void fillTerritory(LinkedList<BoardCoordinate> territory, Pieces blackOrWhite) {
-        for (BoardCoordinate coordinate : territory){
+        for (BoardCoordinate coordinate : territory) {
             board.setPieceByCoordinate(coordinate, blackOrWhite);
         }
     }
@@ -72,10 +70,10 @@ public class BoardUpdater {
         int row = coordinate.getRow();
         int col = coordinate.getColumn();
 
-        BlackAndWhite bn1 = countBnW(row -1, col);
-        BlackAndWhite bn2 = countBnW(row +1, col);
-        BlackAndWhite bn3 = countBnW(row, col-1);
-        BlackAndWhite bn4 = countBnW(row, col+1);
+        BlackAndWhite bn1 = countBnW(row - 1, col);
+        BlackAndWhite bn2 = countBnW(row + 1, col);
+        BlackAndWhite bn3 = countBnW(row, col - 1);
+        BlackAndWhite bn4 = countBnW(row, col + 1);
         countBlack = bn1.getnBlack() + bn2.getnBlack() + bn3.getnBlack() + bn4.getnBlack();
         countWhite = bn1.getnWhite() + bn2.getnWhite() + bn3.getnWhite() + bn4.getnWhite();
         piecesIntegerMap.put(Pieces.BLACK, countBlack);
@@ -93,13 +91,12 @@ public class BoardUpdater {
      */
     private BlackAndWhite countBnW(int row, int col) throws InvalidCoordinateException {
         int countWhite = 0, countBlack = 0;
-        if (board.isNotEdge(row) && board.isNotEdge(col)){
-            BoardCoordinate coordinate = new BoardCoordinate(row,col);
-            if (board.isPieceWhite(coordinate) && !countedPieces.contains(coordinate)){
+        if (board.isNotEdge(row) && board.isNotEdge(col)) {
+            BoardCoordinate coordinate = new BoardCoordinate(row, col);
+            if (board.isPieceWhite(coordinate) && !countedPieces.contains(coordinate)) {
                 countWhite++;
                 countedPieces.add(coordinate);
-            }
-            else if (board.isPieceBlack(coordinate) && !countedPieces.contains(coordinate)) {
+            } else if (board.isPieceBlack(coordinate) && !countedPieces.contains(coordinate)) {
                 countBlack++;
                 countedPieces.add(coordinate);
             }

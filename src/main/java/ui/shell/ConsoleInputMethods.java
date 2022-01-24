@@ -34,12 +34,13 @@ public class ConsoleInputMethods {
 
     /**
      * This method is for console mode of the game and its functionality is to ask if player2 want to make use of the Pie rule
+     *
      * @param player
      * @return true if the pie rule is accepted, false otherwise.
      */
-    public static boolean askForPieRule(Player player, BufferedReader br){
+    public static boolean askForPieRule(Player player, BufferedReader br) {
         while (true) {
-            System.out.println("\nPlayer "+ player.getUsername() + ", make use of the Pie rule?(0) or continue(1)?\n");
+            System.out.println("\nPlayer " + player.getUsername() + ", make use of the Pie rule?(0) or continue(1)?\n");
             try {
                 String temp = br.readLine().trim();
                 int i = Integer.parseInt(temp);
