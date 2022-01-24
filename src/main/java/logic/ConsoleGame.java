@@ -22,34 +22,16 @@ public class ConsoleGame implements Game{
     private final Player player2;
     private final Board board;
     private final BufferedReader br;
-    private Controller controller;
 
     //CONSTRUCTORS
     public ConsoleGame(Player player1, Player player2, BufferedReader br) {
         this.br = br;
         this.uuid = UUID.randomUUID().toString();
         this.beginTime = new Date();
-
         this.player1 = player1;
         this.player2 = player2;
         this.board = new Board();
         startGame();
-    }
-
-    public Player getPlayer1() {
-        return this.player1;
-    }
-
-    public Player getPlayer2() {
-        return player2;
-    }
-
-    public Board getBoard() {
-        return board;
-    }
-
-    public Controller getController() {
-        return controller;
     }
 
     @Override

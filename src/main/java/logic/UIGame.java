@@ -66,11 +66,7 @@ public class UIGame implements Game{
         }
     }
 
-    public Controller getController() {
-        return controller;
-    }
-
-    public List<Player> getPlayers(){
+    public List<Player> getPlayers() {
         return Arrays.asList(player1, player2);
     }
 
