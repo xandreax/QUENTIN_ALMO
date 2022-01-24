@@ -23,8 +23,8 @@ public class VictoryExplorer {
 
     public Pieces getPieceWinner(Board board) {
         if (board.isFull()) {
-            long blacks = Arrays.stream(board.getMatrix()).flatMap(Arrays::stream).filter(x -> x.equals(Pieces.BLACK)).count();
-            long whites = Arrays.stream(board.getMatrix()).flatMap(Arrays::stream).filter(x -> x.equals(Pieces.WHITE)).count();
+            int blacks = board.countBlackPieces();
+            int whites = board.countWhitePieces();
             if (blacks + whites == (long) board.getDIMENSION() * board.getDIMENSION()) {
                 if (blacks > whites) return Pieces.BLACK;
                 else return Pieces.WHITE;

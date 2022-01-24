@@ -46,8 +46,8 @@ public class Board {
     public boolean equals(Object obj) {
         if (obj instanceof Board) {
             Board board = (Board) obj;
-            for (int row = 0; row < this.getDIMENSION(); row++){
-                for (int col = 0; col < this.getDIMENSION(); col ++){
+            for (int row = 0; row < this.getDIMENSION(); row++) {
+                for (int col = 0; col < this.getDIMENSION(); col++) {
                     try {
                         BoardCoordinate bc = new BoardCoordinate(row, col);
                         if (!board.getPieceByCoordinate(bc).equals(this.matrix[row][col]))
@@ -62,12 +62,13 @@ public class Board {
             return false;
         }
     }
+
     //TODO: check if this is correct
     @Override
     public int hashCode() {
         int res = 0;
-        for (int row = 0; row < this.getDIMENSION(); row++){
-            for (int col = 0; col < this.getDIMENSION(); col ++){
+        for (int row = 0; row < this.getDIMENSION(); row++) {
+            for (int col = 0; col < this.getDIMENSION(); col++) {
                 res += Objects.hash(matrix[row][col]);
             }
         }
@@ -96,7 +97,7 @@ public class Board {
         if (col >= DIMENSION) {
             row++;
             col = 0;
-            if (row >= DIMENSION){
+            if (row >= DIMENSION) {
                 row = 0;
             }
         }
@@ -111,7 +112,7 @@ public class Board {
         return Arrays.stream(matrix).flatMap(Arrays::stream).noneMatch(x -> x.equals(Pieces.NONE));
     }
 
-    public boolean checkIfTwoPointsIsNotOccupiedBySamePiece(BoardCoordinate bc1, BoardCoordinate bc2){
+    public boolean checkIfTwoPointsIsNotOccupiedBySamePiece(BoardCoordinate bc1, BoardCoordinate bc2) {
         return !getPieceByCoordinate(bc1).equals(getPieceByCoordinate(bc2));
     }
 
@@ -125,5 +126,13 @@ public class Board {
 
     public boolean isCoordinateEmpty(BoardCoordinate boardCoordinate){
         return this.getPieceByCoordinate(boardCoordinate).equals(Pieces.NONE);
+    }
+
+    public int countBlackPieces(){
+        return (int) Arrays.stream(matrix).flatMap(Arrays::stream).filter(x -> x.equals(Pieces.BLACK)).count();
+    }
+
+    public int countWhitePieces(){
+        return (int) Arrays.stream(matrix).flatMap(Arrays::stream).filter(x -> x.equals(Pieces.WHITE)).count();
     }
 }
