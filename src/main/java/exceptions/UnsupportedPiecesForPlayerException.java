@@ -1,15 +1,13 @@
 package exceptions;
 
 public class UnsupportedPiecesForPlayerException extends Exception{
-    //FIELDS
-    private final String message;
 
     //CONSTRUCTORS
     public UnsupportedPiecesForPlayerException() {
-        this.message = "Generic UnsupportedPiecesForPlayerException";
+        super("Generic UnsupportedPiecesForPlayerException");
     }
 
     public UnsupportedPiecesForPlayerException(String message) {
-        this.message = message;
+        super(message);
     }
 }
