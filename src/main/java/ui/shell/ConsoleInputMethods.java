@@ -14,21 +14,20 @@ public class ConsoleInputMethods {
      * @param player
      * @return the BoardCoordinate respectively of the input
      */
-    public static BoardCoordinate askForMove(Player player/*, BufferedReader br*/) {
+    public static BoardCoordinate askForMove(Player player, BufferedReader br) {
         boolean done = false;
         BoardCoordinate newBoardCoordinate = null;
         while (!done) {
             System.out.print("\n" + player.getUsername() + "[" + player.getPieces().getName() + "] has to move. Insert a valid coordinate: ");
             try {
-                String temp = System.console().readLine().trim();
-                //String temp = br.readLine().trim();
+                String temp = br.readLine().trim();
                 newBoardCoordinate = new BoardCoordinate(temp);
                 done = true;
             } catch (InvalidCoordinateException e) {
                 System.out.println("Invalid coordinate. Format should be: a literal from a to m, and right after a number from 0 to 12.Try again.");
-            } /*catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
-            }*/
+            }
         }
         return newBoardCoordinate;
     }
@@ -38,12 +37,11 @@ public class ConsoleInputMethods {
      * @param player
      * @return true if the pie rule is accepted, false otherwise.
      */
-    public static boolean askForPieRule(Player player/*, BufferedReader br*/){
+    public static boolean askForPieRule(Player player, BufferedReader br){
         while (true) {
             System.out.println("\nPlayer "+ player.getUsername() + ", make use of the Pie rule?(0) or continue(1)?\n");
             try {
-                String temp = System.console().readLine().trim();
-                //String temp = br.readLine().trim();
+                String temp = br.readLine().trim();
                 int i = Integer.parseInt(temp);
                 if (i == 0) {
                     return true;
@@ -54,9 +52,9 @@ public class ConsoleInputMethods {
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Invalid number format inserted.");
-            } /*catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
-            }*/
+            }
         }
     }
 }

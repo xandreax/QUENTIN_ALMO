@@ -63,7 +63,6 @@ public class Board {
         }
     }
 
-    //TODO: check if this is correct
     @Override
     public int hashCode() {
         int res = 0;
