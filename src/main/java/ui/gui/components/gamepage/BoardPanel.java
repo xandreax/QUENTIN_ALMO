@@ -5,6 +5,7 @@ import entities.BoardCoordinate;
 import entities.Coordinate2D;
 import entities.Pieces;
 import exceptions.InvalidCoordinateException;
+import ui.gui.CoordinatesMapper;
 import ui.gui.GUICoordinate;
 import ui.gui.components.GameFrame;
 
@@ -31,7 +32,7 @@ public class BoardPanel extends JLayeredPane {
     private final int innerPadding;
     private final int cellSide;
     private final int pieceUnit;
-    private final GUICoordinate[][] guiCoordinates;
+    private final CoordinatesMapper mapper;
 
     //CONSTRUCTORS
     public BoardPanel(GameFrame gameFrame) {
@@ -51,14 +52,10 @@ public class BoardPanel extends JLayeredPane {
         this.padding = (side - this.boardSide) / TWO;
         this.innerPadding = (this.boardSide - this.innerBoardSide) / TWO;
         this.pieceUnit = (int) (this.cellSide / PIECE_UNIT_DENOM);
-        this.guiCoordinates = new GUICoordinate[DIMENSION][DIMENSION];
         this.board = gameFrame.getBoard();
+        this.mapper = new CoordinatesMapper(this.board);
 
         this.setAndCreateHoverButtons();
-    }
-
-    public GUICoordinate[][] getGuiCoordinates() {
-        return guiCoordinates;
     }
 
     @Override
@@ -97,16 +94,12 @@ public class BoardPanel extends JLayeredPane {
         }
 
         // draw little rectangles
-        drawLittleRectsForHelp(g, this.guiCoordinates);
+        drawLittleRectsForHelp(g, this.mapper);
 
         // draw pieces of the board
         for (int i = 0; i < board.getDIMENSION(); i++) {
             for (int j = 0; j < board.getDIMENSION(); j++) {
-                try {
-                    BoardCoordinate bc = new BoardCoordinate(i,j);
-                    drawPiece(g, this.guiCoordinates[i][j], board.getPieceByCoordinate(bc), this.pieceUnit);
-                } catch (InvalidCoordinateException ignored) {}
-
+                drawPiece(g, this.mapper.pixelAt(i, j), board.getMatrix()[i][j], this.pieceUnit);
             }
         }
     }
@@ -117,10 +110,10 @@ public class BoardPanel extends JLayeredPane {
             for (int col = 0; col < board.getDIMENSION(); col++) {
                 try {
                     BoardCoordinate bc = new BoardCoordinate(row, col);
-                    guiCoordinates[row][col] = new GUICoordinate(paddingSum +col * this.cellSide, paddingSum +row * this.cellSide);
+                    this.mapper.setPixelAt(row, col, new GUICoordinate(paddingSum +col * this.cellSide, paddingSum +row * this.cellSide));
                     if (board.isCoordinateEmpty(bc)) {
                         HoverPieceButton button = new HoverPieceButton();
-                        button.setBounds(this.getGuiCoordinates()[row][col].getRow() - (this.cellSide /2), this.getGuiCoordinates()[row][col].getColumn() - (this.cellSide /2), this.cellSide, this.cellSide);
+                        button.setBounds(this.mapper.pixelAt(row, col).getRow() - (this.cellSide /2), this.mapper.pixelAt(row, col).getColumn() - (this.cellSide /2), this.cellSide, this.cellSide);
                         button.addMouseListener(new HoverButtonMouseListener(this.currentGameFrame, row, col));
                         this.add(button);
                     }
@@ -139,7 +132,7 @@ public class BoardPanel extends JLayeredPane {
                 BoardCoordinate bc = new BoardCoordinate(row,col);
                 if (board.isCoordinateEmpty(bc)) {
                     HoverPieceButton button = new HoverPieceButton();
-                    button.setBounds(this.getGuiCoordinates()[row][col].getRow() - (this.cellSide/TWO), this.getGuiCoordinates()[row][col].getColumn() - (this.cellSide/TWO), this.cellSide, this.cellSide);
+                    button.setBounds(this.mapper.pixelAt(row, col).getRow() - (this.cellSide/TWO), this.mapper.pixelAt(row, col).getColumn() - (this.cellSide/TWO), this.cellSide, this.cellSide);
                     button.addMouseListener(new HoverButtonMouseListener(this.currentGameFrame, row, col));
                     this.add(button);
                 }
@@ -148,17 +141,17 @@ public class BoardPanel extends JLayeredPane {
     }
 
     //AUXILIARY METHODS
-    private static void drawLittleRectsForHelp(Graphics graphics, GUICoordinate[][] guiCoordinates) {
+    private static void drawLittleRectsForHelp(Graphics graphics, CoordinatesMapper mapper) {
         int lenRects = SIX;
-        graphics.fillRect(guiCoordinates[THREE][THREE].getRow()-(lenRects/TWO), guiCoordinates[THREE][THREE].getColumn()-(lenRects/TWO), lenRects, lenRects);
-        graphics.fillRect(guiCoordinates[SIX][THREE].getRow()-(lenRects/TWO), guiCoordinates[SIX][THREE].getColumn()-(lenRects/TWO), lenRects, lenRects);
-        graphics.fillRect(guiCoordinates[NINE][THREE].getRow()-(lenRects/TWO), guiCoordinates[NINE][THREE].getColumn()-(lenRects/TWO), lenRects, lenRects);
-        graphics.fillRect(guiCoordinates[THREE][SIX].getRow()-(lenRects/TWO), guiCoordinates[THREE][SIX].getColumn()-(lenRects/TWO), lenRects, lenRects);
-        graphics.fillRect(guiCoordinates[SIX][SIX].getRow()-(lenRects/TWO), guiCoordinates[SIX][SIX].getColumn()-(lenRects/TWO), lenRects, lenRects);
-        graphics.fillRect(guiCoordinates[NINE][SIX].getRow()-(lenRects/TWO), guiCoordinates[NINE][SIX].getColumn()-(lenRects/TWO), lenRects, lenRects);
-        graphics.fillRect(guiCoordinates[THREE][NINE].getRow()-(lenRects/TWO), guiCoordinates[THREE][NINE].getColumn()-(lenRects/TWO), lenRects, lenRects);
-        graphics.fillRect(guiCoordinates[SIX][NINE].getRow()-(lenRects/TWO), guiCoordinates[SIX][NINE].getColumn()-(lenRects/TWO), lenRects, lenRects);
-        graphics.fillRect(guiCoordinates[NINE][NINE].getRow()-(lenRects/TWO), guiCoordinates[NINE][NINE].getColumn()-(lenRects/TWO), lenRects, lenRects);
+        graphics.fillRect(mapper.pixelAt(THREE, THREE).getRow()-(lenRects/TWO), mapper.pixelAt(THREE, THREE).getColumn()-(lenRects/TWO), lenRects, lenRects);
+        graphics.fillRect(mapper.pixelAt(SIX, THREE).getRow()-(lenRects/TWO), mapper.pixelAt(SIX, THREE).getColumn()-(lenRects/TWO), lenRects, lenRects);
+        graphics.fillRect(mapper.pixelAt(NINE, THREE).getRow()-(lenRects/TWO), mapper.pixelAt(NINE, THREE).getColumn()-(lenRects/TWO), lenRects, lenRects);
+        graphics.fillRect(mapper.pixelAt(THREE, SIX).getRow()-(lenRects/TWO), mapper.pixelAt(THREE, SIX).getColumn()-(lenRects/TWO), lenRects, lenRects);
+        graphics.fillRect(mapper.pixelAt(SIX, SIX).getRow()-(lenRects/TWO), mapper.pixelAt(SIX, SIX).getColumn()-(lenRects/TWO), lenRects, lenRects);
+        graphics.fillRect(mapper.pixelAt(NINE, SIX).getRow()-(lenRects/TWO), mapper.pixelAt(NINE, SIX).getColumn()-(lenRects/TWO), lenRects, lenRects);
+        graphics.fillRect(mapper.pixelAt(THREE, NINE).getRow()-(lenRects/TWO), mapper.pixelAt(THREE, NINE).getColumn()-(lenRects/TWO), lenRects, lenRects);
+        graphics.fillRect(mapper.pixelAt(SIX, NINE).getRow()-(lenRects/TWO), mapper.pixelAt(SIX, NINE).getColumn()-(lenRects/TWO), lenRects, lenRects);
+        graphics.fillRect(mapper.pixelAt(NINE, NINE).getRow()-(lenRects/TWO), mapper.pixelAt(NINE, NINE).getColumn()-(lenRects/TWO), lenRects, lenRects);
     }
 
     private static void drawPiece(Graphics g, Coordinate2D coordinate, Pieces piece, int pieceUnit) {
