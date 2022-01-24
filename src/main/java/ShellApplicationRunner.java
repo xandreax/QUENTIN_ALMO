@@ -29,7 +29,7 @@ public class ShellApplicationRunner {
         }
         System.out.println("\n******************** GAME STARTING ********************");
         System.out.println("\nCoordinate input format should be: a literal from a to m, and right after a number from 0 to 12.");
-        new ConsoleGame(player1, player2/*, br*/);
+        new ConsoleGame(player1, player2, br);
     }
 
     /**
