@@ -26,6 +26,12 @@ import java.util.List;
 import java.util.Set;
 
 public class GameFrame extends JFrame {
+    public static final int HEIGHT_1 = 480;
+    public static final int HEIGHT_2 = 540;
+    public static final int HEIGHT_3 = 720;
+    public static final int HEIGHT_4 = 980;
+    public static final int HEIGHT_5 = 1200;
+    public static final int WIDTH = 720;
     //FIELDS
     public static Color BOARD_COLOR = new Color(0, 105, 9);
     protected int countMovesPlayer1;
@@ -48,7 +54,7 @@ public class GameFrame extends JFrame {
         this.screenHeight = (int) sh;
         this.getContentPane().setBackground(BACKGROUND_COLOR);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setMinimumSize(new Dimension(720, 540));
+        this.setMinimumSize(new Dimension(WIDTH, HEIGHT_2));
         this.setSize(new Dimension(screenWidth, this.screenHeight));
         this.setPreferredSize(new Dimension(screenWidth, this.screenHeight));
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -222,15 +228,15 @@ public class GameFrame extends JFrame {
         } else {
             fontStyle = Font.PLAIN;
         }
-        if (this.getHeight() <= 480) {
+        if (this.getHeight() <= HEIGHT_1) {
             return new Font("Monaco", fontStyle, 8);
-        } else if (this.getHeight() <= 540) {
+        } else if (this.getHeight() <= HEIGHT_2) {
             return new Font("Monaco", fontStyle, 10);
-        } else if (this.getHeight() <= 720) {
+        } else if (this.getHeight() <= HEIGHT_3) {
             return new Font("Monaco", fontStyle, 13);
-        } else if (this.getHeight() <= 980) {
+        } else if (this.getHeight() <= HEIGHT_4) {
             return new Font("Monaco", fontStyle, 17);
-        } else if (this.getHeight() <= 1200) {
+        } else if (this.getHeight() <= HEIGHT_5) {
             return new Font("Monaco", fontStyle, 21);
         } else {
             return new Font("Monaco", fontStyle, 26);
@@ -238,15 +244,15 @@ public class GameFrame extends JFrame {
     }
 
     public Dimension getDialogDimension() {
-        if (this.screenHeight <= 480) {
+        if (this.screenHeight <= HEIGHT_1) {
             return new Dimension(200, 80);
-        } else if (this.screenHeight <= 540) {
+        } else if (this.screenHeight <= HEIGHT_2) {
             return new Dimension(250, 100);
-        } else if (this.screenHeight <= 720) {
+        } else if (this.screenHeight <= HEIGHT_3) {
             return new Dimension(280, 120);
-        } else if (this.screenHeight <= 980) {
+        } else if (this.screenHeight <= HEIGHT_4) {
             return new Dimension(320, 140);
-        } else if (this.screenHeight <= 1200) {
+        } else if (this.screenHeight <= HEIGHT_5) {
             return new Dimension(400, 160);
         } else {
             return new Dimension(500, 180);
@@ -254,15 +260,15 @@ public class GameFrame extends JFrame {
     }
 
     public Dimension getAlertDialogDimension() {
-        if (this.screenHeight <= 480) {
+        if (this.screenHeight <= HEIGHT_1) {
             return new Dimension(500, 80);
-        } else if (this.screenHeight <= 540) {
+        } else if (this.screenHeight <= HEIGHT_2) {
             return new Dimension(650, 100);
-        } else if (this.screenHeight <= 720) {
+        } else if (this.screenHeight <= HEIGHT_3) {
             return new Dimension(750, 120);
-        } else if (this.screenHeight <= 980) {
+        } else if (this.screenHeight <= HEIGHT_4) {
             return new Dimension(850, 140);
-        } else if (this.screenHeight <= 1200) {
+        } else if (this.screenHeight <= HEIGHT_5) {
             return new Dimension(1000, 160);
         } else {
             return new Dimension(1200, 180);

@@ -4,8 +4,8 @@ import entities.Board;
 
 public class CoordinatesMapper {
     //FIELDS
-    private Board board;
-    private GUICoordinate[][] mapper;
+    private final Board board;
+    private final GUICoordinate[][] mapper;
 
     //CONSTRUCTORS
     public CoordinatesMapper(Board board) {

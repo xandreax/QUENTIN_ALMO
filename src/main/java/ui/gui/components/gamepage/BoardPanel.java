@@ -14,7 +14,6 @@ import java.awt.*;
 
 public class BoardPanel extends JLayeredPane {
     public static final int TWO = 2;
-    public static final int DIMENSION = 13;
     public static final int PAD_1 = 14;
     public static final int PAD_2 = 12;
     public static final int RATIO_NUM = 9;
